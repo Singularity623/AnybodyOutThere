@@ -1,6 +1,8 @@
 package heiderse.msu.edu.project1;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class Brick {
 
@@ -12,12 +14,14 @@ public class Brick {
 	
 	private int weight;
 	
-	// Set the weight to xPos, yPos, and weight to 0 for now
-	public Brick() 
+	// Set the w to xPos, yPos, and weight to 0 for now
+	public Brick(Context context, int id, float x, float y, int w) 
 	{
-		xPos = 0;
-		yPos = 0;
-		weight = 0;
+		xPos = x;
+		yPos = y;
+		weight = w;
+		
+		image = BitmapFactory.decodeResource(context.getResources(), id);
 	}
 
 	// Get the value of the brick's x position

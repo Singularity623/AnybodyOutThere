@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" > 
+    android:background="@drawable/background"
+    tools:context=".MainActivity" >
     <FrameLayout
         android:id="@+id/centerpoint_landscape"
         android:layout_centerInParent="true"
@@ -21,7 +22,7 @@
 	        android:layout_gravity="center"
 	        android:layout_width="match_parent"
        	 	android:layout_height="match_parent"
-	        android:src="@drawable/stacker">
+	        android:src="@drawable/stacker"/>
     </FrameLayout>
 	<LinearLayout
 	    android:layout_alignLeft="@id/centerpoint_landscape"
@@ -36,31 +37,103 @@
 	            android:layout_gravity="center"
 	        	android:layout_width="wrap_content"
 	        	android:layout_height="wrap_content"
-	        	android:src="@drawable/group_name">
+	        	android:src="@drawable/group_name"/>
 	    </FrameLayout>
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_weight=".2"
 	        android:layout_height="0dp">
-	        
+	        <FrameLayout
+        		android:id="@+id/centerpoint_landscape2"
+        		android:layout_centerInParent="true"
+        		android:layout_width="0dp"
+        		android:layout_height="0dp">          
+	        </FrameLayout>
+
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_alignLeft="@+id/centerpoint_landscape2" >
+
+	            <ImageView
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:layout_alignParentLeft="true"
+	                android:layout_alignParentTop="true"
+	                android:src="@drawable/playergreen" />
+			</RelativeLayout>
+	        <RelativeLayout 
+	            android:layout_alignRight="@+id/centerpoint_landscape2"
+	            android:layout_width="match_parent"
+	    		android:layout_height="match_parent">
+	            <ImageView
+	                android:layout_gravity="center"
+	        		android:layout_width="match_parent"
+	        		android:layout_height="match_parent"
+	                android:src="@drawable/playerred"/>
+	        </RelativeLayout>
 	    </RelativeLayout>
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_weight=".2"
 	        android:layout_height="0dp">
-	        <TextView />
-	    </RelativeLayout>
-	    <RelativeLayout 
+	        <FrameLayout
+        		android:id="@+id/centerpoint_landscape3"
+        		android:layout_centerInParent="true"
+        		android:layout_width="0dp"
+        		android:layout_height="0dp">          
+	        </FrameLayout>
+
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_alignLeft="@+id/centerpoint_landscape3" >
+	    	<EditText
+           		android:id="@+id/player_green_name"
+           		android:layout_width="match_parent"
+           		android:layout_height="match_parent" />		
+			</RelativeLayout>
+	        <RelativeLayout 
+	            android:layout_alignRight="@+id/centerpoint_landscape3"
+	            android:layout_width="match_parent"
+	    		android:layout_height="match_parent">
+	    	<EditText
+           		android:id="@+id/player_red_name"
+           		android:layout_width="match_parent"
+           		android:layout_height="match_parent" />		
+	        </RelativeLayout>
+		</RelativeLayout>
+		<RelativeLayout 
+	    	android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight=".1">
+	    	<FrameLayout
+	    	    android:id="@+id/centerpoint4"
+	    	    android:layout_width="0dp"
+		        android:layout_height="0dp"
+		        android:layout_centerInParent="true">
+	    	</FrameLayout>
+	    	<Button
+	    	    android:id="@+id/start"
+	    	    android:layout_width="100dp"
+	    	    android:layout_height="50dp"
+	    	    android:layout_marginRight="50dp"
+	    	    android:layout_alignRight="@+id/centerpoint4"
+	    	    android:text="@string/start" />
+	    	<Button
+	    	    android:id="@+id/help"
+	    	    android:layout_width="100dp"
+	    	    android:layout_height="50dp"
+	    	    android:layout_marginLeft="50dp"
+	    	    android:layout_alignLeft="@+id/centerpoint4"
+	    	    android:text="@string/help" />
+		</RelativeLayout>
+	    <FrameLayout
+	        android:id="@+id/spacer"
 	        android:layout_height="0dp"
-	        android:layout_weight=".2"
-	        android:layout_width="match_parent">
-	        <TextView />
-	    </RelativeLayout>
-	    <RelativeLayout 
-	        android:layout_height="0dp"
-	        android:layout_weight=".2"
+	        android:layout_weight=".3"
 	        android:layout_width="match_parent"> 
-	    </RelativeLayout>
+	    </FrameLayout>
 	</LinearLayout>
     
     

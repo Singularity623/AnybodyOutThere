@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".MainActivity" >
     <FrameLayout
         android:orientation="horizontal"
@@ -10,7 +11,6 @@
         android:layout_height="0dp"
         android:layout_weight=".5">
 	    <ImageView
-	        android:id="@+id/gameName"
 	        android:layout_gravity="center"
         	android:layout_width="match_parent"
         	android:layout_height="match_parent"
@@ -31,7 +31,6 @@
 	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
-	    android:orientation="horizontal"
 	    android:layout_weight=".1">
         <FrameLayout
 	        android:id="@+id/centerpoint2"
@@ -41,25 +40,23 @@
     	</FrameLayout>
         <RelativeLayout
 	        android:layout_alignLeft="@+id/centerpoint2"
-	        android:orientation="vertical"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
-		    <TextView
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:gravity="bottom|center_horizontal"
-		        android:text="@string/player_red_name" />
+		    <ImageView
+		        android:layout_gravity="center"
+	        	android:layout_width="match_parent"
+	        	android:layout_height="match_parent"
+		        android:src="@drawable/playergreen" />  
 	    </RelativeLayout>
     	<RelativeLayout
     	    android:layout_alignRight="@+id/centerpoint2"
-    	    android:orientation="vertical"
     	    android:layout_width="match_parent"
     	    android:layout_height="match_parent">
-		    <TextView
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:gravity="bottom|center_horizontal"
-		        android:text="@string/player_green_name" />
+		    <ImageView
+		        android:layout_gravity="center"
+	        	android:layout_width="match_parent"
+	        	android:layout_height="match_parent"
+		        android:src="@drawable/playerred" />
 	    </RelativeLayout>
 	</RelativeLayout>
     <RelativeLayout
@@ -78,20 +75,20 @@
 	        android:orientation="vertical"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
-		   	<EditText
-               	android:id="@+id/player_red_name"
-               	android:layout_width="match_parent"
-               	android:layout_height="match_parent" />		   	    
+		    <EditText
+           		android:id="@+id/player_green_name"
+           		android:layout_width="match_parent"
+           		android:layout_height="match_parent" />
 	    </FrameLayout>
     	<FrameLayout
     	    android:layout_alignRight="@+id/centerpoint3"
     	    android:orientation="vertical"
     	    android:layout_width="match_parent"
     	    android:layout_height="match_parent">
-	    	<EditText
-           		android:id="@+id/player_green_name"
-           		android:layout_width="match_parent"
-           		android:layout_height="match_parent" />		
+		   	<EditText
+               	android:id="@+id/player_red_name"
+               	android:layout_width="match_parent"
+               	android:layout_height="match_parent" />		   	
 	    </FrameLayout>
 	</RelativeLayout>
 	<RelativeLayout 
@@ -105,15 +102,14 @@
 	        android:layout_centerInParent="true">
     	</FrameLayout>
     	<Button
-    	    android:id="@+id/button1"
+    	    android:id="@+id/start"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
     	    android:layout_marginRight="50dp"
     	    android:layout_alignRight="@+id/centerpoint4"
     	    android:text="@string/start" />
-
     	<Button
-    	    android:id="@+id/button2"
+    	    android:id="@+id/help"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
     	    android:layout_marginLeft="50dp"

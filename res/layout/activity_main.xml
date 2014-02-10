@@ -4,6 +4,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
+    android:descendantFocusability="beforeDescendants"
+	android:focusableInTouchMode="true"
     tools:context=".MainActivity" >
     <FrameLayout
         android:orientation="horizontal"
@@ -91,6 +93,12 @@
                	android:layout_height="match_parent" />		   	
 	    </FrameLayout>
 	</RelativeLayout>
+	<FrameLayout
+	    android:id="@+id/spacertop" 
+	    android:layout_weight=".05"
+	    android:layout_height="0dp"
+	    android:layout_width="match_parent">
+	</FrameLayout>
 	<RelativeLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
@@ -116,9 +124,10 @@
     	    android:layout_alignLeft="@+id/centerpoint4"
     	    android:text="@string/help" />
 	</RelativeLayout>
-	<RelativeLayout 
-	    android:layout_weight=".1"
+	<FrameLayout
+	    android:id="@+id/spacerbottom" 
+	    android:layout_weight=".05"
 	    android:layout_height="0dp"
 	    android:layout_width="match_parent">
-	</RelativeLayout>
+	</FrameLayout>
 </LinearLayout>

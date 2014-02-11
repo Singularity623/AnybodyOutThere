@@ -1,12 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context=".StackerActivity" >
 
     <FrameLayout
@@ -51,9 +52,16 @@
                  android:textAppearance="?android:attr/textAppearanceMedium" />
          </LinearLayout>
 
+         <Button
+             android:id="@+id/EndTurnButton"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="right"
+             android:text="@string/end_turn" />
+
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -61,32 +69,42 @@
             android:id="@+id/OneKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_toLeftOf="@id/TwoKgButton"
             android:text="@string/one_kg" />
 
         <Button
             android:id="@+id/TwoKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_toLeftOf="@id/centerpoint_stacker"
             android:text="@string/two_kg" />
 
         <Button
             android:id="@+id/FiveKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_toRightOf="@id/centerpoint_stacker"
             android:text="@string/five_kg" />
 
         <Button
             android:id="@+id/TenKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_toRightOf="@id/FiveKgButton"
             android:text="@string/ten_kg" />
 
-        <Button
-            android:id="@+id/EndTurnButton"
+        <FrameLayout
+            android:id="@id/centerpoint_stacker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="215dp"
-            android:text="@string/end_turn" />
-    </LinearLayout>
+            android:layout_centerInParent="true" >
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

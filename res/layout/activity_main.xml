@@ -35,13 +35,13 @@
 	    android:layout_height="0dp"
 	    android:layout_weight=".1">
         <FrameLayout
-	        android:id="@+id/centerpoint2"
+	        android:id="@+id/centerpoint_stacker"
 	        android:layout_width="0dp"
 	        android:layout_height="0dp"
 	        android:layout_centerInParent="true">
     	</FrameLayout>
         <RelativeLayout
-	        android:layout_alignLeft="@+id/centerpoint2"
+	        android:layout_alignLeft="@+id/centerpoint_stacker"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
 		    <ImageView
@@ -51,7 +51,7 @@
 		        android:src="@drawable/playergreen" />  
 	    </RelativeLayout>
     	<RelativeLayout
-    	    android:layout_alignRight="@+id/centerpoint2"
+    	    android:layout_alignRight="@+id/centerpoint_stacker"
     	    android:layout_width="match_parent"
     	    android:layout_height="match_parent">
 		    <ImageView

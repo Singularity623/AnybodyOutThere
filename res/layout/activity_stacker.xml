@@ -57,6 +57,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_gravity="right"
+             android:onClick="onEndTurn"
              android:text="@string/end_turn" />
 
     </FrameLayout>
@@ -70,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
-            android:layout_toLeftOf="@id/TwoKgButton"
+            android:onClick="onOneKg"
             android:text="@string/one_kg" />
 
         <Button
@@ -79,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
             android:layout_toLeftOf="@id/centerpoint_stacker"
+            android:onClick="onTwoKg"
             android:text="@string/two_kg" />
 
         <Button
@@ -87,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
             android:layout_toRightOf="@id/centerpoint_stacker"
+            android:onClick="onFiveKg"
             android:text="@string/five_kg" />
 
         <Button
@@ -95,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
             android:layout_toRightOf="@id/FiveKgButton"
+            android:onClick="onTenKg"
             android:text="@string/ten_kg" />
 
         <FrameLayout

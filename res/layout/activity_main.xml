@@ -109,13 +109,16 @@
 	        android:layout_height="0dp"
 	        android:layout_centerInParent="true">
     	</FrameLayout>
+
     	<Button
     	    android:id="@+id/start"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
-    	    android:layout_marginRight="50dp"
     	    android:layout_alignRight="@+id/centerpoint4"
+    	    android:layout_marginRight="50dp"
+    	    android:onClick="onStart"
     	    android:text="@string/start" />
+
     	<Button
     	    android:id="@+id/help"
     	    android:layout_width="100dp"

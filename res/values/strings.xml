@@ -16,5 +16,7 @@
     <string name="end_turn">End Turn</string>
     <string name="red_player_score">Jason:  2</string>
     <string name="green_player_score">Bob:  1</string>
+    <string name="alert">Alert</string>
+    <string name="names_empty">You must input a name for Player Red and Player Green to continue!</string>
 
 </resources>

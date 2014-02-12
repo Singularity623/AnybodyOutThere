@@ -1,6 +1,5 @@
 package heiderse.msu.edu.project1;
 
-import android.R.string;
 
 public class Player {
 	
@@ -9,20 +8,20 @@ public class Player {
 	private int brickColor;
 
 	// Player name
-	private string name;
+	private String name;
 	
 	// Player score
 	private int score;
 
 	// Player has to have a name and a "color"
-	public Player(string playerName, int brickInt) {
+	public Player(String playerName, int brickInt) {
 		name = playerName;
 		brickColor = brickInt;
 		score = 0;
 	}
 
 	// Get the value of the the player's name
-	public string getName() {
+	public String getName() {
 		return name;
 	}
 

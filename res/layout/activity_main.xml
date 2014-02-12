@@ -109,23 +109,24 @@
 	        android:layout_height="0dp"
 	        android:layout_centerInParent="true">
     	</FrameLayout>
-
-    	<Button
+    	<ImageButton
     	    android:id="@+id/start"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
     	    android:layout_alignRight="@+id/centerpoint4"
-    	    android:layout_marginRight="50dp"
+    	    android:layout_marginRight="30dp"
     	    android:onClick="onStart"
-    	    android:text="@string/start" />
-
-    	<Button
+    	    android:src="@drawable/startbutton"
+    	    android:background="#00000000" />
+    	<ImageButton
     	    android:id="@+id/help"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
-    	    android:layout_marginLeft="50dp"
+    	    android:layout_marginLeft="30dp"
+    	    android:onClick="onHelp"
     	    android:layout_alignLeft="@+id/centerpoint4"
-    	    android:text="@string/help" />
+    	    android:src="@drawable/helpbutton"
+    	    android:background="#00000000" />
 	</RelativeLayout>
 	<FrameLayout
 	    android:id="@+id/spacerbottom" 

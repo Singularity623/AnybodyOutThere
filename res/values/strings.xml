@@ -18,5 +18,7 @@
     <string name="green_player_score">Bob:  1</string>
     <string name="alert">Alert</string>
     <string name="names_empty">You must input a name for Player Red and Player Green to continue!</string>
+    <string name="how_to">How To Play</string>
+    <string name="help_text">Welcome to Stacker! \n Two players start by entering their names for team red and team green.  The goal is to place bricks of varying mass to a stack and maintain center of gravity. The player who places a brick that causes the center of gravity to tip loses the round. \n How to: \n 1. A player can selet a brick of a certiain mass by clicking on its respective button. \n 2. The player then drags horizontally to position the brick where they desire. \n 3. After they have placed the brick they can hit the end turn to add it to the stack. After which the center of mass is calculated and permit it is stable the game will go on for the next players turn.</string>
 
 </resources>

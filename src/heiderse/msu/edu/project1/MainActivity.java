@@ -23,6 +23,20 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	public void onHelp(View view)
+	{
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        
+        // Parameterize the builder
+        builder.setTitle(R.string.how_to);
+        builder.setMessage(R.string.help_text);
+        builder.setPositiveButton(android.R.string.ok, null);
+     
+        // Create the dialog box and show it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+	}
+	
 	// Start the game
 	// Check to make sure that the names are filled out
 	public void onStart(View view) {
@@ -51,9 +65,13 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, StackerActivity.class);
 			startActivity(intent);
 		}
-				
-		
-		
 	}
+	
+	//private class ShuffleListener implements DialogInterface.OnClickListener {
+	//		@Override
+	//	public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+	//	}
+	//}
 
 }

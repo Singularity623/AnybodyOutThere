@@ -228,12 +228,12 @@ public class Stack {
         case MotionEvent.ACTION_MOVE:
         	// If we are dragging, move the piece and force a redraw
             
-                yOffset += relY - lastRelY;
-                yOffset = (yOffset < 0)? 0 : yOffset;
-                lastRelX = relX;
-                lastRelY = relY;
-                view.invalidate();
-                return true;
+            yOffset += relY - lastRelY;
+            yOffset = (yOffset < 0)? 0 : yOffset;
+            lastRelX = relX;
+            lastRelY = relY;
+            view.invalidate();
+            return true;
         }
         
         return false;

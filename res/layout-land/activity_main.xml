@@ -119,8 +119,8 @@
 	    	</FrameLayout>
 	    	<ImageButton
 	    	    android:id="@+id/start"
-	    	    android:layout_width="100dp"
-	    	    android:layout_height="50dp"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
 	    	    android:layout_alignRight="@+id/centerpoint4"
 	    	    android:layout_marginRight="30dp"
 	    	    android:onClick="onStart"
@@ -128,8 +128,8 @@
 	    	    android:background="#00000000" />
 	    	<ImageButton
 	    	    android:id="@+id/help"
-	    	    android:layout_width="100dp"
-	    	    android:layout_height="50dp"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
 	    	    android:layout_marginLeft="30dp"
 	    	    android:onClick="onHelp"
 	    	    android:layout_alignLeft="@+id/centerpoint4"

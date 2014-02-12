@@ -13,7 +13,7 @@
     <string name="two_kg">2Kg</string>
     <string name="five_kg">5Kg</string>
     <string name="ten_kg">10Kg</string>
-    <string name="end_turn">End Turn</string>
+    <string name="end_turn">Set</string>
     <string name="red_player_score">Jason:  2</string>
     <string name="green_player_score">Bob:  1</string>
     <string name="alert">Alert</string>

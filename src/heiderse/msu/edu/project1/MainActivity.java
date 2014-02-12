@@ -10,9 +10,15 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+	public final static String PLAYER_1 = "player1";
+	public final static String PLAYER_2 = "player2";
+	
+	private EditText redEditText;
+	private EditText greenEditText;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onCreate(Bundle bundle) {
+		super.onCreate(bundle);
 		setContentView(R.layout.activity_main);
 	}
 
@@ -20,11 +26,11 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+
 		return true;
 	}
 	
-	public void onHelp(View view)
-	{
+	public void onHelp(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         
         // Parameterize the builder
@@ -40,8 +46,8 @@ public class MainActivity extends Activity {
 	// Start the game
 	// Check to make sure that the names are filled out
 	public void onStart(View view) {
-		EditText redEditText = (EditText)findViewById(R.id.player_red_name);
-		EditText greenEditText = (EditText)findViewById(R.id.player_green_name);
+		redEditText = (EditText)findViewById(R.id.player_red_name);
+		greenEditText = (EditText)findViewById(R.id.player_green_name);
 		
 		if((redEditText.getText().toString().trim().equals("")) || (greenEditText.getText().toString().trim().equals(""))){
 			// Instantiate a dialog box builder
@@ -63,15 +69,12 @@ public class MainActivity extends Activity {
 			
 			// Load the stacker activity
 			Intent intent = new Intent(this, StackerActivity.class);
+
+			//Add the entered string to the intent to be used by stacker Activity
+			intent.putExtra(PLAYER_1, redEditText.getText().toString());
+			intent.putExtra(PLAYER_2, greenEditText.getText().toString());
+			
 			startActivity(intent);
 		}
 	}
-	
-	//private class ShuffleListener implements DialogInterface.OnClickListener {
-	//		@Override
-	//	public void onClick(DialogInterface dialog, int which) {
-			// TODO Auto-generated method stub
-	//	}
-	//}
-
 }

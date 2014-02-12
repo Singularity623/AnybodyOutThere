@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class StackerActivity extends Activity {
 
@@ -35,8 +36,8 @@ public class StackerActivity extends Activity {
 	 */
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
 	//private final static String WEIGHTS = "Stack.weights";
-
-
+	
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -44,15 +45,16 @@ public class StackerActivity extends Activity {
 		
 		stackView = (StackView)this.findViewById(R.id.stackView);
 		
-		//
-		//TO DO: Get player name from Intent ( or load from bundle??)
-		//
-		String player1Name = "Jason";
-		String player2Name = "Bob";
-		
 		players = new ArrayList<Player>();
-		players.add(new Player(player1Name, FIRST_PLAYER_COLOR));
-		players.add(new Player(player2Name, SECOND_PLAYER_COLOR));
+		players.add(new Player(getIntent().getStringExtra("player1"), FIRST_PLAYER_COLOR));
+		players.add(new Player(getIntent().getStringExtra("player2"), SECOND_PLAYER_COLOR));
+		
+		
+		TextView player1 = (TextView) findViewById(R.id.RedPlayerScore);
+		player1.setText(players.get(0).getName() +": "+ players.get(0).getScore());
+		
+		TextView player2 = (TextView) findViewById(R.id.GreenPlayerScore);
+		player2.setText(players.get(1).getName() +": "+ players.get(1).getScore());
 		
 		if(bundle != null) {
 			// We have saved state
@@ -60,7 +62,7 @@ public class StackerActivity extends Activity {
 			
 			stackView.loadInstanceState(bundle);
 		}
-		else{
+		else {
 			//First player is chosen randomly
 			Random generator = new Random();
 			playFirst = generator.nextInt(NUMBER_OF_PLAYERS);

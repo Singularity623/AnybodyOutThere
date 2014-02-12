@@ -3,58 +3,43 @@
     android:id="@+id/stacker_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StackerActivity" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight=".09">
+	
+	    <TextView
+	        android:id="@+id/RedPlayerScore"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <TextView
+	        android:id="@+id/GreenPlayerScore"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+    
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.3"
-        android:background="@drawable/background" >
+        android:layout_weight=".8"
+        android:background="@drawable/stackerviewbackground" >
 
         <heiderse.msu.edu.project1.StackView
             android:id="@+id/stackView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical" >
-
-             <TextView
-                 android:id="@+id/RedPlayerScore"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/red_player_score"
-                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-             <TextView
-                 android:id="@+id/GreenPlayerScore"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/green_player_score"
-                 android:textAppearance="?android:attr/textAppearanceMedium" />
-         </LinearLayout>
-
-         <Button
-             android:id="@+id/EndTurnButton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="right"
-             android:onClick="onEndTurn"
-             android:text="@string/end_turn" />
-
     </FrameLayout>
 
-    <RelativeLayout
+   <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight=".11" >
 
         <Button
             android:id="@+id/OneKgButton"
@@ -69,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
-            android:layout_toLeftOf="@id/centerpoint_stacker"
+            android:layout_toRightOf="@id/OneKgButton"
             android:onClick="onTwoKg"
             android:text="@string/two_kg" />
 
@@ -78,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
-            android:layout_toRightOf="@id/centerpoint_stacker"
+            android:layout_toRightOf="@id/TwoKgButton"
             android:onClick="onFiveKg"
             android:text="@string/five_kg" />
 
@@ -91,13 +76,16 @@
             android:onClick="onTenKg"
             android:text="@string/ten_kg" />
 
-        <FrameLayout
-            android:id="@id/centerpoint_stacker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" >
+         <Button
+             android:id="@+id/EndTurnButton"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="right"
+             android:onClick="onEndTurn"
+             android:layout_toRightOf="@id/TenKgButton"
+             android:text="@string/end_turn" />
+        
 
-        </FrameLayout>
 
     </RelativeLayout>
 

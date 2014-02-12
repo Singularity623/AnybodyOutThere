@@ -67,18 +67,20 @@ public class StackerActivity extends Activity {
 			//First player is chosen randomly
 			Random generator = new Random();
 			playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	        
+	        // Parameterize the builder
+	        builder.setTitle(R.string.begin_game);
+	        builder.setMessage(R.string.begin_game_text);
+	        builder.setPositiveButton(android.R.string.ok, null);
+	     
+	        // Create the dialog box and show it
+	        AlertDialog alertDialog = builder.create();
+	        alertDialog.show();
 		}
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        
-        // Parameterize the builder
-        builder.setTitle(R.string.begin_game);
-        builder.setMessage(R.string.begin_game_text);
-        builder.setPositiveButton(android.R.string.ok, null);
-     
-        // Create the dialog box and show it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+
 
 	}
 

@@ -121,38 +121,70 @@ public class StackerActivity extends Activity {
 	// Set the current brick's weight to 1kg
 	// Set state to placing brick
 	public void onOneKg(View view) {
-
-		/**
-		 * TEST ONLY!!
-		 */ 
 		int weight = 1;
-		addBrick(weight);
+		
+		if(stackView.getStack().getCurrentBrick() == null)
+		{
+			addBrick(weight);
+		}
+		else
+		{
+			stackView.getStack().getCurrentBrick().setWeight(weight);
+		}
 
 	}
 	
 	// Set the current brick's weight to 2kg
 	// Set state to placing brick
 	public void onTwoKg(View view) {
+		int weight = 2;
 		
+		if(stackView.getStack().getCurrentBrick() == null)
+		{
+			addBrick(weight);
+		}
+		else
+		{
+			stackView.getStack().getCurrentBrick().setWeight(weight);
+		}
 	}
 	
 	// Set the current brick's weight to 5kg
 	// Set state to placing brick
 	public void onFiveKg(View view) {
+		int weight = 5;
 		
+		if(stackView.getStack().getCurrentBrick() == null)
+		{
+			addBrick(weight);
+		}
+		else
+		{
+			stackView.getStack().getCurrentBrick().setWeight(weight);
+		}
 	}
 	
 	// Set the current brick's weight to 10kg
 	// Set state to placing brick
 	public void onTenKg(View view) {
+		int weight = 10;
 		
+		if(stackView.getStack().getCurrentBrick() == null)
+		{
+			addBrick(weight);
+		}
+		else
+		{
+			stackView.getStack().getCurrentBrick().setWeight(weight);
+		}
 	}
 	
 	// Place the brick
 	// Allow physics to affect the brick
 	// Set state to brick placed
 	public void onEndTurn(View view) {
-			
+		// New brick has not appeared yet (need to press weight button)
+		stackView.getStack().setCurrentBrick(null);
 	}
 
 }

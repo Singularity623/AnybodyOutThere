@@ -65,6 +65,11 @@ public class Stack {
      */
     private int brickWidth;
     private int brickHeight;
+    
+    /**
+     * The current brick on top of the stack
+     */
+    private Brick currentBrick;
 
 	public Stack(Context ct) {
 		context = ct;
@@ -76,6 +81,7 @@ public class Stack {
 		Bitmap b = BitmapFactory.decodeResource(context.getResources(), R.drawable.brick_green1);
 		brickWidth = b.getWidth();
 		brickHeight = b.getHeight();
+		currentBrick = null;
 	}
 	
 	public void draw(Canvas canvas) {
@@ -140,7 +146,9 @@ public class Stack {
 	}
 	
 	private void addBrick(int imageId, float x, float y, int w){
-		bricks.add(new Brick(context, imageId, x, y ,w));
+		Brick newBrick = new Brick(context, imageId, x, y, w);
+		bricks.add(newBrick);
+		currentBrick = newBrick;
 	}
 	
 	/**
@@ -268,5 +276,13 @@ public class Stack {
 
         return false;
     }
+
+	public Brick getCurrentBrick() {
+		return currentBrick;
+	}
+
+	public void setCurrentBrick(Brick currentBrick) {
+		this.currentBrick = currentBrick;
+	}
 
 }

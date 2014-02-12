@@ -2,8 +2,6 @@ package heiderse.msu.edu.project1;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import android.R.string;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,6 +24,8 @@ public class StackerActivity extends Activity {
 	public final static int NUMBER_OF_PLAYERS = 2;
 	public final static int FIRST_PLAYER_COLOR = R.drawable.brick_red1;
 	public final static int SECOND_PLAYER_COLOR = R.drawable.brick_green1;
+	public final static String PLAYER_1_SCORE = "player1score";
+	public final static String PLAYER_2_SCORE = "player2score";
 	
 	/**
 	 * Player who play first
@@ -38,7 +38,6 @@ public class StackerActivity extends Activity {
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
 	//private final static String WEIGHTS = "Stack.weights";
 	
-	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -47,21 +46,20 @@ public class StackerActivity extends Activity {
 		stackView = (StackView)this.findViewById(R.id.stackView);
 		
 		players = new ArrayList<Player>();
-		players.add(new Player(getIntent().getStringExtra("player1"), FIRST_PLAYER_COLOR));
-		players.add(new Player(getIntent().getStringExtra("player2"), SECOND_PLAYER_COLOR));
-		
-		
-		TextView player1 = (TextView) findViewById(R.id.RedPlayerScore);
-		player1.setText(players.get(0).getName() +": "+ players.get(0).getScore());
-		
-		TextView player2 = (TextView) findViewById(R.id.GreenPlayerScore);
-		player2.setText(players.get(1).getName() +": "+ players.get(1).getScore());
 		
 		if(bundle != null) {
 			// We have saved state
 			playFirst = bundle.getInt(PLAY_FIRST);
 			
 			stackView.loadInstanceState(bundle);
+			
+			// Create the players from the saved bundle
+			players.add(new Player((String)bundle.get(MainActivity.PLAYER_1), FIRST_PLAYER_COLOR));
+			players.add(new Player((String)bundle.get(MainActivity.PLAYER_2), SECOND_PLAYER_COLOR));
+			
+			// Set Scores of players
+			players.get(0).setScore(bundle.getInt(PLAYER_1_SCORE));
+			players.get(1).setScore(bundle.getInt(PLAYER_2_SCORE));
 		}
 		else {
 			//First player is chosen randomly
@@ -78,12 +76,24 @@ public class StackerActivity extends Activity {
 	        // Create the dialog box and show it
 	        AlertDialog alertDialog = builder.create();
 	        alertDialog.show();
+	        
+	        //New game start new players name from intent of activity main
+			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_1), FIRST_PLAYER_COLOR));
+			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_2), SECOND_PLAYER_COLOR));
+			
+			//PLACEHOLDER test for score saving
+			players.get(0).setScore(100);
 		}
 		
+		// Set the players
+		TextView player1 = (TextView) findViewById(R.id.RedPlayerScore);
+		setUpPlayerTextView(player1,0);
 
-
+		
+		TextView player2 = (TextView) findViewById(R.id.GreenPlayerScore);
+		setUpPlayerTextView(player2,1);
 	}
-
+	
 	@Override
 	protected void onSaveInstanceState(Bundle bundle) {
 		super.onSaveInstanceState(bundle);
@@ -91,8 +101,13 @@ public class StackerActivity extends Activity {
 		//Save the player who play first
 		bundle.putInt(PLAY_FIRST,  playFirst);
 		
-		// TO DO: Save players info (name??, score)
-
+		// Save players info (name, score)
+		bundle.putString(MainActivity.PLAYER_1, players.get(0).getName());
+		bundle.putInt(PLAYER_1_SCORE, players.get(0).getScore());
+		
+		bundle.putString(MainActivity.PLAYER_2, players.get(1).getName());
+		bundle.putInt(PLAYER_2_SCORE, players.get(1).getScore());
+		
 		
 		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);
@@ -105,8 +120,14 @@ public class StackerActivity extends Activity {
 		return true;
 	}
 	
-	private int playerTurn(){
+	private int playerTurn() {
 		return (stackView.getStack().getBrickStackSize() + playFirst) % NUMBER_OF_PLAYERS;
+	}
+	
+	// Set a player text view with correct font and players(index) values
+	public void setUpPlayerTextView(TextView tview, int index) {
+		tview.setTypeface(MainActivity.broken);
+		tview.setText(players.get(index).getName() +": " + players.get(index).getScore());
 	}
 	
 	public void addBrick(int weight)

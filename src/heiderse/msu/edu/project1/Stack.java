@@ -195,7 +195,7 @@ public class Stack {
 	/**
      * Most recent relative X touch when dragging
      */
-    private float lastRelX;
+    //private float lastRelX;
     
     /**
      * Most recent relative Y touch when dragging
@@ -230,7 +230,7 @@ public class Stack {
             
             yOffset += relY - lastRelY;
             yOffset = (yOffset < 0)? 0 : yOffset;
-            lastRelX = relX;
+            //lastRelX = relX;
             lastRelY = relY;
             view.invalidate();
             return true;
@@ -246,7 +246,7 @@ public class Stack {
      * @return true if the touch is handled
      */
     private boolean onTouched(float x, float y) {
-    	lastRelX = x;
+    	//lastRelX = x;
         lastRelY = y;
         
         return true;

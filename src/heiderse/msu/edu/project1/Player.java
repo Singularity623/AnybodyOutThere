@@ -25,9 +25,13 @@ public class Player {
 		return name;
 	}
 
-	// Get the value of the player's score
+	// Get/Set the value of the player's score
 	public int getScore() {
 		return score;
+	}
+	
+	public void setScore(int value) {
+		score = value;
 	}
 
 	// Get the value of the player's brick color

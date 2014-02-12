@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@drawable/background"
     android:descendantFocusability="beforeDescendants"
-	android:focusableInTouchMode="true"
     tools:context=".MainActivity" >
     <FrameLayout
         android:orientation="horizontal"
@@ -76,8 +75,11 @@
 	        android:layout_alignLeft="@+id/centerpoint3"
 	        android:orientation="vertical"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent">
+	        android:layout_height="match_parent"
+	        android:focusable="true" 
+	        android:focusableInTouchMode="true">
 		    <EditText
+		        android:inputType="text"
            		android:id="@+id/player_green_name"
            		android:layout_width="match_parent"
            		android:layout_height="match_parent" />
@@ -86,8 +88,11 @@
     	    android:layout_alignRight="@+id/centerpoint3"
     	    android:orientation="vertical"
     	    android:layout_width="match_parent"
-    	    android:layout_height="match_parent">
+    	    android:layout_height="match_parent"
+    	    android:focusable="true" 
+	        android:focusableInTouchMode="true">
 		   	<EditText
+		   	    android:inputType="text"
                	android:id="@+id/player_red_name"
                	android:layout_width="match_parent"
                	android:layout_height="match_parent" />		   	

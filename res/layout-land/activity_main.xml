@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:descendantFocusability="beforeDescendants"
-	android:focusableInTouchMode="true"
     tools:context=".MainActivity" >
     <FrameLayout
         android:id="@+id/centerpoint_landscape"
@@ -74,19 +73,21 @@
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_weight=".2"
-	        android:layout_height="0dp">
+	        android:layout_height="0dp"
+	        android:focusable="true" 
+	        android:focusableInTouchMode="true">
 	        <FrameLayout
         		android:id="@+id/centerpoint_landscape3"
         		android:layout_centerInParent="true"
         		android:layout_width="0dp"
         		android:layout_height="0dp">          
 	        </FrameLayout>
-
 	        <RelativeLayout
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:layout_alignLeft="@+id/centerpoint_landscape3" >
 	    	<EditText
+	    	    android:inputType="text"
            		android:id="@+id/player_green_name"
            		android:layout_width="match_parent"
            		android:layout_height="match_parent" />		
@@ -96,6 +97,7 @@
 	            android:layout_width="match_parent"
 	    		android:layout_height="match_parent">
 	    	<EditText
+	    	    android:inputType="text"
            		android:id="@+id/player_red_name"
            		android:layout_width="match_parent"
            		android:layout_height="match_parent" />		

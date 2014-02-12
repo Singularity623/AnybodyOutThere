@@ -6,12 +6,13 @@ import java.util.Random;
 import android.R.string;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
 public class StackerActivity extends Activity {
-
+	
 	/**
 	 * The stack view in this activity's view
 	 */
@@ -67,6 +68,17 @@ public class StackerActivity extends Activity {
 			Random generator = new Random();
 			playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
 		}
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        
+        // Parameterize the builder
+        builder.setTitle(R.string.begin_game);
+        builder.setMessage(R.string.begin_game_text);
+        builder.setPositiveButton(android.R.string.ok, null);
+     
+        // Create the dialog box and show it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
 	}
 

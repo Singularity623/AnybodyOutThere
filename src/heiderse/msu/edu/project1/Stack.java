@@ -117,17 +117,23 @@ public class Stack {
 	 */
 	public void addBrick(int imageId, int w){
 		float x, y;
+		
+		float scaledBrickHeight = (float)brickHeight*SCALE_IN_VIEW/brickWidth;
+		
 		if (getBrickStackSize() == 0){
 			// First brick placed at the bottom of the view
 			// & horizontal centered
 			x = 0.5f;
-			y = 1 - (float)brickHeight/(2*stackSize);
+			y = 1 - scaledBrickHeight/2;
 		}
 		else {
 			// The new brick will be on top of the last brick
 			Brick lastBrick = bricks.get(bricks.size() - 1);
+			
+			Bitmap b = BitmapFactory.decodeResource(context.getResources(), imageId);
+			
 			x = lastBrick.getxPos();
-			y = lastBrick.getyPos() - (float)brickHeight/stackSize;
+			y = lastBrick.getyPos() - scaledBrickHeight;
 		}
 		
 		addBrick(imageId, x, y ,w);

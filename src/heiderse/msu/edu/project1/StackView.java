@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class StackView extends View {
@@ -41,6 +42,12 @@ public class StackView extends View {
 		super.onDraw(canvas);
 
 		stack.draw(canvas);
+	}
+	
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		return stack.onTouchEvent(this, event);
 	}
 	
 	/**

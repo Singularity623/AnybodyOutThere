@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 //import android.graphics.Paint;
@@ -100,7 +102,7 @@ public class Stack {
 		
 		// Translate yOffset
 		canvas.save();
-		canvas.translate(0, yOffset);
+		canvas.translate(0, yOffset*stackSize);
 		
 		for(Brick brick : bricks) {
 			brick.draw(canvas, marginX, marginY, stackSize, scaleFactor);
@@ -189,5 +191,76 @@ public class Stack {
 			addBrick(imageId, locations[2*i], locations[2*i+1], weights[i]);
 		}
 	}
+	
+	/**
+     * Most recent relative X touch when dragging
+     */
+    private float lastRelX;
+    
+    /**
+     * Most recent relative Y touch when dragging
+     */
+    private float lastRelY;
+	
+	/**
+     * Handle a touch event from the view.
+     * @param view The view that is the source of the touch
+     * @param event The motion event describing the touch
+     * @return true if the touch is handled.
+     */
+    public boolean onTouchEvent(View view, MotionEvent event) {
+		//
+        // Convert an x,y location to a relative location in the puzzle.
+        //
+        
+        float relX = (event.getX() - marginX) / stackSize;
+        float relY = (event.getY() - marginY) / stackSize;
+        
+        switch(event.getActionMasked()) {
+        
+        case MotionEvent.ACTION_DOWN:
+            return onTouched(relX, relY);
+            
+        case MotionEvent.ACTION_UP:
+        case MotionEvent.ACTION_CANCEL:
+            return onReleased(view, relX, relY);
+            
+        case MotionEvent.ACTION_MOVE:
+        	// If we are dragging, move the piece and force a redraw
+            
+                yOffset += relY - lastRelY;
+                yOffset = (yOffset < 0)? 0 : yOffset;
+                lastRelX = relX;
+                lastRelY = relY;
+                view.invalidate();
+                return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Handle a touch message. This is when we get an initial touch
+     * @param x x location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onTouched(float x, float y) {
+    	lastRelX = x;
+        lastRelY = y;
+        
+        return true;
+    }
+    
+    /**
+     * Handle a release of a touch message.
+     * @param x x location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onReleased(View view, float x, float y) {
+
+        return false;
+    }
 
 }

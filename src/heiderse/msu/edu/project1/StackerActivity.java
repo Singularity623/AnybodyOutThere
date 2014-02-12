@@ -1,5 +1,9 @@
 package heiderse.msu.edu.project1;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import android.R.string;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,7 +14,28 @@ public class StackerActivity extends Activity {
 	/**
 	 * The stack view in this activity's view
 	 */
-	StackView stackView;
+	private StackView stackView;
+	
+	/**
+	 * Players
+	 */
+	private ArrayList<Player> players;
+	
+	public final static int NUMBER_OF_PLAYERS = 2;
+	public final static int FIRST_PLAYER_COLOR = R.drawable.brick_red1;
+	public final static int SECOND_PLAYER_COLOR = R.drawable.brick_green1;
+	
+	/**
+	 * Player who play first
+	 */
+	private int playFirst;
+	
+	/**
+	 * The name of the bundle keys to save the stack
+	 */
+	public final static String PLAY_FIRST = "StackerActivity.playFirst";
+	//private final static String WEIGHTS = "Stack.weights";
+
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -19,9 +44,26 @@ public class StackerActivity extends Activity {
 		
 		stackView = (StackView)this.findViewById(R.id.stackView);
 		
+		//
+		//TO DO: Get player name from Intent ( or load from bundle??)
+		//
+		String player1Name = "Jason";
+		String player2Name = "Bob";
+		
+		players = new ArrayList<Player>();
+		players.add(new Player(player1Name, FIRST_PLAYER_COLOR));
+		players.add(new Player(player2Name, SECOND_PLAYER_COLOR));
+		
 		if(bundle != null) {
 			// We have saved state
+			playFirst = bundle.getInt(PLAY_FIRST);
+			
 			stackView.loadInstanceState(bundle);
+		}
+		else{
+			//First player is chosen randomly
+			Random generator = new Random();
+			playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
 		}
 
 	}
@@ -30,6 +72,13 @@ public class StackerActivity extends Activity {
 	protected void onSaveInstanceState(Bundle bundle) {
 		super.onSaveInstanceState(bundle);
 		
+		//Save the player who play first
+		bundle.putInt(PLAY_FIRST,  playFirst);
+		
+		// TO DO: Save players info (name??, score)
+
+		
+		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);
 	}
 
@@ -40,6 +89,19 @@ public class StackerActivity extends Activity {
 		return true;
 	}
 	
+	private int playerTurn(){
+		return (stackView.getStack().getBrickStackSize() + playFirst) % NUMBER_OF_PLAYERS;
+	}
+	
+	public void addBrick(int weight)
+	{
+		// TO DO: Check if the last player done with placing brick
+		
+		// Add brick
+		int brickColor = players.get(playerTurn()).getBrickColor();
+		stackView.addBrick( brickColor, weight);
+	}
+	
 	// Set the current brick's weight to 1kg
 	// Set state to placing brick
 	public void onOneKg(View view) {
@@ -47,7 +109,8 @@ public class StackerActivity extends Activity {
 		/**
 		 * TEST ONLY!!
 		 */ 
-		stackView.addBrick(R.drawable.brick_red1, 1);
+		int weight = 1;
+		addBrick(weight);
 
 	}
 	
@@ -74,6 +137,6 @@ public class StackerActivity extends Activity {
 	// Set state to brick placed
 	public void onEndTurn(View view) {
 			
-		}
+	}
 
 }

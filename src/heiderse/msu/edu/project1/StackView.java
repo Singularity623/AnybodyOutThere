@@ -13,9 +13,9 @@ public class StackView extends View {
 	 */
 	private Stack stack;
 	
-	/*public Stack getStack(){
+	public Stack getStack(){
 		return stack;
-	}*/
+	}
 
 	public StackView(Context context) {
 		super(context);

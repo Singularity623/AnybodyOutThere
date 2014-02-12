@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Paint;
+//import android.graphics.Paint;
 
 public class Stack {
 	/**
@@ -136,7 +136,7 @@ public class Stack {
 	}
 	
 	/**
-	 * The name of the bundle keys to save the puzzle
+	 * The name of the bundle keys to save the stack
 	 */
 	private final static String LOCATIONS = "Stack.locations";
 	private final static String WEIGHTS = "Stack.weights";
@@ -168,14 +168,24 @@ public class Stack {
 		float [] locations = bundle.getFloatArray(LOCATIONS);
 		int [] weights = bundle.getIntArray(WEIGHTS);
 		
+		int playFirst = bundle.getInt(StackerActivity.PLAY_FIRST);
+
 		
 		for (int i=0; i < weights.length; i++){	
 			/*
-			 *  TO DO: Decide the image id for the brick
-			 *  Based on the player who player first (which is in Stacker Activity) 
-			 *  and current index
+			 *  Decide the image id for the brick
+			 *  Based on the player who player first and current index
 			 */
-			int imageId = R.drawable.brick_green1;
+			int imageId;
+			switch ((i + playFirst)% StackerActivity.NUMBER_OF_PLAYERS){
+				case 0:
+					imageId = StackerActivity.FIRST_PLAYER_COLOR;
+					break;
+				default:
+					imageId = StackerActivity.SECOND_PLAYER_COLOR;
+					break;
+			}
+						
 			addBrick(imageId, locations[2*i], locations[2*i+1], weights[i]);
 		}
 	}

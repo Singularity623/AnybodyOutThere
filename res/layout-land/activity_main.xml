@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:contentDescription="@+string/stacker_image"
 	        android:layout_gravity="center"
 	        android:layout_width="match_parent"
        	 	android:layout_height="match_parent"
@@ -31,6 +32,7 @@
 	        android:layout_weight=".2"
 	        android:layout_height="0dp">
 	        <ImageView
+	            android:contentDescription="@+string/team_name"
 	            android:layout_gravity="center"
 	        	android:layout_width="wrap_content"
 	        	android:layout_height="wrap_content"
@@ -53,6 +55,7 @@
 	            android:layout_alignLeft="@+id/centerpoint_landscape2" >
 
 	            <ImageView
+	                android:contentDescription="@+string/player_green_image"
 	                android:layout_width="match_parent"
 	                android:layout_height="match_parent"
 	                android:layout_alignParentLeft="true"
@@ -64,6 +67,7 @@
 	            android:layout_width="match_parent"
 	    		android:layout_height="match_parent">
 	            <ImageView
+	                android:contentDescription="@+string/player_red_image"
 	                android:layout_gravity="center"
 	        		android:layout_width="match_parent"
 	        		android:layout_height="match_parent"
@@ -120,6 +124,7 @@
 		        android:layout_centerInParent="true">
 	    	</FrameLayout>
 	    	<ImageButton
+	    	    android:contentDescription="@+string/start"
 	    	    android:id="@+id/start"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"
@@ -129,6 +134,7 @@
 	    	    android:src="@drawable/startbutton"
 	    	    android:background="#00000000" />
 	    	<ImageButton
+	    	    android:contentDescription="@+string/help"
 	    	    android:id="@+id/help"
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"

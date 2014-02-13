@@ -130,7 +130,7 @@ public class Stack {
 			// The new brick will be on top of the last brick
 			Brick lastBrick = bricks.get(bricks.size() - 1);
 			
-			Bitmap b = BitmapFactory.decodeResource(context.getResources(), imageId);
+			//Bitmap b = BitmapFactory.decodeResource(context.getResources(), imageId);
 			
 			x = lastBrick.getxPos();
 			y = lastBrick.getyPos() - scaledBrickHeight;

@@ -83,6 +83,10 @@ public class StackerActivity extends Activity {
 			
 			//PLACEHOLDER test for score saving
 			players.get(0).setScore(100);
+			
+			//remove extra from intent
+			getIntent().removeExtra(MainActivity.PLAYER_1);
+			getIntent().removeExtra(MainActivity.PLAYER_2);
 		}
 		
 		// Set the players
@@ -104,7 +108,6 @@ public class StackerActivity extends Activity {
 		// Save players info (name, score)
 		bundle.putString(MainActivity.PLAYER_1, players.get(0).getName());
 		bundle.putInt(PLAYER_1_SCORE, players.get(0).getScore());
-		
 		bundle.putString(MainActivity.PLAYER_2, players.get(1).getName());
 		bundle.putInt(PLAYER_2_SCORE, players.get(1).getScore());
 		

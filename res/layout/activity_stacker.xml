@@ -14,8 +14,15 @@
 		<FrameLayout
 		    android:id="@+id/centerpoint"
 		    android:layout_centerInParent="true"
-		    android:layout_width="0dp"
-    		android:layout_height="0dp">
+		    android:layout_width="wrap_content"
+    		android:layout_height="wrap_content">
+	        <ImageView
+	            android:contentDescription="@+string/team_name"
+	        	android:id="@+id/teamName"
+	        	android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:layout_gravity="center"
+	        	android:src="@drawable/group_name" /> 
 		</FrameLayout>
 		<FrameLayout
 		    android:layout_alignRight="@+id/centerpoint"
@@ -25,8 +32,10 @@
 		        android:id="@+id/RedPlayerScore"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
-		        android:gravity="center_vertical|center_horizontal"
-		        android:textAppearance="?android:attr/textAppearanceMedium" /> 
+		        android:gravity="center_vertical|left"
+		        android:textAppearance="?android:attr/textAppearanceMedium" 
+		        android:layout_marginLeft="10dp"
+		        /> 
 		</FrameLayout>
 		<FrameLayout
 		    android:layout_alignLeft="@+id/centerpoint"
@@ -36,8 +45,10 @@
 	        	android:id="@+id/GreenPlayerScore"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
-		        android:gravity="center_vertical|center_horizontal"
-	        	android:textAppearance="?android:attr/textAppearanceMedium" />
+		        android:gravity="center_vertical|right"
+	        	android:textAppearance="?android:attr/textAppearanceMedium"
+	        	android:layout_marginRight="10dp"
+	        	/>
 		</FrameLayout>
     </RelativeLayout>
     

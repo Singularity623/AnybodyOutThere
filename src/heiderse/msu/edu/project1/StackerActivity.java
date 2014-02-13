@@ -27,6 +27,7 @@ public class StackerActivity extends Activity {
 	public final static String PLAYER_1_SCORE = "player1score";
 	public final static String PLAYER_2_SCORE = "player2score";
 	
+	
 	/**
 	 * Player who play first
 	 */
@@ -110,7 +111,6 @@ public class StackerActivity extends Activity {
 		bundle.putInt(PLAYER_1_SCORE, players.get(0).getScore());
 		bundle.putString(MainActivity.PLAYER_2, players.get(1).getName());
 		bundle.putInt(PLAYER_2_SCORE, players.get(1).getScore());
-		
 		
 		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);

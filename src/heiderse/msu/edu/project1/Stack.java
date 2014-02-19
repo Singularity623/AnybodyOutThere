@@ -136,8 +136,6 @@ public class Stack {
 			// The new brick will be on top of the last brick
 			Brick lastBrick = bricks.get(bricks.size() - 1);
 			
-			//Bitmap b = BitmapFactory.decodeResource(context.getResources(), imageId);
-			
 			x = lastBrick.getxPos();
 			y = lastBrick.getyPos() - scaledBrickHeight;
 		}
@@ -284,5 +282,48 @@ public class Stack {
 	public void setCurrentBrick(Brick currentBrick) {
 		this.currentBrick = currentBrick;
 	}
+	
+	/**
+	 * lastStableBrick
+	 * Used for determine which bricks to have falling animation
+	 */
+	private int lastStableBrick;
+	
+	/**
+	 * Check stability from the top of the stack
+	 * @return index of the last stable brick
+	 */
+	private int updateLastStableBrick(){
+		int size =  bricks.size();
+		float topStackX = 0;
+		int topStackWeight = 0;
+		while (size > 1){
+			// Get 1 more brick and recalculate new center of bricks on top
+			Brick nextBrick = bricks.get(--size);
+			topStackX = (topStackX*topStackWeight + nextBrick.getxPos()*nextBrick.getWeight())/(topStackWeight + nextBrick.getWeight());
+			
+			// Check if the new center is over brick below
+			float brickBelowX = bricks.get(size - 1).getxPos();
+			if ((topStackX < brickBelowX - SCALE_IN_VIEW/2 ) ||(topStackX < brickBelowX - SCALE_IN_VIEW/2)){
+				return size;
+			}
+			else{
+				//Update top bricks weight
+				topStackWeight += nextBrick.getWeight();
+			}	
+		}
+		return 0;
+	}
+	
+	/**
+	 * Update the last stable brick and check stability
+	 * @return whether the stack is stable
+	 */
+	public boolean isStable(){
+		lastStableBrick = updateLastStableBrick();
+		return (lastStableBrick == 0);
+	}
+	
+	
 
 }

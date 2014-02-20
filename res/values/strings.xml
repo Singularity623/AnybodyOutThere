@@ -23,4 +23,7 @@
     <string name="stacker_image">Image of stacker</string>
     <string name="player_red_image">Image of player red</string>
     <string name="player_green_image">Image of player green</string>
+    <string name="game_over">Game Over</string>
+	<string name="winner">%1$s is the winner!</string>
+    
 </resources>

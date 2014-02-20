@@ -9,13 +9,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-//import android.graphics.Paint;
 
 public class Stack {
 	/**
 	 * Context - where to find things like resources
 	 */
 	private Context context;
+	
+	private int wid;
+	private int hit;
+	
 	
 	/**
 	 * Collection of bricks
@@ -39,6 +42,8 @@ public class Stack {
      * The size of the stack in pixels
      */
     private int stackSize;
+    
+    private int test;
     
     /**
 	 * Ratio of brick width and the view
@@ -86,12 +91,13 @@ public class Stack {
 	
 	public void draw(Canvas canvas) {
 		
-		int wid = canvas.getWidth();
-		int hit = canvas.getHeight();
+		wid = canvas.getWidth();
+		hit = canvas.getHeight();
 		
 		// Determine the minimum of the two dimensions
 		// and assign to stackSize
 		stackSize = wid < hit ? wid : hit;
+		test = wid > hit ? wid : hit;
 		
 		// Compute the margins
 		// horizontal : center
@@ -207,13 +213,33 @@ public class Stack {
 	/**
      * Most recent relative X touch when dragging
      */
-    //private float lastRelX;
+    private float lastRelX;
     
     /**
      * Most recent relative Y touch when dragging
      */
-    private float lastRelY;
-	
+    private float lastRelY;	
+    
+    /**
+     * Handle a touch message. This is when we get an initial touch
+     * @param x x location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onTouched(float x, float y) {
+        // Check each piece to see if it has been hit
+        // We do this in reverse order so we find the pieces in front
+    	if(currentBrick != null)
+    	{
+    		lastRelX = x;
+    	}
+
+        lastRelY = y; 
+        return true;
+        //return false;
+    }
+    
+    
 	/**
      * Handle a touch event from the view.
      * @param view The view that is the source of the touch
@@ -222,7 +248,7 @@ public class Stack {
      */
     public boolean onTouchEvent(View view, MotionEvent event) {
 		//
-        // Convert an x,y location to a relative location in the puzzle.
+        // Convert an x,y location to a relative location in the stackview.
         //
         
         float relX = (event.getX() - marginX) / stackSize;
@@ -239,11 +265,18 @@ public class Stack {
             
         case MotionEvent.ACTION_MOVE:
         	// If we are dragging, move the piece and force a redraw
-            
-            yOffset += relY - lastRelY;
-            yOffset = (yOffset < 0)? 0 : yOffset;
-            //lastRelX = relX;
-            lastRelY = relY;
+            if(currentBrick != null ) {
+            	if(currentBrick.hit(relX, relY, stackSize, scaleFactor)) {
+            		currentBrick.move(relX - lastRelX);
+                	lastRelX = relX;
+            	}
+            }
+            else
+            {
+            	yOffset += relY - lastRelY;
+            	yOffset = (yOffset < 0)? 0 : yOffset;
+            	lastRelY = relY;
+            }
             view.invalidate();
             return true;
         }
@@ -257,12 +290,12 @@ public class Stack {
      * @param y y location for the touch, relative to the puzzle - 0 to 1 over the puzzle
      * @return true if the touch is handled
      */
-    private boolean onTouched(float x, float y) {
+   /* private boolean onTouched(float x, float y) {
     	//lastRelX = x;
         lastRelY = y;
         
         return true;
-    }
+    }*/
     
     /**
      * Handle a release of a touch message.
@@ -323,7 +356,4 @@ public class Stack {
 		lastStableBrick = updateLastStableBrick();
 		return (lastStableBrick == 0);
 	}
-	
-	
-
 }

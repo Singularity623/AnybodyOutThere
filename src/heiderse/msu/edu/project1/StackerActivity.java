@@ -2,9 +2,11 @@ package heiderse.msu.edu.project1;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +22,9 @@ public class StackerActivity extends Activity {
 	 * Players
 	 */
 	private ArrayList<Player> players;
+	
+	private TextView player1;
+	private TextView player2;
 	
 	public final static int NUMBER_OF_PLAYERS = 2;
 	public final static int FIRST_PLAYER_COLOR = R.drawable.brick_red1;
@@ -83,7 +88,7 @@ public class StackerActivity extends Activity {
 			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_2), SECOND_PLAYER_COLOR));
 			
 			//PLACEHOLDER test for score saving
-			players.get(0).setScore(100);
+			players.get(0).setScore(0);
 			
 			//remove extra from intent
 			getIntent().removeExtra(MainActivity.PLAYER_1);
@@ -91,11 +96,11 @@ public class StackerActivity extends Activity {
 		}
 		
 		// Set the players
-		TextView player1 = (TextView) findViewById(R.id.RedPlayerScore);
+		player1 = (TextView) findViewById(R.id.RedPlayerScore);
 		setUpPlayerTextView(player1,0);
 
 		
-		TextView player2 = (TextView) findViewById(R.id.GreenPlayerScore);
+		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
 		setUpPlayerTextView(player2,1);
 	}
 	
@@ -203,12 +208,33 @@ public class StackerActivity extends Activity {
 		}
 	}
 	
+	public TextView getWinnerTextView(int index)
+	{
+		if (index % 2 == 0) {
+			return player1;
+		}
+		else {
+			return player2;
+		}
+	}
+	
 	// Place the brick
 	// Allow physics to affect the brick
 	// Set state to brick placed
 	public void onEndTurn(View view) {
 		// New brick has not appeared yet (need to press weight button)
 		stackView.getStack().setCurrentBrick(null);
+		if(stackView.getStack().isStable()) {
+			
+			Log.i("stable", "stack is stable");
+		}
+		else {
+			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
+			setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
+			stackView.getStack().Reset();
+			stackView.invalidate();
+			Log.i("unstable","stack is unstable");
+		}
 	}
 
 }

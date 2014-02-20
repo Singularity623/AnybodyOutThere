@@ -356,4 +356,9 @@ public class Stack {
 		lastStableBrick = updateLastStableBrick();
 		return (lastStableBrick == 0);
 	}
+	
+	public void Reset() {
+		bricks.clear();
+	}
+
 }

@@ -274,16 +274,14 @@ public class StackerActivity extends Activity {
 		// New brick has not appeared yet (need to press weight button)
 		stackView.getStack().setCurrentBrick(null);
 		if(stackView.getStack().isStable()) {
-			
-			Log.i("stable", "stack is stable");
+
 		}
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
-			determineFirst();
+			playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
 			stackView.getStack().Reset();
 			stackView.invalidate();
-			Log.i("unstable","stack is unstable");
 		}
 		switchButtonImages(playerTurn());
 		view.invalidate();

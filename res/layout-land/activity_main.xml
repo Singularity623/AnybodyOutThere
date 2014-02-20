@@ -126,8 +126,8 @@
 	    	<ImageButton
 	    	    android:contentDescription="@+string/start"
 	    	    android:id="@+id/start"
-	    	    android:layout_width="wrap_content"
-	    	    android:layout_height="wrap_content"
+            	android:layout_width="100dp"
+            	android:layout_height="50dp"
 	    	    android:layout_alignRight="@+id/centerpoint4"
 	    	    android:layout_marginRight="30dp"
 	    	    android:scaleType="fitXY"
@@ -137,8 +137,8 @@
 	    	<ImageButton
 	    	    android:contentDescription="@+string/help"
 	    	    android:id="@+id/help"
-	    	    android:layout_width="wrap_content"
-	    	    android:layout_height="wrap_content"
+            	android:layout_width="100dp"
+            	android:layout_height="50dp"
 	    	    android:layout_marginLeft="30dp"
 	    	    android:scaleType="fitXY"
 	    	    android:onClick="onHelp"

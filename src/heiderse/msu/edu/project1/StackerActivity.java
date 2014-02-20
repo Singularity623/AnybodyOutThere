@@ -81,9 +81,7 @@ public class StackerActivity extends Activity {
 			players.get(1).setScore(bundle.getInt(PLAYER_2_SCORE));
 		}
 		else {
-			//First player is chosen randomly
-			Random generator = new Random();
-			playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
+			determineFirst();
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	        
@@ -142,6 +140,13 @@ public class StackerActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.stacker, menu);
 		return true;
+	}
+	
+	public void determineFirst()
+	{
+		//First player is chosen randomly
+		Random generator = new Random();
+		playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
 	}
 	
 	private int playerTurn() {
@@ -230,7 +235,7 @@ public class StackerActivity extends Activity {
 	 */
 	public void switchButtonImages(int playerTurn)
 	{	
-		if (playerTurn % 2 == 0) {
+		if (playerTurn % NUMBER_OF_PLAYERS == 0) {
 			onekg.setImageDrawable(getResources().getDrawable(R.drawable.onekgred));
 			twokg.setImageDrawable(getResources().getDrawable(R.drawable.twokgred));
 			fivekg.setImageDrawable(getResources().getDrawable(R.drawable.fivekgred));
@@ -254,7 +259,7 @@ public class StackerActivity extends Activity {
 	 */
 	public TextView getWinnerTextView(int index)
 	{
-		if (index % 2 == 0) {
+		if (index % NUMBER_OF_PLAYERS == 0) {
 			return player1;
 		}
 		else {
@@ -275,6 +280,7 @@ public class StackerActivity extends Activity {
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
+			determineFirst();
 			stackView.getStack().Reset();
 			stackView.invalidate();
 			Log.i("unstable","stack is unstable");

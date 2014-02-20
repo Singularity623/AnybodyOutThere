@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class StackerActivity extends Activity {
@@ -32,6 +33,12 @@ public class StackerActivity extends Activity {
 	public final static String PLAYER_1_SCORE = "player1score";
 	public final static String PLAYER_2_SCORE = "player2score";
 	
+	private ImageButton onekg;
+	private ImageButton twokg;
+	private ImageButton fivekg;
+	private ImageButton tenkg;
+	private ImageButton set;
+	
 	
 	/**
 	 * Player who play first
@@ -52,6 +59,12 @@ public class StackerActivity extends Activity {
 		stackView = (StackView)this.findViewById(R.id.stackView);
 		
 		players = new ArrayList<Player>();
+		
+		onekg = (ImageButton)findViewById(R.id.OneKgButton);
+		twokg = (ImageButton)findViewById(R.id.TwoKgButton);
+		fivekg = (ImageButton)findViewById(R.id.FiveKgButton);
+		tenkg = (ImageButton)findViewById(R.id.TenKgButton);
+		set = (ImageButton)findViewById(R.id.EndTurnButton);
 		
 		if(bundle != null) {
 			// We have saved state
@@ -102,6 +115,9 @@ public class StackerActivity extends Activity {
 		
 		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
 		setUpPlayerTextView(player2,1);
+		
+		//set buttons
+		switchButtonImages(playFirst);
 	}
 	
 	@Override
@@ -208,6 +224,34 @@ public class StackerActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Replace the button images with the current player turn color buttons
+	 * @param playerTurn
+	 */
+	public void switchButtonImages(int playerTurn)
+	{	
+		if (playerTurn % 2 == 0) {
+			onekg.setImageDrawable(getResources().getDrawable(R.drawable.onekgred));
+			twokg.setImageDrawable(getResources().getDrawable(R.drawable.twokgred));
+			fivekg.setImageDrawable(getResources().getDrawable(R.drawable.fivekgred));
+			tenkg.setImageDrawable(getResources().getDrawable(R.drawable.tenkgred));
+			set.setImageDrawable(getResources().getDrawable(R.drawable.setred));
+		}
+		else {
+			onekg.setImageDrawable(getResources().getDrawable(R.drawable.onekggreen));
+			twokg.setImageDrawable(getResources().getDrawable(R.drawable.twokggreen));
+			fivekg.setImageDrawable(getResources().getDrawable(R.drawable.fivekggreen));
+			tenkg.setImageDrawable(getResources().getDrawable(R.drawable.tenkggreen));
+			set.setImageDrawable(getResources().getDrawable(R.drawable.setgreen));
+		}
+	}
+	
+	
+	/**
+	 * Get the player text edit to change score
+	 * @param index
+	 * @return
+	 */
 	public TextView getWinnerTextView(int index)
 	{
 		if (index % 2 == 0) {
@@ -235,6 +279,8 @@ public class StackerActivity extends Activity {
 			stackView.invalidate();
 			Log.i("unstable","stack is unstable");
 		}
+		switchButtonImages(playerTurn());
+		view.invalidate();
 	}
 
 }

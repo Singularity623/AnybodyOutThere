@@ -130,6 +130,7 @@
 	    	    android:layout_height="wrap_content"
 	    	    android:layout_alignRight="@+id/centerpoint4"
 	    	    android:layout_marginRight="30dp"
+	    	    android:scaleType="fitXY"
 	    	    android:onClick="onStart"
 	    	    android:src="@drawable/startbutton"
 	    	    android:background="#00000000" />
@@ -139,6 +140,7 @@
 	    	    android:layout_width="wrap_content"
 	    	    android:layout_height="wrap_content"
 	    	    android:layout_marginLeft="30dp"
+	    	    android:scaleType="fitXY"
 	    	    android:onClick="onHelp"
 	    	    android:layout_alignLeft="@+id/centerpoint4"
 	    	    android:src="@drawable/helpbutton"

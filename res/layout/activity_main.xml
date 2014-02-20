@@ -123,6 +123,7 @@
     	    android:id="@+id/start"
     	    android:layout_width="100dp"
     	    android:layout_height="50dp"
+    	    android:scaleType="fitXY"
     	    android:layout_alignRight="@+id/centerpoint4"
     	    android:layout_marginRight="30dp"
     	    android:onClick="onStart"
@@ -135,6 +136,7 @@
     	    android:layout_height="50dp"
     	    android:layout_marginLeft="30dp"
     	    android:onClick="onHelp"
+    	    android:scaleType="fitXY"
     	    android:layout_alignLeft="@+id/centerpoint4"
     	    android:src="@drawable/helpbutton"
     	    android:background="#00000000" />

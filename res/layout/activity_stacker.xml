@@ -69,49 +69,59 @@
         android:layout_height="0dp"
         android:layout_weight=".11"
         android:gravity="center_vertical|center_horizontal"	>	
-        <Button
+        <ImageButton
             android:id="@+id/OneKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_centerInParent="false"
             android:onClick="onOneKg"
-            android:text="@string/one_kg" />
+            android:text="@string/one_kg"
+            android:background="#00000000" />
 
-        <Button
+        <ImageButton
             android:id="@+id/TwoKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_centerInParent="false"
             android:layout_toRightOf="@id/OneKgButton"
             android:onClick="onTwoKg"
-            android:text="@string/two_kg" />
+            android:text="@string/two_kg"
+            android:background="#00000000" />
 
-        <Button
+        <ImageButton
             android:id="@+id/FiveKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_centerInParent="false"
             android:layout_toRightOf="@id/TwoKgButton"
             android:onClick="onFiveKg"
-            android:text="@string/five_kg" />
+            android:text="@string/five_kg"
+            android:background="#00000000" />
 
-        <Button
+        <ImageButton
             android:id="@+id/TenKgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_centerInParent="false"
             android:layout_toRightOf="@id/FiveKgButton"
             android:onClick="onTenKg"
-            android:text="@string/ten_kg" />
+            android:text="@string/ten_kg"
+            android:background="#00000000" />
 
-         <Button
+         <ImageButton
              android:id="@+id/EndTurnButton"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_gravity="right"
+             android:scaleType="fitXY"
              android:onClick="onEndTurn"
              android:layout_toRightOf="@id/TenKgButton"
-             android:text="@string/end_turn" />
+             android:text="@string/end_turn"
+             android:background="#00000000" />
         
     </RelativeLayout>
 

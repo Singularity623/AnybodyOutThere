@@ -337,7 +337,7 @@ public class Stack {
 			
 			// Check if the new center is over brick below
 			float brickBelowX = bricks.get(size - 1).getxPos();
-			if ((topStackX < brickBelowX - SCALE_IN_VIEW/2 ) ||(topStackX < brickBelowX - SCALE_IN_VIEW/2)){
+			if ((topStackX < brickBelowX - SCALE_IN_VIEW/2 ) ||(topStackX > brickBelowX + SCALE_IN_VIEW/2)){
 				return size;
 			}
 			else{

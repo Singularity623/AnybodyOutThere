@@ -33,13 +33,20 @@ public class MainActivity extends Activity {
 		// Set font to text views
 	    redEditText.setTypeface(broken);
 	    greenEditText.setTypeface(broken);
+	    
+	    if (bundle !=null)
+	    {
+	    	redEditText.setText(getIntent().getStringExtra(PLAYER_1));
+	    	greenEditText.setText(getIntent().getStringExtra(PLAYER_2));
+	    }
 	}
 
 	
 	@Override
 	public void onSaveInstanceState(Bundle bundle)
 	{
-		super.onSaveInstanceState(bundle);	
+		super.onSaveInstanceState(bundle);
+		
 	}
 	
 	

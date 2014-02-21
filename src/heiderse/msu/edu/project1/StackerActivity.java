@@ -275,14 +275,16 @@ public class StackerActivity extends Activity {
 		// New brick has not appeared yet (need to press weight button)
 		stackView.getStack().setCurrentBrick(null);
 		if(stackView.getStack().isStable()) {
-			
+			switchButtonImages(playerTurn());
 		}
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			endTurn();
+			playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
+			switchButtonImages(playFirst);
 			stackView.invalidate();
 		}
-		switchButtonImages(playerTurn());
+
 		view.invalidate();
 	}
 	
@@ -305,8 +307,6 @@ public class StackerActivity extends Activity {
 			AlertDialog alertDialog = builder.create();
 			alertDialog.show();
 		}
-		
-		playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
 	}
 	
 	public void onOk()

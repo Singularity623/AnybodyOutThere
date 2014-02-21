@@ -418,6 +418,7 @@ public class Stack {
 		lastTime = 0;
 		rotationCenterX = 0;
 		rotationCenterY = 0;
+		yOffset = 0;
 		bricks.clear();
 		
 	}

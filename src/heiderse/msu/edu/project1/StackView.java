@@ -34,7 +34,7 @@ public class StackView extends View {
 	}
 	
 	private void init(Context context) {
-		stack = new Stack(context);		
+		stack = new Stack(context, this);		
 	}
 	
 	@Override
@@ -64,6 +64,7 @@ public class StackView extends View {
 	 */
 	public void loadInstanceState(Bundle bundle) {
 		stack.loadInstanceState(bundle);
+		invalidate();
 	}
 	
 	/**

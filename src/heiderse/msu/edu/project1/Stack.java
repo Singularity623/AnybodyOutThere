@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Bitmap;
@@ -15,6 +16,11 @@ public class Stack {
 	 * Context - where to find things like resources
 	 */
 	private Context context;
+	
+	/**
+	 * StackView - which contains this stack
+	 */
+	private StackView stackView;
 	
 	private int wid;
 	private int hit;
@@ -73,8 +79,9 @@ public class Stack {
      */
     private Brick currentBrick;
 
-	public Stack(Context ct) {
+	public Stack(Context ct, StackView sV) {
 		context = ct;
+		stackView = sV;
 		
 		// Create an empty brick array
 		bricks = new ArrayList<Brick>();
@@ -85,6 +92,11 @@ public class Stack {
 		brickHeight = b.getHeight();
 		currentBrick = null;
 	}
+	
+	
+	float angle=0;
+	long lastTime= -1;
+	
 	
 	public void draw(Canvas canvas) {
 		
@@ -102,19 +114,43 @@ public class Stack {
 		marginX = (wid - stackSize) / 2;
 		marginY = (hit - stackSize);
 		
-		//Paint fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		//fillPaint.setColor(0xffcccccc);
-		
-		//canvas.drawRect(marginX, marginY, marginX + stackSize, marginY + stackSize, fillPaint);
-		
 		scaleFactor = (float) stackSize * SCALE_IN_VIEW / brickWidth;
 		
 		// Translate yOffset
 		canvas.save();
 		canvas.translate(0, yOffset*stackSize);
-		
-		for(Brick brick : bricks) {
-			brick.draw(canvas, marginX, marginY, stackSize, scaleFactor);
+		if (lastStableBrick > 0){
+			if (lastTime < 0)
+			{
+				angle = 0;
+				lastTime = SystemClock.uptimeMillis();;
+			}
+			// Determine the time step
+			long time = SystemClock.uptimeMillis();
+			float delta = (time - lastTime) * 0.001f;
+			
+			lastTime = time;
+			// Animation updates
+			angle += delta * 5 * Math.PI * fallingCoefficient;
+			
+			for(int i=0; i<lastStableBrick; i++){
+				bricks.get(i).draw(canvas, marginX, marginY, stackSize, scaleFactor);
+			}
+			
+			canvas.translate(rotationCenterX*stackSize + marginX, rotationCenterY*stackSize + marginY);
+			canvas.rotate(angle);
+			canvas.translate(-rotationCenterX*stackSize - marginX, -rotationCenterY*stackSize-marginY);
+			
+			for(int i=lastStableBrick; i<bricks.size(); i++){
+				bricks.get(i).draw(canvas, marginX, marginY, stackSize, scaleFactor);
+			}
+			
+			stackView.postInvalidate();
+		}
+		else{
+			for(Brick brick : bricks) {
+				brick.draw(canvas, marginX, marginY, stackSize, scaleFactor);
+			}
 		}
 		canvas.restore();		
 	}
@@ -157,6 +193,9 @@ public class Stack {
 	 */
 	private final static String LOCATIONS = "Stack.locations";
 	private final static String WEIGHTS = "Stack.weights";
+	private final static String LASTTIME = "Stack.lastTime";
+	private final static String ANGLE = "Stack.angle";
+	private final static String COEF= "Stack.coefficient";
 	
 	/**
 	 * Save the brick stack to a bundle
@@ -175,6 +214,9 @@ public class Stack {
  		
  		bundle.putFloatArray(LOCATIONS, locations);
 		bundle.putIntArray(WEIGHTS,  weights);
+		bundle.putFloat(ANGLE, angle);
+		bundle.putLong(LASTTIME, lastTime);
+		bundle.putInt(COEF, fallingCoefficient);
 	}
 	
 	/**
@@ -182,6 +224,10 @@ public class Stack {
 	 * @param bundle The bundle we save to
 	 */
 	public void loadInstanceState(Bundle bundle) {
+		angle = bundle.getFloat(ANGLE);
+		lastTime = bundle.getLong(LASTTIME);
+		fallingCoefficient = bundle.getInt(COEF);
+		
 		float [] locations = bundle.getFloatArray(LOCATIONS);
 		int [] weights = bundle.getIntArray(WEIGHTS);
 		
@@ -205,6 +251,7 @@ public class Stack {
 						
 			addBrick(imageId, locations[2*i], locations[2*i+1], weights[i]);
 		}
+		
 	}
 	
 	/**
@@ -318,6 +365,14 @@ public class Stack {
 	private int lastStableBrick;
 	
 	/**
+	 * falling coefficient
+	 * -1 for left and +1 for right
+	 */
+	private int fallingCoefficient;
+	private float rotationCenterX;
+	private float rotationCenterY;
+	
+	/**
 	 * Check stability from the top of the stack
 	 * @return index of the last stable brick
 	 */
@@ -333,6 +388,15 @@ public class Stack {
 			// Check if the new center is over brick below
 			float brickBelowX = bricks.get(size - 1).getxPos();
 			if ((topStackX < brickBelowX - SCALE_IN_VIEW/2 ) ||(topStackX > brickBelowX + SCALE_IN_VIEW/2)){
+				if (topStackX < brickBelowX - SCALE_IN_VIEW/2 )
+					fallingCoefficient = -1;
+				else
+					fallingCoefficient = 1;
+				
+				//Calcualte falling center
+				rotationCenterX = brickBelowX + fallingCoefficient * SCALE_IN_VIEW/2;
+				rotationCenterY = nextBrick.getyPos() + brickHeight*SCALE_IN_VIEW/brickWidth;
+				
 				return size;
 			}
 			else{

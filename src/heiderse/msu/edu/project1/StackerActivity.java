@@ -277,13 +277,32 @@ public class StackerActivity extends Activity {
 		}
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
-			setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
-			playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
-			stackView.getStack().Reset();
 			stackView.invalidate();
+			
+			//endTurn();
 		}
 		switchButtonImages(playerTurn());
 		view.invalidate();
+	}
+	
+	public void endTurn(){
+		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
+		
+		if(players.get(playerTurn()).getScore() >= 5)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			
+			builder.setTitle(R.string.game_over);
+			String text = String.format(getResources().getString(R.string.winner), players.get(playerTurn()).getName());
+			builder.setMessage(text);
+			builder.setPositiveButton(android.R.string.ok, null);
+			
+			AlertDialog alertDialog = builder.create();
+			alertDialog.show();
+		}
+		
+		playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
+		stackView.getStack().Reset();
 	}
 
 }

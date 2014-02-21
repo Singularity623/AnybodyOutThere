@@ -42,8 +42,6 @@ public class Stack {
      */
     private int stackSize;
     
-    private int test;
-    
     /**
 	 * Ratio of brick width and the view
 	 */

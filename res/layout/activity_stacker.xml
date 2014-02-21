@@ -70,6 +70,7 @@
         android:layout_weight=".11"
         android:gravity="center_vertical|center_horizontal"	>	
         <ImageButton
+            android:contentDescription="@+string/onekg"
             android:id="@+id/OneKgButton"
 			android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
             android:src="@drawable/fivekgred"  />
 
         <ImageButton
+            android:contentDescription="@+string/twokg"
             android:id="@+id/TwoKgButton"
 			android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
             android:src="@drawable/fivekgred"  />
 
         <ImageButton
+            android:contentDescription="@+string/fivekg"
             android:id="@+id/FiveKgButton"
 			android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -105,6 +108,7 @@
             android:src="@drawable/fivekgred"  />
 
         <ImageButton
+            android:contentDescription="@+string/tenkg"
             android:id="@+id/TenKgButton"
             android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -117,6 +121,7 @@
             android:src="@drawable/fivekgred" />
 
          <ImageButton
+             android:contentDescription="@+string/set"
              android:id="@+id/EndTurnButton"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"

@@ -6,7 +6,6 @@ import java.util.Random;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;

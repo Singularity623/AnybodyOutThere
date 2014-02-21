@@ -25,5 +25,10 @@
     <string name="player_green_image">Image of player green</string>
     <string name="game_over">Game Over</string>
 	<string name="winner">%1$s is the winner!</string>
+	<string name="onekg">one kg button</string>
+	<string name="twokg">two kg button</string>
+	<string name="fivekg">five kg button</string>
+	<string name="tenkg">ten kg button</string>
+	<string name="set">end the player turn</string>
     
 </resources>

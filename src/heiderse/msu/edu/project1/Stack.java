@@ -421,5 +421,4 @@ public class Stack {
 		bricks.clear();
 		
 	}
-
 }

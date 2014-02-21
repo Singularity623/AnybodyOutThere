@@ -110,6 +110,4 @@ public class Brick {
         xPos += dx;
 
     }
-	
-
 }

@@ -78,7 +78,4 @@ public class StackView extends View {
 		stack.addBrick(imageId, weight);
 		this.invalidate();
 	}
-	
-	
-
 }

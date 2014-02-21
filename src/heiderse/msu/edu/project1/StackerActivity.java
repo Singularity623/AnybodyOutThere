@@ -6,6 +6,8 @@ import java.util.Random;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -294,13 +296,26 @@ public class StackerActivity extends Activity {
 			builder.setTitle(R.string.game_over);
 			String text = String.format(getResources().getString(R.string.winner), players.get(playerTurn()).getName());
 			builder.setMessage(text);
-			builder.setPositiveButton(android.R.string.ok, null);
+			builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+						onOk();
+					}
+					});
 			
 			AlertDialog alertDialog = builder.create();
 			alertDialog.show();
 		}
 		
 		playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
+	}
+	
+	public void onOk()
+	{
+        Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(MainActivity.PLAYER_1, players.get(0).getName());
+		intent.putExtra(MainActivity.PLAYER_2, players.get(1).getName());
+        
+        this.startActivity(intent);
 	}
 
 }

@@ -24,9 +24,7 @@ public class Stack {
 	
 	private int wid;
 	private int hit;
-	
-	private float elapsedTime;
-	
+		
 	/**
 	 * Collection of bricks
 	 */
@@ -93,8 +91,6 @@ public class Stack {
 		brickWidth = b.getWidth();
 		brickHeight = b.getHeight();
 		currentBrick = null;
-		
-		elapsedTime = 0;
 	}
 	
 	
@@ -148,11 +144,11 @@ public class Stack {
 			}
 			
 			stackView.postInvalidate();
-		if (angle * fallingCoefficient > 2 * 5 * Math.PI)
-		{
-			Reset();
-			stackView.invalidate();
-		}
+			if (angle * fallingCoefficient > 2 * 5 * Math.PI)
+			{
+				Reset();
+				stackView.invalidate();
+			}
 		}
 		else{
 			for(Brick brick : bricks) {
@@ -171,22 +167,23 @@ public class Stack {
 		float x, y;
 		
 		float scaledBrickHeight = (float)brickHeight*SCALE_IN_VIEW/brickWidth;
-		
-		if (getBrickStackSize() == 0){
-			// First brick placed at the bottom of the view
-			// & horizontal centered
-			x = 0.5f;
-			y = 1 - scaledBrickHeight/2;
-		}
-		else {
-			// The new brick will be on top of the last brick
-			Brick lastBrick = bricks.get(bricks.size() - 1);
+		if (lastStableBrick == 0){
+			if (getBrickStackSize() == 0){
+				// First brick placed at the bottom of the view
+				// & horizontal centered
+				x = 0.5f;
+				y = 1 - scaledBrickHeight/2;
+			}
+			else {
+				// The new brick will be on top of the last brick
+				Brick lastBrick = bricks.get(bricks.size() - 1);
+				
+				x = lastBrick.getxPos();
+				y = lastBrick.getyPos() - scaledBrickHeight;
+			}
 			
-			x = lastBrick.getxPos();
-			y = lastBrick.getyPos() - scaledBrickHeight;
+			addBrick(imageId, x, y ,w);
 		}
-		
-		addBrick(imageId, x, y ,w);
 	}
 	
 	private void addBrick(int imageId, float x, float y, int w){
@@ -204,6 +201,7 @@ public class Stack {
 	private final static String ANGLE = "Stack.angle";
 	private final static String COEF= "Stack.coefficient";
 	private final static String LASTSTABLEBRRICK= "Stack.lastStableBrick";
+
 	
 	/**
 	 * Save the brick stack to a bundle
@@ -215,10 +213,10 @@ public class Stack {
  		
  		for(int i=0;  i<bricks.size(); i++) {
 			Brick brick = bricks.get(i);
-			locations[i*2] = brick.getxPos();
-			locations[i*2+1] = brick.getyPos();
+			locations[i] = brick.getxPos();
 			weights[i] = brick.getWeight();
 		}
+ 		
  		
  		bundle.putFloatArray(LOCATIONS, locations);
 		bundle.putIntArray(WEIGHTS,  weights);
@@ -242,9 +240,17 @@ public class Stack {
 		int [] weights = bundle.getIntArray(WEIGHTS);
 		
 		int playFirst = bundle.getInt(StackerActivity.PLAY_FIRST);
-
+		int numberOfBricks = weights.length;
 		
-		for (int i=0; i < weights.length; i++){	
+		if (angle != 0)
+		{
+			if (numberOfBricks/2*2 == numberOfBricks)
+				playFirst += 1;
+		}
+
+		float scaledBrickHeight = (float)brickHeight*SCALE_IN_VIEW/brickWidth;
+		float y = 1- scaledBrickHeight/2;
+		for (int i=0; i < numberOfBricks; i++){	
 			/*
 			 *  Decide the image id for the brick
 			 *  Based on the player who player first and current index
@@ -259,7 +265,8 @@ public class Stack {
 					break;
 			}
 						
-			addBrick(imageId, locations[2*i], locations[2*i+1], weights[i]);
+			addBrick(imageId, locations[i], y, weights[i]);
+			y -= scaledBrickHeight;
 		}
 		
 		updateLastStableBrick();
@@ -416,14 +423,12 @@ public class Stack {
 	}
 	
 	public void Reset() {
-		elapsedTime = 0;
 		lastStableBrick = 0;
 		angle = 0;
 		lastTime = 0;
 		rotationCenterX = 0;
 		rotationCenterY = 0;
 		yOffset = 0;
-		bricks.clear();
-		
+		bricks.clear();	
 	}
 }

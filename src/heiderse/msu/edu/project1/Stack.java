@@ -25,6 +25,8 @@ public class Stack {
 	private int wid;
 	private int hit;
 	
+	private float elapsedTime;
+	
 	/**
 	 * Collection of bricks
 	 */
@@ -91,6 +93,8 @@ public class Stack {
 		brickWidth = b.getWidth();
 		brickHeight = b.getHeight();
 		currentBrick = null;
+		
+		elapsedTime = 0;
 	}
 	
 	
@@ -106,7 +110,6 @@ public class Stack {
 		// Determine the minimum of the two dimensions
 		// and assign to stackSize
 		stackSize = wid < hit ? wid : hit;
-		test = wid > hit ? wid : hit;
 		
 		// Compute the margins
 		// horizontal : center
@@ -119,8 +122,8 @@ public class Stack {
 		// Translate yOffset
 		canvas.save();
 		canvas.translate(0, yOffset*stackSize);
-		if (lastStableBrick > 0){
-			if (lastTime < 0)
+		if (lastStableBrick > 0 && elapsedTime < 2){
+			if (lastTime <= 0)
 			{
 				angle = 0;
 				lastTime = SystemClock.uptimeMillis();;
@@ -128,7 +131,7 @@ public class Stack {
 			// Determine the time step
 			long time = SystemClock.uptimeMillis();
 			float delta = (time - lastTime) * 0.001f;
-			
+			elapsedTime += delta;
 			lastTime = time;
 			// Animation updates
 			angle += delta * 5 * Math.PI * fallingCoefficient;
@@ -146,6 +149,11 @@ public class Stack {
 			}
 			
 			stackView.postInvalidate();
+		}
+		else if (elapsedTime > 2 && lastStableBrick > 0)
+		{
+			Reset();
+			stackView.invalidate();
 		}
 		else{
 			for(Brick brick : bricks) {
@@ -327,19 +335,6 @@ public class Stack {
     }
     
     /**
-     * Handle a touch message. This is when we get an initial touch
-     * @param x x location for the touch, relative to the puzzle - 0 to 1 over the puzzle
-     * @param y y location for the touch, relative to the puzzle - 0 to 1 over the puzzle
-     * @return true if the touch is handled
-     */
-   /* private boolean onTouched(float x, float y) {
-    	//lastRelX = x;
-        lastRelY = y;
-        
-        return true;
-    }*/
-    
-    /**
      * Handle a release of a touch message.
      * @param x x location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
      * @param y y location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
@@ -417,7 +412,14 @@ public class Stack {
 	}
 	
 	public void Reset() {
+		elapsedTime = 0;
+		lastStableBrick = 0;
+		angle = 0;
+		lastTime = 0;
+		rotationCenterX = 0;
+		rotationCenterY = 0;
 		bricks.clear();
+		
 	}
 
 }

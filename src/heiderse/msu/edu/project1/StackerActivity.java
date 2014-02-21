@@ -52,6 +52,10 @@ public class StackerActivity extends Activity {
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
 	//private final static String WEIGHTS = "Stack.weights";
 	
+	public void setPlayerFrist(int value) {
+		playFirst = value;
+	}
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -115,6 +119,8 @@ public class StackerActivity extends Activity {
 		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
 		setUpPlayerTextView(player2,1);
 		
+		checkScore();
+		
 		//set buttons
 		switchButtonImages(playFirst);
 	}
@@ -151,7 +157,7 @@ public class StackerActivity extends Activity {
 	}
 	
 	private int playerTurn() {
-		return (stackView.getStack().getBrickStackSize() + playFirst) % NUMBER_OF_PLAYERS;
+		return (stackView.getStack().getBrickStackSize()+playFirst) % NUMBER_OF_PLAYERS;
 	}
 	
 	// Set a player text view with correct font and players(index) values
@@ -280,17 +286,15 @@ public class StackerActivity extends Activity {
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			endTurn();
-			playFirst =( playerTurn()+1 % NUMBER_OF_PLAYERS );
 			switchButtonImages(playFirst);
 			stackView.invalidate();
 		}
-
+		
 		view.invalidate();
 	}
 	
-	public void endTurn(){
-		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
-		
+	public void checkScore()
+	{
 		if(players.get(playerTurn()).getScore() >= 5)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -309,12 +313,14 @@ public class StackerActivity extends Activity {
 		}
 	}
 	
+	public void endTurn(){
+		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
+		checkScore();
+	}
+	
 	public void onOk()
 	{
-        Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra(MainActivity.PLAYER_1, players.get(0).getName());
-		intent.putExtra(MainActivity.PLAYER_2, players.get(1).getName());
-        
+        Intent intent = new Intent(this, MainActivity.class);     
         this.startActivity(intent);
 	}
 

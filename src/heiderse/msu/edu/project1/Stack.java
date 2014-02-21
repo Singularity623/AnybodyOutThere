@@ -122,7 +122,7 @@ public class Stack {
 		// Translate yOffset
 		canvas.save();
 		canvas.translate(0, yOffset*stackSize);
-		if (lastStableBrick > 0 && elapsedTime < 2){
+		if (lastStableBrick > 0){
 			if (lastTime <= 0)
 			{
 				angle = 0;
@@ -131,7 +131,6 @@ public class Stack {
 			// Determine the time step
 			long time = SystemClock.uptimeMillis();
 			float delta = (time - lastTime) * 0.001f;
-			elapsedTime += delta;
 			lastTime = time;
 			// Animation updates
 			angle += delta * 5 * Math.PI * fallingCoefficient;
@@ -149,11 +148,11 @@ public class Stack {
 			}
 			
 			stackView.postInvalidate();
-		}
-		else if (elapsedTime > 2 && lastStableBrick > 0)
+		if (angle * fallingCoefficient > 2 * 5 * Math.PI)
 		{
 			Reset();
 			stackView.invalidate();
+		}
 		}
 		else{
 			for(Brick brick : bricks) {
@@ -204,6 +203,7 @@ public class Stack {
 	private final static String LASTTIME = "Stack.lastTime";
 	private final static String ANGLE = "Stack.angle";
 	private final static String COEF= "Stack.coefficient";
+	private final static String LASTSTABLEBRRICK= "Stack.lastStableBrick";
 	
 	/**
 	 * Save the brick stack to a bundle
@@ -224,7 +224,7 @@ public class Stack {
 		bundle.putIntArray(WEIGHTS,  weights);
 		bundle.putFloat(ANGLE, angle);
 		bundle.putLong(LASTTIME, lastTime);
-		bundle.putInt(COEF, fallingCoefficient);
+		bundle.putInt(LASTSTABLEBRRICK, lastStableBrick);
 	}
 	
 	/**
@@ -232,9 +232,11 @@ public class Stack {
 	 * @param bundle The bundle we save to
 	 */
 	public void loadInstanceState(Bundle bundle) {
+		
 		angle = bundle.getFloat(ANGLE);
-		lastTime = bundle.getLong(LASTTIME);
+		lastTime = -1;
 		fallingCoefficient = bundle.getInt(COEF);
+		lastStableBrick = bundle.getInt(LASTSTABLEBRRICK);
 		
 		float [] locations = bundle.getFloatArray(LOCATIONS);
 		int [] weights = bundle.getIntArray(WEIGHTS);
@@ -259,6 +261,8 @@ public class Stack {
 						
 			addBrick(imageId, locations[2*i], locations[2*i+1], weights[i]);
 		}
+		
+		updateLastStableBrick();
 		
 	}
 	

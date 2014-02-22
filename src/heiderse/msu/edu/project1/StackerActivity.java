@@ -305,23 +305,20 @@ public class StackerActivity extends Activity {
 				players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 				endTurn();
 				stackView.invalidate();
+
 	
 				view.invalidate();
 			}
 		}
 	}
 	
+	// used for rotate view
 	public void checkScore()
 	{	
-		if(players.get(playerTurn()).getScore() >= 5)
+		if(players.get(turn%2).getScore() >= 3)
 		{
 			setupMessage(playerTurn());
 		}
-		else if (players.get((playerTurn()+1)%2).getScore() >= 5)
-		{
-			setupMessage(playerTurn()+1);
-		}
-		
 	}
 	
 	public void setupMessage(int index)	{
@@ -343,11 +340,11 @@ public class StackerActivity extends Activity {
 	public void endTurn(){
 		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
 		
+		checkScore();
+		
 		if(turn%NUMBER_OF_PLAYERS == playFirst)
 			playFirst = ((playFirst+1)%NUMBER_OF_PLAYERS);
 		turn = playFirst;
-		
-		checkScore();
 	}
 	
 	public void onOk()

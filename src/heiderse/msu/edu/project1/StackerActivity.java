@@ -28,11 +28,14 @@ public class StackerActivity extends Activity {
 	private TextView player1;
 	private TextView player2;
 	
+	private int turn;
+	
 	public final static int NUMBER_OF_PLAYERS = 2;
 	public final static int FIRST_PLAYER_COLOR = R.drawable.brick_red1;
 	public final static int SECOND_PLAYER_COLOR = R.drawable.brick_green1;
 	public final static String PLAYER_1_SCORE = "player1score";
 	public final static String PLAYER_2_SCORE = "player2score";
+	public final static String COUNT = "turncounter";
 	
 	private ImageButton onekg;
 	private ImageButton twokg;
@@ -52,15 +55,13 @@ public class StackerActivity extends Activity {
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
 	//private final static String WEIGHTS = "Stack.weights";
 	
-	public void setPlayerFrist(int value) {
-		playFirst = value;
-	}
+
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_stacker);
-		
+
 		stackView = (StackView)this.findViewById(R.id.stackView);
 		
 		players = new ArrayList<Player>();
@@ -84,6 +85,10 @@ public class StackerActivity extends Activity {
 			// Set Scores of players
 			players.get(0).setScore(bundle.getInt(PLAYER_1_SCORE));
 			players.get(1).setScore(bundle.getInt(PLAYER_2_SCORE));
+			turn = bundle.getInt(COUNT);
+			//set buttons
+			switchButtonImages(turn);
+
 		}
 		else {
 			determineFirst();
@@ -109,6 +114,9 @@ public class StackerActivity extends Activity {
 			//remove extra from intent
 			getIntent().removeExtra(MainActivity.PLAYER_1);
 			getIntent().removeExtra(MainActivity.PLAYER_2);
+			turn = 0;
+			//set buttons
+			switchButtonImages(playFirst);
 		}
 		
 		// Set the players
@@ -121,8 +129,8 @@ public class StackerActivity extends Activity {
 		
 		checkScore();
 		
-		//set buttons
-		switchButtonImages(playFirst);
+
+		
 	}
 	
 	@Override
@@ -137,6 +145,7 @@ public class StackerActivity extends Activity {
 		bundle.putInt(PLAYER_1_SCORE, players.get(0).getScore());
 		bundle.putString(MainActivity.PLAYER_2, players.get(1).getName());
 		bundle.putInt(PLAYER_2_SCORE, players.get(1).getScore());
+		bundle.putInt(COUNT,turn);
 		
 		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);
@@ -153,11 +162,16 @@ public class StackerActivity extends Activity {
 	{
 		//First player is chosen randomly
 		Random generator = new Random();
-		playFirst = generator.nextInt(NUMBER_OF_PLAYERS);
+		playFirst = generator.nextInt(1);
 	}
+
 	
 	private int playerTurn() {
-		return (stackView.getStack().getBrickStackSize()+playFirst) % NUMBER_OF_PLAYERS;
+		return turn%NUMBER_OF_PLAYERS;
+		//if(!stackView.getStack().getFlag() && stackView.getStack().getCount() % NUMBER_OF_PLAYERS == 0)
+		//return (stackView.getStack().getCount()) % NUMBER_OF_PLAYERS;
+		/*else
+			return (stackView.getStack().getCount()) % NUMBER_OF_PLAYERS;*/
 	}
 	
 	// Set a player text view with correct font and players(index) values
@@ -166,14 +180,12 @@ public class StackerActivity extends Activity {
 		tview.setText(players.get(index).getName() +": " + players.get(index).getScore());
 	}
 	
-	public void addBrick(int weight)
-	{
-		// TO DO: Check if the last player done with placing brick
-		
+	public void addBrick(int weight) {
 		// Add brick
-		int brickColor = players.get(playerTurn()).getBrickColor();
+		int brickColor = players.get(turn%2).getBrickColor();
 		stackView.addBrick( brickColor, weight);
 	}
+	
 	
 	// Set the current brick's weight to 1kg
 	// Set state to placing brick
@@ -188,7 +200,7 @@ public class StackerActivity extends Activity {
 		{
 			stackView.getStack().getCurrentBrick().setWeight(weight);
 		}
-
+		stackView.getStack().setFlag(false);	
 	}
 	
 	// Set the current brick's weight to 2kg
@@ -204,6 +216,7 @@ public class StackerActivity extends Activity {
 		{
 			stackView.getStack().getCurrentBrick().setWeight(weight);
 		}
+		stackView.getStack().setFlag(false);	
 	}
 	
 	// Set the current brick's weight to 5kg
@@ -219,6 +232,7 @@ public class StackerActivity extends Activity {
 		{
 			stackView.getStack().getCurrentBrick().setWeight(weight);
 		}
+		stackView.getStack().setFlag(false);	
 	}
 	
 	// Set the current brick's weight to 10kg
@@ -234,6 +248,7 @@ public class StackerActivity extends Activity {
 		{
 			stackView.getStack().getCurrentBrick().setWeight(weight);
 		}
+		stackView.getStack().setFlag(false);	
 	}
 	
 	/**
@@ -279,18 +294,20 @@ public class StackerActivity extends Activity {
 	// Set state to brick placed
 	public void onEndTurn(View view) {
 		// New brick has not appeared yet (need to press weight button)
+		turn+=1;
 		stackView.getStack().setCurrentBrick(null);
+		stackView.getStack().setFlag(true);
 		if(stackView.getStack().isStable()) {
-			switchButtonImages(playerTurn());
+			switchButtonImages(turn);
 		}
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			endTurn();
-			switchButtonImages(playFirst);
+			playFirst = ((playFirst+1)%NUMBER_OF_PLAYERS);
+			turn = playFirst;
 			stackView.invalidate();
+			view.invalidate();
 		}
-		
-		view.invalidate();
 	}
 	
 	public void checkScore()

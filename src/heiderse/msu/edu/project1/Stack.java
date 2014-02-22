@@ -17,6 +17,8 @@ public class Stack {
 	*/
 	private Context context;
 	
+	private boolean flag;
+	
 	/**
 	* StackView - which contains this stack
 	*/
@@ -62,7 +64,8 @@ public class Stack {
      * Left margin in pixels
      */
     private int marginX;
-     
+    
+    
     /**
      * Top margin in pixels
      */
@@ -91,13 +94,13 @@ public class Stack {
     	brickWidth = b.getWidth();
     	brickHeight = b.getHeight();
     	currentBrick = null;
+    	flag = false;
     }
 
 
     float angle=0;
     long lastTime= -1;
-
-
+    
     public void draw(Canvas canvas) {
 
 		wid = canvas.getWidth();
@@ -189,8 +192,17 @@ public class Stack {
     	Brick newBrick = new Brick(context, imageId, x, y, w);
     	bricks.add(newBrick);
     	currentBrick = newBrick;
+    	
     }
 
+    public void setFlag(boolean value) {
+    	flag = value;
+    }
+    
+    public boolean getFlag() {
+    	return flag;
+    }
+    
 	/**
 	* The name of the bundle keys to save the stack
 	*/
@@ -200,6 +212,7 @@ public class Stack {
 	private final static String ANGLE = "Stack.angle";
 	private final static String COEF= "Stack.coefficient";
 	private final static String LASTSTABLEBRRICK= "Stack.lastStableBrick";
+	private final static String SETBRICK="setbrick";
 
 
 	/**
@@ -222,6 +235,7 @@ public class Stack {
 		bundle.putFloat(ANGLE, angle);
 		bundle.putLong(LASTTIME, lastTime);
 		bundle.putInt(LASTSTABLEBRRICK, lastStableBrick);
+		bundle.putBoolean(SETBRICK, flag);
 	}
 
 	/**
@@ -234,6 +248,7 @@ public class Stack {
 		lastTime = -1;
 		fallingCoefficient = bundle.getInt(COEF);
 		lastStableBrick = bundle.getInt(LASTSTABLEBRRICK);
+		flag = bundle.getBoolean(SETBRICK);
 
 		float [] locations = bundle.getFloatArray(LOCATIONS);
 		int [] weights = bundle.getIntArray(WEIGHTS);
@@ -261,8 +276,10 @@ public class Stack {
 			addBrick(imageId, locations[i], y, weights[i]);
 			y -= scaledBrickHeight;
 		}
+		if (flag)
+			currentBrick=null;
 
-		updateLastStableBrick();
+		//updateLastStableBrick();
 
 	}
 

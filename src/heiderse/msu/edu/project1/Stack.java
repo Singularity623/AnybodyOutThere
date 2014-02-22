@@ -65,7 +65,6 @@ public class Stack {
      */
     private int marginX;
     
-    
     /**
      * Top margin in pixels
      */
@@ -95,6 +94,7 @@ public class Stack {
     	brickHeight = b.getHeight();
     	currentBrick = null;
     	flag = false;
+
     }
 
 
@@ -213,6 +213,7 @@ public class Stack {
 	private final static String COEF= "Stack.coefficient";
 	private final static String LASTSTABLEBRRICK= "Stack.lastStableBrick";
 	private final static String SETBRICK="setbrick";
+	private final static String BRICKCOLORS="colorids";
 
 
 	/**
@@ -222,14 +223,16 @@ public class Stack {
 	public void saveInstanceState(Bundle bundle) {
 		float [] locations = new float[bricks.size() * 2];
 		int [] weights = new int[bricks.size()];
+		int [] ids = new int[bricks.size()];
  
 		for(int i=0; i<bricks.size(); i++) {
 			Brick brick = bricks.get(i);
 			locations[i] = brick.getxPos();
 			weights[i] = brick.getWeight();
+			ids[i] = brick.getID();
 		}
  
- 
+		bundle.putIntArray(BRICKCOLORS,ids);
 		bundle.putFloatArray(LOCATIONS, locations);
 		bundle.putIntArray(WEIGHTS, weights);
 		bundle.putFloat(ANGLE, angle);
@@ -252,35 +255,31 @@ public class Stack {
 
 		float [] locations = bundle.getFloatArray(LOCATIONS);
 		int [] weights = bundle.getIntArray(WEIGHTS);
+		int [] ids = bundle.getIntArray(BRICKCOLORS);
 
-		int playFirst = bundle.getInt(StackerActivity.PLAY_FIRST);
 		int numberOfBricks = weights.length;
 
 		float scaledBrickHeight = (float)brickHeight*SCALE_IN_VIEW/brickWidth;
 		float y = 1- scaledBrickHeight/2;
+
 		for (int i=0; i < numberOfBricks; i++){	
 			/*
-			* Decide the image id for the brick
-			* Based on the player who player first and current index
-			*/
-			int imageId;
-			switch ((i + playFirst)% StackerActivity.NUMBER_OF_PLAYERS){
-			case 0:
-				imageId = StackerActivity.FIRST_PLAYER_COLOR;
-				break;
-			default:
-				imageId = StackerActivity.SECOND_PLAYER_COLOR;
-				break;
-			}
-
+			 * create images from saved id
+			 */
+			int imageId = ids[i];
 			addBrick(imageId, locations[i], y, weights[i]);
 			y -= scaledBrickHeight;
 		}
 		if (flag)
 			currentBrick=null;
 
-		//updateLastStableBrick();
+		updateLastStableBrick();
+		
 
+	}
+	
+	public void creatBricks() {
+		
 	}
 
 	/**

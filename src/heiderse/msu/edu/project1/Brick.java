@@ -15,6 +15,7 @@ public class Brick {
 	
 	private int weight;
 	
+	private int brickId;
 	
 	// Set the w to xPos, yPos, and weight to 0 for now
 	public Brick(Context context, int id, float x, float y, int w) 
@@ -22,7 +23,7 @@ public class Brick {
 		xPos = x;
 		yPos = y;
 		weight = w;
-		
+		brickId = id;
 		image = BitmapFactory.decodeResource(context.getResources(), id);
 	}
 	
@@ -36,6 +37,10 @@ public class Brick {
 		this.xPos = xPos;
 	}
 
+	public int getID() {
+		return brickId;
+	}
+	
 	public float getyPos() {
 		return yPos;
 	}

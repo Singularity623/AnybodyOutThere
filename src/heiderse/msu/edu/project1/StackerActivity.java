@@ -86,6 +86,7 @@ public class StackerActivity extends Activity {
 			players.get(0).setScore(bundle.getInt(PLAYER_1_SCORE));
 			players.get(1).setScore(bundle.getInt(PLAYER_2_SCORE));
 			turn = bundle.getInt(COUNT);
+			checkScore();
 			//set buttons
 			switchButtonImages(turn);
 
@@ -127,7 +128,7 @@ public class StackerActivity extends Activity {
 		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
 		setUpPlayerTextView(player2,1);
 		
-		checkScore();
+
 		
 
 		
@@ -303,35 +304,48 @@ public class StackerActivity extends Activity {
 		else {
 			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
 			endTurn();
-			playFirst = ((playFirst+1)%NUMBER_OF_PLAYERS);
-			turn = playFirst;
 			stackView.invalidate();
+
 			view.invalidate();
 		}
 	}
 	
 	public void checkScore()
-	{
+	{	
 		if(players.get(playerTurn()).getScore() >= 5)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			
-			builder.setTitle(R.string.game_over);
-			String text = String.format(getResources().getString(R.string.winner), players.get(playerTurn()).getName());
-			builder.setMessage(text);
-			builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-						onOk();
-					}
-					});
-			
-			AlertDialog alertDialog = builder.create();
-			alertDialog.show();
+			setupMessage(playerTurn());
 		}
+		else if (players.get((playerTurn()+1)%2).getScore() >= 5)
+		{
+			setupMessage(playerTurn()+1);
+		}
+		
+	}
+	
+	public void setupMessage(int index)	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(R.string.game_over);
+		String text = String.format(getResources().getString(R.string.winner), players.get(playerTurn()).getName());
+		builder.setMessage(text);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+					onOk();
+				}
+				});
+		
+		AlertDialog alertDialog = builder.create();
+		alertDialog.show();
 	}
 	
 	public void endTurn(){
 		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
+		
+		if(turn%NUMBER_OF_PLAYERS == playFirst)
+			playFirst = ((playFirst+1)%NUMBER_OF_PLAYERS);
+		turn = playFirst;
+		
 		checkScore();
 	}
 	

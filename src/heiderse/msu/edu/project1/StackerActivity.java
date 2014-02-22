@@ -169,10 +169,6 @@ public class StackerActivity extends Activity {
 	
 	private int playerTurn() {
 		return turn%NUMBER_OF_PLAYERS;
-		//if(!stackView.getStack().getFlag() && stackView.getStack().getCount() % NUMBER_OF_PLAYERS == 0)
-		//return (stackView.getStack().getCount()) % NUMBER_OF_PLAYERS;
-		/*else
-			return (stackView.getStack().getCount()) % NUMBER_OF_PLAYERS;*/
 	}
 	
 	// Set a player text view with correct font and players(index) values
@@ -295,18 +291,23 @@ public class StackerActivity extends Activity {
 	// Set state to brick placed
 	public void onEndTurn(View view) {
 		// New brick has not appeared yet (need to press weight button)
-		turn+=1;
-		stackView.getStack().setCurrentBrick(null);
-		stackView.getStack().setFlag(true);
-		if(stackView.getStack().isStable()) {
-			switchButtonImages(turn);
+		if(stackView.getStack().getCurrentBrick() == null)	{
+			//no brick fool
 		}
 		else {
-			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
-			endTurn();
-			stackView.invalidate();
-
-			view.invalidate();
+			turn+=1;
+			stackView.getStack().setCurrentBrick(null);
+			stackView.getStack().setFlag(true);
+			if(stackView.getStack().isStable()) {
+				switchButtonImages(turn);
+			}
+			else {
+				players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
+				endTurn();
+				stackView.invalidate();
+	
+				view.invalidate();
+			}
 		}
 	}
 	

@@ -51,13 +51,13 @@
 	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true"
 	    android:layout_toRightOf="@id/centerpoint_landscape" >
 
 	    <RelativeLayout
 	        android:id="@+id/verifyPasswordInputsNew"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/passwordInputs"
 	        android:layout_centerHorizontal="true" >
 
 	        <TextView
@@ -84,7 +84,6 @@
 	        android:id="@+id/passwordInputsNew"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/usernameInputs"
 	        android:layout_centerHorizontal="true" >
 
 	        <TextView

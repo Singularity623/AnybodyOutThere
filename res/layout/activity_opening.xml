@@ -46,12 +46,11 @@
 	            android:id="@+id/usernameText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignBaseline="@id/editUsername"
 	            android:paddingLeft="15dp"
 	            android:text="@string/usernameInput" />
 
 	        <EditText
-	            android:id="@+id/editUsername"
+	            android:id="@+id/editUsernameLogin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_toRightOf="@id/usernameText"
@@ -59,6 +58,15 @@
 	            android:inputType="text" />
 
 	    </RelativeLayout>
+
+	    <FrameLayout
+	        android:id="@+id/FrameLayout01"
+	        android:layout_width="0dp"
+	        android:layout_height="0dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true" >
+	    </FrameLayout>
+
 	</RelativeLayout>
 
     <RelativeLayout
@@ -76,12 +84,11 @@
     	        android:id="@+id/passwordText"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
-    	        android:layout_alignBaseline="@id/editPassword"
     	        android:paddingLeft="15dp"
     	        android:text="@string/password_input" />
 
     	    <EditText
-    	        android:id="@+id/editPassword"
+    	        android:id="@+id/editPasswordLogin"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
     	        android:layout_toRightOf="@id/passwordText"
@@ -89,6 +96,14 @@
     	        android:inputType="textPassword" />
 
     	</RelativeLayout>
+
+    	<FrameLayout
+    	    android:id="@+id/centerpoint3"
+    	    android:layout_width="0dp"
+    	    android:layout_height="0dp"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_alignParentTop="true" >
+    	</FrameLayout>
 
 	</RelativeLayout>
 	<FrameLayout

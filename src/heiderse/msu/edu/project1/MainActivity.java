@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 			//Create the players
 			
 			// Load the stacker activity
-			Intent intent = new Intent(this, StackerActivity.class);
+			Intent intent = new Intent(this, OpeningActivity.class);
 
 			//Add the entered string to the intent to be used by stacker Activity
 			intent.putExtra(PLAYER_1, redEditText.getText().toString());

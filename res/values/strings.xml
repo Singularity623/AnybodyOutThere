@@ -38,5 +38,8 @@
 	<string name="verify_password">Verify Password:</string>
 	<string name="title_activity_opening">StackerOpening</string>
 	<string name="title_activity_new_user">NewUser</string>
-    
+	<string name="username_password_empty">You must fill out the Username and Password fields!</string>
+	<string name="username_password_verify_empty">You must fill out the Username, Password, and Verify Password fields!</string>
+    <string name="password_verify_mismatch">The Password and Verify Password fields must match!</string>
+	
 </resources>

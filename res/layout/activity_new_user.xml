@@ -51,7 +51,7 @@
 	            android:text="@string/usernameInput" />
 
 	        <EditText
-	            android:id="@+id/editUsername"
+	            android:id="@+id/editUsernameNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_toRightOf="@id/usernameText"
@@ -59,6 +59,14 @@
 	            android:inputType="text" />
 
 	    </RelativeLayout>
+
+	    <FrameLayout
+	        android:id="@+id/centerpoint3"
+	        android:layout_width="0dp"
+	        android:layout_height="0dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true" >
+	    </FrameLayout>
 
 	</RelativeLayout>
 
@@ -81,16 +89,22 @@
     	        android:text="@string/password_input" />
 
     	    <EditText
-    	        android:id="@+id/editPassword"
+    	        android:id="@+id/editPasswordNew"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
     	        android:layout_toRightOf="@id/passwordText"
     	        android:ems="10"
-    	        android:inputType="textPassword" >
+    	        android:inputType="textPassword" />
 
-    	        <requestFocus />
-    	    </EditText>
     	</RelativeLayout>
+
+    	<FrameLayout
+    	    android:id="@+id/FrameLayout01"
+    	    android:layout_width="0dp"
+    	    android:layout_height="0dp"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_alignParentTop="true" >
+    	</FrameLayout>
 
 	</RelativeLayout>
 
@@ -120,6 +134,15 @@
                 android:ems="10"
                 android:inputType="textPassword" />
         </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/FrameLayout02"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+        </FrameLayout>
+
     </RelativeLayout>
 
 	<FrameLayout
@@ -139,6 +162,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerInParent="true"
+		    android:onClick="onCreateUser"
 		    android:text="@string/create_user" />
 
 	</RelativeLayout>

@@ -1,0 +1,176 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:descendantFocusability="beforeDescendants"
+    tools:context=".MainActivity" >
+
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5">
+	    <ImageView
+	        android:contentDescription="@+string/stacker_image"
+	        android:layout_gravity="center"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+	        android:src="@drawable/stacker" />  
+    </FrameLayout>
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1">
+        <ImageView
+            android:contentDescription="@+string/team_name"
+        	android:id="@+id/teamName"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center"
+        	android:src="@drawable/group_name" /> 
+    </FrameLayout>
+
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".1" >
+
+	    <RelativeLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true" >
+
+	        <TextView
+	            android:id="@+id/usernameText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:paddingLeft="15dp"
+	            android:text="@string/usernameInput" />
+
+	        <EditText
+	            android:id="@+id/editUsernameNew"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/usernameText"
+	            android:ems="10"
+	            android:inputType="text" />
+
+	    </RelativeLayout>
+
+	    <FrameLayout
+	        android:id="@+id/centerpoint3"
+	        android:layout_width="0dp"
+	        android:layout_height="0dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true" >
+	    </FrameLayout>
+
+	</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight=".1">
+
+    	<RelativeLayout
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_centerInParent="true" >
+
+    	    <TextView
+    	        android:id="@+id/passwordText"
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:paddingLeft="15dp"
+    	        android:text="@string/password_input" />
+
+    	    <EditText
+    	        android:id="@+id/editPasswordNew"
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:layout_toRightOf="@id/passwordText"
+    	        android:ems="10"
+    	        android:inputType="textPassword" />
+
+    	</RelativeLayout>
+
+    	<FrameLayout
+    	    android:id="@+id/FrameLayout01"
+    	    android:layout_width="0dp"
+    	    android:layout_height="0dp"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_alignParentTop="true" >
+    	</FrameLayout>
+
+	</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <TextView
+                android:id="@+id/verifyPasswordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:text="@string/verify_password" />
+
+            <EditText
+                android:id="@+id/editVerifyPassword1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/verifyPasswordText"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/FrameLayout02"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+        </FrameLayout>
+
+    </RelativeLayout>
+
+	<FrameLayout
+	    android:id="@+id/spacertop" 
+	    android:layout_weight=".05"
+	    android:layout_height="0dp"
+	    android:layout_width="match_parent">
+	</FrameLayout>
+
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".1">
+
+		<Button
+		    android:id="@+id/createUserButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerInParent="true"
+		    android:onClick="onCreateUser"
+		    android:text="@string/create_user" />
+
+	</RelativeLayout>
+	<FrameLayout
+	    android:id="@+id/spacerbottom" 
+	    android:layout_weight=".05"
+	    android:layout_height="0dp"
+	    android:layout_width="match_parent">
+	</FrameLayout>
+
+</LinearLayout>

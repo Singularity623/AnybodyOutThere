@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -22,7 +23,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setContentView(R.layout.activity_main);
+		
+		setContentView(R.layout.activity_opening);
+		// Run the opening activity
+		//Intent intent = new Intent(this, OpeningActivity.class);
+		//startActivity(intent);
+		
+		/*setContentView(R.layout.activity_main);
+		
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
 		
@@ -38,7 +46,7 @@ public class MainActivity extends Activity {
 	    {
 	    	redEditText.setText(getIntent().getStringExtra(PLAYER_1));
 	    	greenEditText.setText(getIntent().getStringExtra(PLAYER_2));
-	    }
+	    }*/
 	}
 
 	
@@ -49,8 +57,34 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	public void onNewUser(View view)
+	{
+		// Load the new user activity
+		Intent intent = new Intent(this, newUserActivity.class);
+		startActivity(intent);
+	}
 	
-	@Override
+	public void onLogin(View view)
+	{
+		// Get the username and password
+		String username = ((EditText)findViewById(R.id.editUsernameLogin)).getText().toString();
+		String password = ((EditText)findViewById(R.id.editPasswordLogin)).getText().toString();
+		
+		// Check to see if the username and password are filled out
+		if(username.isEmpty() || password.isEmpty())
+		{
+			Toast.makeText(getApplicationContext(), R.string.username_password_empty, Toast.LENGTH_SHORT).show();
+		}
+		
+		// TO DO:
+		// Send the username and password to the server
+		// Check if they exist
+		// If they do exist, login and load the next screen
+		// If they don't, show a Toast saying that their information was incorrect
+	}
+	
+	
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -102,5 +136,5 @@ public class MainActivity extends Activity {
 			
 			startActivity(intent);
 		}
-	}
+	}*/
 }

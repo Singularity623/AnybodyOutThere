@@ -13,8 +13,7 @@ public class OpeningActivity extends Activity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_opening);
-		//setContentView(R.layout.);
-		}
+	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

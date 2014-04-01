@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -20,22 +21,34 @@ public class MainActivity extends Activity {
 	private EditText redEditText;
 	private EditText greenEditText;
 	
+	private EditText usernameEditText;
+	private EditText passwordEditText;
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		
 		setContentView(R.layout.activity_opening);
-		// Run the opening activity
-		//Intent intent = new Intent(this, OpeningActivity.class);
-		//startActivity(intent);
 		
-		/*setContentView(R.layout.activity_main);
+		//setContentView(R.layout.activity_main);
 		
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
 		
+		// Assign editTexts to variables
+		usernameEditText = (EditText)findViewById(R.id.editUsernameLogin);
+		passwordEditText = (EditText)findViewById(R.id.editPasswordLogin);
+		
+		// Set font to edit views
+		usernameEditText.setTypeface(broken);
+		passwordEditText.setTypeface(broken);
+		
+		// Set font to text views
+		((TextView)findViewById(R.id.usernameText)).setTypeface(broken);
+		((TextView)findViewById(R.id.passwordText)).setTypeface(broken);
+		
 		// Assign textview's to variables
-		redEditText = (EditText)findViewById(R.id.player_red_name);
+		/*redEditText = (EditText)findViewById(R.id.player_red_name);
 		greenEditText = (EditText)findViewById(R.id.player_green_name);
 		
 		// Set font to text views
@@ -67,8 +80,8 @@ public class MainActivity extends Activity {
 	public void onLogin(View view)
 	{
 		// Get the username and password
-		String username = ((EditText)findViewById(R.id.editUsernameLogin)).getText().toString();
-		String password = ((EditText)findViewById(R.id.editPasswordLogin)).getText().toString();
+		String username = usernameEditText.getText().toString();
+		String password = passwordEditText.getText().toString();
 		
 		// Check to see if the username and password are filled out
 		if(username.isEmpty() || password.isEmpty())

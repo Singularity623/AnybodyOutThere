@@ -47,7 +47,6 @@
 	            android:id="@+id/usernameText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignBaseline="@id/editUsername"
 	            android:paddingLeft="15dp"
 	            android:text="@string/usernameInput" />
 
@@ -78,7 +77,6 @@
     	        android:id="@+id/passwordText"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
-    	        android:layout_alignBaseline="@id/editPassword"
     	        android:paddingLeft="15dp"
     	        android:text="@string/password_input" />
 
@@ -111,7 +109,6 @@
                 android:id="@+id/verifyPasswordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/editVerifyPassword1"
                 android:paddingLeft="15dp"
                 android:text="@string/verify_password" />
 

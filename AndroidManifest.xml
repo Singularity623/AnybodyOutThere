@@ -26,6 +26,10 @@
             android:name="heiderse.msu.edu.project1.StackerActivity"
             android:label="@string/title_activity_stacker" >
         </activity>
+        <activity
+            android:name="heiderse.msu.edu.project1.OpeningActivity"
+            android:label="@string/title_activity_opening" >
+        </activity>
     </application>
 
 </manifest>

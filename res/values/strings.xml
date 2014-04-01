@@ -36,5 +36,7 @@
 	<string name="new_user">New User</string>
 	<string name="create_user">Create User</string>
 	<string name="verify_password">Verify Password:</string>
+	<string name="title_activity_opening">StackerOpening</string>
+	<string name="title_activity_new_user">NewUser</string>
     
 </resources>

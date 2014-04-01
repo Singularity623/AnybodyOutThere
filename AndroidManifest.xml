@@ -30,6 +30,10 @@
             android:name="heiderse.msu.edu.project1.OpeningActivity"
             android:label="@string/title_activity_opening" >
         </activity>
+        <activity
+            android:name="heiderse.msu.edu.project1.newUserActivity"
+            android:label="@string/title_activity_new_user" >
+        </activity>
     </application>
 
 </manifest>

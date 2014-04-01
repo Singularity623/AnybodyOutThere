@@ -114,6 +114,7 @@
     	    android:layout_height="50dp"
     	    android:layout_alignLeft="@id/centerpoint4"
     	    android:layout_marginLeft="30dp"
+    	    android:onClick="onLogin"
     	    android:text="@string/login_button" />
 
     	<Button
@@ -122,6 +123,7 @@
     	    android:layout_height="50dp"
     	    android:layout_alignRight="@id/centerpoint4"
     	    android:layout_marginRight="30dp"
+    	    android:onClick="onNewUser"
     	    android:text="@string/new_user" />
 
 	</RelativeLayout>

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -6,11 +6,21 @@
     android:background="@drawable/background"
     android:descendantFocusability="beforeDescendants"
     tools:context=".MainActivity" >
+
     <FrameLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:id="@+id/centerpoint_landscape"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight=".5">
+        android:layout_centerInParent="true" >
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/centerpoint_landscape"
+        android:orientation="horizontal" >
+
 	    <ImageView
 	        android:contentDescription="@+string/stacker_image"
 	        android:layout_gravity="center"
@@ -18,134 +28,127 @@
         	android:layout_height="match_parent"
 	        android:src="@drawable/stacker" />  
     </FrameLayout>
-    <FrameLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".1">
-        <ImageView
-            android:contentDescription="@+string/team_name"
-        	android:id="@+id/teamName"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="center"
-        	android:src="@drawable/group_name" /> 
-    </FrameLayout>
 
 	<RelativeLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight=".1" >
+	    android:layout_height="match_parent"
+	    android:layout_toRightOf="@id/centerpoint_landscape" >
+
+	    <FrameLayout
+	        android:id="@+id/spacertop"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true" >
+	    </FrameLayout>
+
+	    <FrameLayout
+	        android:id="@+id/spacerbottom"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true" >
+	    </FrameLayout>
 
 	    <RelativeLayout
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_centerInParent="true" >
 
-	        <TextView
-	            android:id="@+id/usernameText"
+	        <RelativeLayout
+	            android:id="@+id/passwordInputs"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:paddingLeft="15dp"
-	            android:text="@string/usernameInput" />
+	            android:layout_below="@id/usernameInputs"
+	            android:layout_centerHorizontal="true" >
 
-	        <EditText
-	            android:id="@+id/editUsernameLogin"
+	            <TextView
+	                android:id="@+id/passwordText"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignBaseline="@id/editPasswordLogin"
+	                android:paddingLeft="15dp"
+	                android:text="@string/password_input" />
+
+	            <EditText
+	                android:id="@+id/editPasswordLogin"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_toRightOf="@id/passwordText"
+	                android:ems="10"
+	                android:inputType="textPassword" >
+
+	                <requestFocus />
+	            </EditText>
+	        </RelativeLayout>
+
+	        <RelativeLayout
+	            android:id="@+id/openingButtons"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/passwordInputs"
+	            android:layout_centerHorizontal="true" >
+
+	            <FrameLayout
+	                android:id="@+id/centerpoint4"
+	                android:layout_width="0dp"
+	                android:layout_height="0dp"
+	                android:layout_centerInParent="true" >
+	            </FrameLayout>
+
+	            <Button
+	                android:id="@+id/loginButton"
+	                android:layout_width="105dp"
+	                android:layout_height="50dp"
+	                android:layout_alignLeft="@id/centerpoint4"
+	                android:layout_marginLeft="25dp"
+	                android:onClick="onLogin"
+	                android:text="@string/login_button" />
+
+	            <Button
+	                android:id="@+id/newUserButton"
+	                android:layout_width="105dp"
+	                android:layout_height="50dp"
+	                android:layout_alignRight="@id/centerpoint4"
+	                android:layout_marginRight="25dp"
+	                android:onClick="onNewUser"
+	                android:text="@string/new_user" />
+	        </RelativeLayout>
+
+	        <ImageView
+	            android:id="@+id/teamName"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/usernameText"
-	            android:ems="10"
-	            android:inputType="text" />
+	            android:layout_centerHorizontal="true"
+	            android:contentDescription="@+string/team_name"
+	            android:src="@drawable/group_name" />
 
+	        <RelativeLayout
+	            android:id="@+id/usernameInputs"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/teamName"
+	            android:layout_centerHorizontal="true" >
+
+	            <TextView
+	                android:id="@+id/usernameText"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignBaseline="@id/editUsernameLogin"
+	                android:paddingLeft="15dp"
+	                android:text="@string/usernameInput" />
+
+	            <EditText
+	                android:id="@+id/editUsernameLogin"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_toRightOf="@id/usernameText"
+	                android:ems="10"
+	                android:inputType="text" />
+
+	        </RelativeLayout>
 	    </RelativeLayout>
 
-	    <FrameLayout
-	        android:id="@+id/FrameLayout01"
-	        android:layout_width="0dp"
-	        android:layout_height="0dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true" >
-	    </FrameLayout>
-
 	</RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight=".1">
-
-    	<RelativeLayout
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_centerInParent="true" >
-
-    	    <TextView
-    	        android:id="@+id/passwordText"
-    	        android:layout_width="wrap_content"
-    	        android:layout_height="wrap_content"
-    	        android:paddingLeft="15dp"
-    	        android:text="@string/password_input" />
-
-    	    <EditText
-    	        android:id="@+id/editPasswordLogin"
-    	        android:layout_width="wrap_content"
-    	        android:layout_height="wrap_content"
-    	        android:layout_toRightOf="@id/passwordText"
-    	        android:ems="10"
-    	        android:inputType="textPassword" />
-
-    	</RelativeLayout>
-
-    	<FrameLayout
-    	    android:id="@+id/centerpoint3"
-    	    android:layout_width="0dp"
-    	    android:layout_height="0dp"
-    	    android:layout_alignParentLeft="true"
-    	    android:layout_alignParentTop="true" >
-    	</FrameLayout>
-
-	</RelativeLayout>
-	<FrameLayout
-	    android:id="@+id/spacertop" 
-	    android:layout_weight=".05"
-	    android:layout_height="0dp"
-	    android:layout_width="match_parent">
-	</FrameLayout>
-	<RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight=".1">
-    	<FrameLayout
-    	    android:id="@+id/centerpoint4"
-    	    android:layout_width="0dp"
-	        android:layout_height="0dp"
-	        android:layout_centerInParent="true">
-    	</FrameLayout>
-
-    	<Button
-    	    android:id="@+id/loginButton"
-    	    android:layout_width="105dp"
-    	    android:layout_height="50dp"
-    	    android:layout_alignLeft="@id/centerpoint4"
-    	    android:layout_marginLeft="30dp"
-    	    android:onClick="onLogin"
-    	    android:text="@string/login_button" />
-
-    	<Button
-    	    android:id="@+id/newUserButton"
-    	    android:layout_width="105dp"
-    	    android:layout_height="50dp"
-    	    android:layout_alignRight="@id/centerpoint4"
-    	    android:layout_marginRight="30dp"
-    	    android:onClick="onNewUser"
-    	    android:text="@string/new_user" />
-
-	</RelativeLayout>
-	<FrameLayout
-	    android:id="@+id/spacerbottom" 
-	    android:layout_weight=".05"
-	    android:layout_height="0dp"
-	    android:layout_width="match_parent">
-	</FrameLayout>
-</LinearLayout>
+</RelativeLayout>

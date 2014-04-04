@@ -13,6 +13,8 @@ public class newUserActivity extends Activity {
 
 	public static Typeface broken;
 	
+	private Service _service;
+	
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 	private EditText passwordVerifyEditText;
@@ -23,6 +25,7 @@ public class newUserActivity extends Activity {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_new_user);
 		
+		_service = new Service();
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
 		
@@ -37,8 +40,8 @@ public class newUserActivity extends Activity {
 		passwordVerifyEditText.setTypeface(broken);
 		
 		// Set font to text views
-		((TextView)findViewById(R.id.usernameText)).setTypeface(broken);
-		((TextView)findViewById(R.id.passwordText)).setTypeface(broken);
+		((TextView)findViewById(R.id.usernametext)).setTypeface(broken);
+		((TextView)findViewById(R.id.passwordtext)).setTypeface(broken);
 		((TextView)findViewById(R.id.verifyPasswordText)).setTypeface(broken);
 	}
 	
@@ -67,9 +70,16 @@ public class newUserActivity extends Activity {
 			// If it does, make a toast saying that the username is taken
 			// If not, create an entry in the table with this username and password
 			
+			_service.set_name(username);
+			_service.set_password(password);
+			_service.CreateUser();
+			
+			
+			
 			// Return to the opening screen
 			Intent intent = new Intent(this, OpeningActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		
 		

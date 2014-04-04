@@ -1,18 +1,24 @@
 package heiderse.msu.edu.project1;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class OpeningActivity extends Activity {
 
+	private Service _service;
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_opening);
+		_service = new Service();
 	}
 
 	@Override
@@ -26,6 +32,7 @@ public class OpeningActivity extends Activity {
 		// Load the new user activity
 		Intent intent = new Intent(this, newUserActivity.class);
 		startActivity(intent);
+		finish();
 	}
 	
 	public void onLogin(View view)
@@ -39,7 +46,12 @@ public class OpeningActivity extends Activity {
 		{
 			Toast.makeText(getApplicationContext(), R.string.username_password_empty, Toast.LENGTH_SHORT).show();
 		}
-		
+		else
+		{
+			//attempt to connect to server
+			InputStream stream = _service.getUser();
+			Log.i("TECH",stream.toString());
+		}
 		// TO DO:
 		// Send the username and password to the server
 		// Check if they exist

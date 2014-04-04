@@ -44,9 +44,12 @@
 	        android:layout_centerInParent="true" >
 
 	        <TextView
-	            android:id="@+id/usernameText"
+	            android:id="@+id/usernametext"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@+id/editUsernameNew"
+	            android:layout_alignBottom="@+id/editUsernameNew"
+	            android:layout_alignParentLeft="true"
 	            android:paddingLeft="15dp"
 	            android:text="@string/usernameInput" />
 
@@ -54,10 +57,11 @@
 	            android:id="@+id/editUsernameNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/usernameText"
+	            android:layout_toRightOf="@id/usernametext"
 	            android:ems="10"
 	            android:inputType="text" />
-
+	        
+	        
 	    </RelativeLayout>
 
 	    <FrameLayout
@@ -82,17 +86,20 @@
     	    android:layout_centerInParent="true" >
 
     	    <TextView
-    	        android:id="@+id/passwordText"
+    	        android:id="@+id/passwordtext"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
+    	        android:layout_alignBaseline="@+id/editPasswordNew"
+    	        android:layout_alignBottom="@+id/editPasswordNew"
+    	        android:layout_alignParentLeft="true"
     	        android:paddingLeft="15dp"
     	        android:text="@string/password_input" />
-
+    	    
     	    <EditText
     	        android:id="@+id/editPasswordNew"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
-    	        android:layout_toRightOf="@id/passwordText"
+    	        android:layout_toRightOf="@id/passwordtext"
     	        android:ems="10"
     	        android:inputType="textPassword" />
 
@@ -123,9 +130,12 @@
                 android:id="@+id/verifyPasswordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/editVerifyPassword1"
+                android:layout_alignBottom="@+id/editVerifyPassword1"
+                android:layout_alignParentLeft="true"
                 android:paddingLeft="15dp"
                 android:text="@string/verify_password" />
-
+            
             <EditText
                 android:id="@+id/editVerifyPassword1"
                 android:layout_width="wrap_content"
@@ -133,6 +143,7 @@
                 android:layout_toRightOf="@id/verifyPasswordText"
                 android:ems="10"
                 android:inputType="textPassword" />
+
         </RelativeLayout>
 
         <FrameLayout

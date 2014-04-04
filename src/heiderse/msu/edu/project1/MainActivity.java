@@ -24,6 +24,8 @@ public class MainActivity extends Activity {
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 	
+	private Service _service;
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -31,6 +33,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_opening);
 		
 		//setContentView(R.layout.activity_main);
+		
+		_service = new Service();
 		
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
@@ -75,6 +79,7 @@ public class MainActivity extends Activity {
 		// Load the new user activity
 		Intent intent = new Intent(this, newUserActivity.class);
 		startActivity(intent);
+		finish();
 	}
 	
 	public void onLogin(View view)
@@ -88,12 +93,16 @@ public class MainActivity extends Activity {
 		{
 			Toast.makeText(getApplicationContext(), R.string.username_password_empty, Toast.LENGTH_SHORT).show();
 		}
-		
+		else
+		{
+			_service.getUser();
+		}
 		// TO DO:
 		// Send the username and password to the server
 		// Check if they exist
 		// If they do exist, login and load the next screen
 		// If they don't, show a Toast saying that their information was incorrect
+
 	}
 	
 	

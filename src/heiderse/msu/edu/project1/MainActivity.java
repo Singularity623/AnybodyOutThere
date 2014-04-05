@@ -83,13 +83,20 @@ public class MainActivity extends Activity {
 		finish();
 	}
 	
+	public void onNext(View view)
+	{
+		Intent intent = new Intent(this, OpeningActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	
 	public void onLogin(View view)
 	{
 		// Get the username and password
 		final String username = usernameEditText.getText().toString();
 		final String password = passwordEditText.getText().toString();
 		
-
+		
 		
 		// Check to see if the username and password are filled out
 		if(username.isEmpty() || password.isEmpty())
@@ -101,13 +108,13 @@ public class MainActivity extends Activity {
 			final View _view = view;
 			
 	    	new Thread(new Runnable() {
-
+	    		String stream;
 	            @Override
 	            public void run() {
 	        		_service = new Service();
 	        		_service.set_name(username);
 	        		_service.set_password(password);
-	        		String stream = _service.getUser(0);
+	        		stream = _service.getUser(0);
 	    			if(stream == null) {
 	                    /*
 	                     * If we fail to save, display a toast 
@@ -126,15 +133,18 @@ public class MainActivity extends Activity {
 	    				//load activity blank
 	    				//Intent intent = new Intent(this, )
 	                    _view.post(new Runnable() {
-
+	                    	
 	                        @Override
 	                        public void run() {
 	                            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
 	                        }
 	                    });
+	                    onNext(_view);
+	    				
 	    			}
 	            }
 	        }).start();
+	    
 		// TO DO:
 		// Send the username and password to the server
 		// Check if they exist

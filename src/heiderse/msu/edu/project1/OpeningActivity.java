@@ -17,7 +17,7 @@ public class OpeningActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setContentView(R.layout.activity_opening);
+		setContentView(R.layout.activity_main);
 	}
 
 	@Override

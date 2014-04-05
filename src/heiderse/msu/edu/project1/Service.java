@@ -1,7 +1,9 @@
 package heiderse.msu.edu.project1;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -53,7 +55,7 @@ public class Service {
 	private static final String USER = "demo";
 	private static final String PASSWORD = "demo";
 	private static final String MAGIC = "NechAtHa6RuzeR8x";
-    private static final String CREATE_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/create.php";
+    private static final String CREATE_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/create2.php";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/login.php";
     private static final String UTF8 = "UTF-8";
 	
@@ -65,7 +67,7 @@ public class Service {
 		_password = null;
 	}	
 	
-    public String getUser() {
+    public String getUser(int querySelect) {
         // Create a get query
 		Log.i("user",_name);
 		Log.i("password",_password);
@@ -73,10 +75,12 @@ public class Service {
 		InputStream stream = null;
 		
     	String query = "";
-    	if(_name == null)
+    	if(_name == null && querySelect == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
-    	else
+    	else if (_name != null && querySelect == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
+    	else if (querySelect == 1)
+    		query = CREATE_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
     	
     	Log.i("query",query);
     	
@@ -148,7 +152,7 @@ public class Service {
         try {
             xml.setOutput(writer);
             
-            //xml.startDocument("UTF-8", true);
+            xml.startDocument("UTF-8", true);
             
             xml.startTag(null, "stacker");
 
@@ -156,7 +160,7 @@ public class Service {
             xml.attribute(null, "pw", _password);
             xml.attribute(null, "magic", MAGIC);
             
-            //xml.endDocument();
+            xml.endDocument();
 
         } catch (IOException e) {
             // This won't occur when writing to a string
@@ -201,11 +205,11 @@ public class Service {
                 return false;
             }
             
-            /*BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 Log.i("hatter", line);
-            } */
+            } 
             
             stream = conn.getInputStream();
             //logStream(stream);

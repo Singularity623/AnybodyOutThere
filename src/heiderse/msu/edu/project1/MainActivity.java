@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
 	        		_service = new Service();
 	        		_service.set_name(username);
 	        		_service.set_password(password);
-	        		String stream = _service.getUser();
+	        		String stream = _service.getUser(0);
 	    			if(stream == null) {
 	                    /*
 	                     * If we fail to save, display a toast 
@@ -123,6 +123,8 @@ public class MainActivity extends Activity {
 	                    }); 
 	                }
 	    			else {
+	    				//load activity blank
+	    				//Intent intent = new Intent(this, )
 	                    _view.post(new Runnable() {
 
 	                        @Override

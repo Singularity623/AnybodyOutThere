@@ -78,9 +78,9 @@ public class newUserActivity extends Activity {
 	        		_service = new Service();
 	    			_service.set_name(username);
 	    			_service.set_password(password);
-	    			boolean val = _service.CreateUser();
+	    			String val = _service.getUser(1);
 	    			//get feedback from server
-	    			if(val)
+	    			if(val!= null)
 	    				Log.i("success", "writing to db");
 	    			else
 	    				Log.i("failure", "writing to db");

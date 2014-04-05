@@ -14,6 +14,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.util.Log;
 import android.util.Xml;
 
 public class Service {
@@ -52,8 +53,8 @@ public class Service {
 	private static final String USER = "demo";
 	private static final String PASSWORD = "demo";
 	private static final String MAGIC = "NechAtHa6RuzeR8x";
-    private static final String CREATE_URL = "http://www.cse.msu.edu/~tranluan/cse476-project2/user/create.php";
-    private static final String LOGIN_URL = "http://www.cse.msu.edu/~tranluan/cse476-project2/user/login.php";
+    private static final String CREATE_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/create.php";
+    private static final String LOGIN_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/login.php";
     private static final String UTF8 = "UTF-8";
 	
  
@@ -64,13 +65,20 @@ public class Service {
 		_password = null;
 	}	
 	
-    public InputStream getUser() {
+    public String getUser() {
         // Create a get query
+		Log.i("user",_name);
+		Log.i("password",_password);
+    	
+		InputStream stream = null;
+		
     	String query = "";
     	if(_name == null)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
     	else
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
+    	
+    	Log.i("query",query);
     	
         try {
             URL url = new URL(query);
@@ -81,17 +89,49 @@ public class Service {
                 return null;
             }
             
-            InputStream stream = conn.getInputStream();
+            stream = conn.getInputStream();
             
-            //logStream(stream);
-            return stream;
-
+            //return stream;
+            
         } catch (MalformedURLException e) {
             // Should never happen
             return null;
         } catch (IOException ex) {
             return null;
         }
+        
+        /**
+         * Create an XML parser for the result
+         */
+        try {
+            XmlPullParser xml = Xml.newPullParser();
+            xml.setInput(stream, "UTF-8");
+            
+            xml.nextTag();      // Advance to first tag
+            xml.require(XmlPullParser.START_TAG, null, "stacker");
+            
+            String status = xml.getAttributeValue(null, "status");
+            if(status.equals("no")) {
+                return null;
+            }
+            else {
+            	Log.i("success","1");
+            	return status;
+            }
+            
+            // We are done
+        } catch(XmlPullParserException ex) {
+            return null;
+        } catch(IOException ex) {
+            return null;
+        } finally {
+            try {
+                stream.close();
+            } catch(IOException ex) {
+                
+            }
+        }
+        
     }
 	
     public boolean CreateUser()
@@ -108,7 +148,7 @@ public class Service {
         try {
             xml.setOutput(writer);
             
-            xml.startDocument("UTF-8", true);
+            //xml.startDocument("UTF-8", true);
             
             xml.startTag(null, "stacker");
 
@@ -116,7 +156,7 @@ public class Service {
             xml.attribute(null, "pw", _password);
             xml.attribute(null, "magic", MAGIC);
             
-            xml.endDocument();
+            //xml.endDocument();
 
         } catch (IOException e) {
             // This won't occur when writing to a string

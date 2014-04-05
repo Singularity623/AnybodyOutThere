@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class newUserActivity extends Activity {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_new_user);
 		
-		_service = new Service();
+
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
 		
@@ -48,8 +49,8 @@ public class newUserActivity extends Activity {
 	public void onCreateUser(View view)
 	{
 		// Get the username, password, and verified password
-		String username = usernameEditText.getText().toString();
-		String password = passwordEditText.getText().toString();
+		final String username = usernameEditText.getText().toString();
+		final String password = passwordEditText.getText().toString();
 		String verifiedPassword = passwordVerifyEditText.getText().toString();
 		
 		if(username.isEmpty() || password.isEmpty() || verifiedPassword.isEmpty())
@@ -70,14 +71,25 @@ public class newUserActivity extends Activity {
 			// If it does, make a toast saying that the username is taken
 			// If not, create an entry in the table with this username and password
 			
-			_service.set_name(username);
-			_service.set_password(password);
-			_service.CreateUser();
-			
-			
+	    	new Thread(new Runnable() {
+
+	            @Override
+	            public void run() {
+	        		_service = new Service();
+	    			_service.set_name(username);
+	    			_service.set_password(password);
+	    			boolean val = _service.CreateUser();
+	    			//get feedback from server
+	    			if(val)
+	    				Log.i("success", "writing to db");
+	    			else
+	    				Log.i("failure", "writing to db");
+	            }
+	        }).start();
+				
 			
 			// Return to the opening screen
-			Intent intent = new Intent(this, OpeningActivity.class);
+			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}

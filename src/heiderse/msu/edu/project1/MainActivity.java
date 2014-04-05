@@ -1,10 +1,13 @@
 package heiderse.msu.edu.project1;
 
+import java.io.InputStream;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -33,8 +36,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_opening);
 		
 		//setContentView(R.layout.activity_main);
-		
-		_service = new Service();
 		
 		// Set the font
 		broken = Typeface.createFromAsset(getAssets(),"fonts/Broken.ttf");
@@ -85,8 +86,10 @@ public class MainActivity extends Activity {
 	public void onLogin(View view)
 	{
 		// Get the username and password
-		String username = usernameEditText.getText().toString();
-		String password = passwordEditText.getText().toString();
+		final String username = usernameEditText.getText().toString();
+		final String password = passwordEditText.getText().toString();
+		
+
 		
 		// Check to see if the username and password are filled out
 		if(username.isEmpty() || password.isEmpty())
@@ -95,14 +98,47 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
-			_service.getUser();
-		}
+			final View _view = view;
+			
+	    	new Thread(new Runnable() {
+
+	            @Override
+	            public void run() {
+	        		_service = new Service();
+	        		_service.set_name(username);
+	        		_service.set_password(password);
+	        		String stream = _service.getUser();
+	    			if(stream == null) {
+	                    /*
+	                     * If we fail to save, display a toast 
+	                     */
+	                    // Please fill this in...
+	                    // Error condition!
+	                    _view.post(new Runnable() {
+
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+	                        }
+	                    }); 
+	                }
+	    			else {
+	                    _view.post(new Runnable() {
+
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+	                        }
+	                    });
+	    			}
+	            }
+	        }).start();
 		// TO DO:
 		// Send the username and password to the server
 		// Check if they exist
 		// If they do exist, login and load the next screen
 		// If they don't, show a Toast saying that their information was incorrect
-
+		}
 	}
 	
 	

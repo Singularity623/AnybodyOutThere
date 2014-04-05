@@ -18,7 +18,6 @@ public class OpeningActivity extends Activity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_opening);
-		_service = new Service();
 	}
 
 	@Override
@@ -48,9 +47,44 @@ public class OpeningActivity extends Activity {
 		}
 		else
 		{
+			final View _view = view;
+			
+	    	//new Thread(new Runnable() {
+
+	          /*  @Override
+	            public void run() {
+	        		_service = new Service();
+	    			/*if(!boolll) {
+	    				Log.i("YES","yes");
+	                    /*
+	                     * If we fail to save, display a toast 
+	                     */
+	                    // Please fill this in...
+	                    // Error condition!
+	                    /*_view.post(new Runnable() {
+
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+	                        }
+	                    });
+	                    
+	                }
+	    			else {
+	                    _view.post(new Runnable() {
+
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+	                        }
+	                    });
+	    			}*/
+	          //  }
+	       // }).start();
+			
 			//attempt to connect to server
-			InputStream stream = _service.getUser();
-			Log.i("TECH",stream.toString());
+
+
 		}
 		// TO DO:
 		// Send the username and password to the server

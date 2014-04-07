@@ -34,6 +34,7 @@
     </FrameLayout>
 
 	<RelativeLayout
+	    android:id="@+id/UsernameInputsNew"
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight=".1" >
@@ -44,7 +45,7 @@
 	        android:layout_centerInParent="true" >
 
 	        <TextView
-	            android:id="@+id/usernametext"
+	            android:id="@+id/usernameTextNew1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignBaseline="@+id/editUsernameNew"
@@ -57,10 +58,9 @@
 	            android:id="@+id/editUsernameNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/usernametext"
+	            android:layout_toRightOf="@id/usernameTextNew1"
 	            android:ems="10"
 	            android:inputType="text" />
-	        
 	        
 	    </RelativeLayout>
 
@@ -75,10 +75,11 @@
 	</RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/passwordInputsNew"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight=".1">
+        android:layout_weight=".1"
+        android:orientation="vertical" >
 
     	<RelativeLayout
     	    android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
     	    android:layout_centerInParent="true" >
 
     	    <TextView
-    	        android:id="@+id/passwordtext"
+    	        android:id="@+id/passwordTextNew"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
     	        android:layout_alignBaseline="@+id/editPasswordNew"
@@ -99,7 +100,7 @@
     	        android:id="@+id/editPasswordNew"
     	        android:layout_width="wrap_content"
     	        android:layout_height="wrap_content"
-    	        android:layout_toRightOf="@id/passwordtext"
+    	        android:layout_toRightOf="@id/passwordTextNew"
     	        android:ems="10"
     	        android:inputType="textPassword" />
 
@@ -116,6 +117,7 @@
 	</RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/verifyPasswordInputsNew"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".1"

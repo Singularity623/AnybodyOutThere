@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 		passwordEditText.setTypeface(broken);
 		
 		// Set font to text views
-		((TextView)findViewById(R.id.usernameText)).setTypeface(broken);
+		((TextView)findViewById(R.id.usernameTextLogin)).setTypeface(broken);
 		((TextView)findViewById(R.id.passwordText)).setTypeface(broken);
 		
 		// Assign textview's to variables

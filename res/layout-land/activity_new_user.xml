@@ -58,6 +58,7 @@
 	        android:id="@+id/verifyPasswordInputsNew"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_below="@id/passwordInputsNew"
 	        android:layout_centerHorizontal="true" >
 
 	        <TextView
@@ -65,7 +66,6 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignBaseline="@id/editVerifyPassword1"
-	            android:paddingLeft="15dp"
 	            android:text="@string/verify_password" />
 
 	        <EditText
@@ -84,23 +84,24 @@
 	        android:id="@+id/passwordInputsNew"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_below="@id/UsernameInputsNew"
 	        android:layout_centerHorizontal="true" >
 
 	        <TextView
-	            android:id="@+id/passwordText"
+	            android:id="@id/passwordTextNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignBaseline="@id/editPasswordNew"
-	            android:paddingLeft="15dp"
 	            android:text="@string/password_input" />
 
 	        <EditText
 	            android:id="@+id/editPasswordNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/passwordText"
+	            android:layout_toRightOf="@id/passwordTextNew"
 	            android:ems="10"
 	            android:inputType="textPassword" />
+
 	    </RelativeLayout>
 
 	    <RelativeLayout
@@ -110,21 +111,21 @@
 	        android:layout_below="@id/teamName"
 	        android:layout_centerHorizontal="true" >
 
-	        <TextView
-	            android:id="@+id/usernameText"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignBaseline="@id/editUsernameNew"
-	            android:paddingLeft="15dp"
-	            android:text="@string/usernameInput" />
-
 	        <EditText
 	            android:id="@+id/editUsernameNew"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/usernameText"
+	            android:layout_toRightOf="@id/usernameTextNew1"
 	            android:ems="10"
 	            android:inputType="text" />
+
+	        <TextView
+	            android:id="@+id/usernameTextNew1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/editUsernameNew"
+	            android:text="@string/usernameInput" />
+
 	    </RelativeLayout>
 
 	    <ImageView

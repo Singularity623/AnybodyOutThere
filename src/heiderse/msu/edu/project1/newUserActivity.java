@@ -41,8 +41,8 @@ public class newUserActivity extends Activity {
 		passwordVerifyEditText.setTypeface(broken);
 		
 		// Set font to text views
-		((TextView)findViewById(R.id.usernametext)).setTypeface(broken);
-		((TextView)findViewById(R.id.passwordtext)).setTypeface(broken);
+		((TextView)findViewById(R.id.usernameTextNew1)).setTypeface(broken);
+		((TextView)findViewById(R.id.passwordTextNew)).setTypeface(broken);
 		((TextView)findViewById(R.id.verifyPasswordText)).setTypeface(broken);
 	}
 	

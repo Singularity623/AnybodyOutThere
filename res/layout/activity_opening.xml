@@ -43,7 +43,7 @@
 	        android:layout_centerInParent="true" >
 
 	        <TextView
-	            android:id="@+id/usernameText"
+	            android:id="@+id/usernameTextLogin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:paddingLeft="15dp"
@@ -53,7 +53,7 @@
 	            android:id="@+id/editUsernameLogin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/usernameText"
+	            android:layout_toRightOf="@id/usernameTextLogin"
 	            android:ems="10"
 	            android:inputType="text" />
 

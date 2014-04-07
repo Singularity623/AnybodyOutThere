@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.os.Bundle;
-import android.app.Activity;
+//import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class StackerActivity extends Activity {
+public class StackerActivity extends FragmentActivity {
 	
 	/**
 	 * The stack view in this activity's view
@@ -55,14 +56,19 @@ public class StackerActivity extends Activity {
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
 	//private final static String WEIGHTS = "Stack.weights";
 	
-
-	
 	@Override
 	protected void onCreate(Bundle bundle) {
+		
+		
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_stacker);
 
-		stackView = (StackView)this.findViewById(R.id.stackView);
+        LobbyDlg dlg = new LobbyDlg();
+        dlg.setCancelable(false);
+        dlg.show(getSupportFragmentManager(), "Lobby");
+
+		
+	/*	stackView = (StackView)this.findViewById(R.id.stackView);
 		
 		players = new ArrayList<Player>();
 		
@@ -94,6 +100,9 @@ public class StackerActivity extends Activity {
 		else {
 			determineFirst();
 			
+
+			
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	        
 	        // Parameterize the builder
@@ -124,13 +133,8 @@ public class StackerActivity extends Activity {
 		player1 = (TextView) findViewById(R.id.RedPlayerScore);
 		setUpPlayerTextView(player1,0);
 
-		
 		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
-		setUpPlayerTextView(player2,1);
-		
-
-		
-
+		setUpPlayerTextView(player2,1);*/
 		
 	}
 	

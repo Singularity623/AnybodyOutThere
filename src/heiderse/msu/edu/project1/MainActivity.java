@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
 	
 	public void onNext(View view)
 	{
-		Intent intent = new Intent(this, OpeningActivity.class);
+		Intent intent = new Intent(this, StackerActivity.class);
 		startActivity(intent);
 		finish();
 	}

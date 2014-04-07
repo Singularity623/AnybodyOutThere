@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/background"
     android:descendantFocusability="beforeDescendants"
-    tools:context=".OpeningActivity" >
+    tools:context=".MainActivity" >
     <FrameLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

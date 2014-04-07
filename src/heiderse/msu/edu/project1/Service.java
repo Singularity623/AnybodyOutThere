@@ -67,7 +67,7 @@ public class Service {
 		_password = null;
 	}	
 	
-    public String getUser(int querySelect) {
+    public String getUser(int option) {
         // Create a get query
 		Log.i("user",_name);
 		Log.i("password",_password);
@@ -75,11 +75,11 @@ public class Service {
 		InputStream stream = null;
 		
     	String query = "";
-    	if(_name == null && querySelect == 0)
+    	if(_name == null && option == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
-    	else if (_name != null && querySelect == 0)
+    	else if (_name != null && option == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
-    	else if (querySelect == 1)
+    	else if (option == 1)
     		query = CREATE_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
     	
     	Log.i("query",query);
@@ -109,12 +109,13 @@ public class Service {
          */
         try {
             XmlPullParser xml = Xml.newPullParser();
-            xml.setInput(stream, "UTF-8");
+            xml.setInput(stream, UTF8);
             
             xml.nextTag();      // Advance to first tag
             xml.require(XmlPullParser.START_TAG, null, "stacker");
             
             String status = xml.getAttributeValue(null, "status");
+            String player = xml.getAttributeValue(null, "player");
             if(status.equals("no")) {
                 return null;
             }
@@ -152,7 +153,7 @@ public class Service {
         try {
             xml.setOutput(writer);
             
-            xml.startDocument("UTF-8", true);
+            xml.startDocument(UTF8, true);
             
             xml.startTag(null, "stacker");
 

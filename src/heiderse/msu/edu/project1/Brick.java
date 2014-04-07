@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class Brick {
 
@@ -56,7 +57,7 @@ public class Brick {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	
+
 	/**
 	 * Draw the puzzle piece
 	 * @param canvas Canvas we are drawing on
@@ -112,7 +113,11 @@ public class Brick {
      * @param dy y amount to move
      */
     public void move(float dx) {
-        xPos += dx;
+    	// Check the bounds and move the brick if it is within the bounds
+    	if(!(((xPos + dx <= 0.0f) || (xPos + dx >= 1.0f))))
+    	{
+    		xPos += dx;
+    	}
 
     }
 }

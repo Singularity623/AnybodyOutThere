@@ -8,3 +8,6 @@ http://www.cse.msu.edu/~tranluan/cse476-project2/user/create.php
 	POST DATA:
 	<stacker user='demo' pw='demo' magic='NechAtHa6RuzeR8x'/>
 Note: It is basically the same as save a hatter in step 5 & 6
+
+CHECK GAME IS READY
+http://www.cse.msu.edu/~tranluan/cse476-project2/game/ready.php?magic=NechAtHa6RuzeR8x&gameId=g534331ad37d99

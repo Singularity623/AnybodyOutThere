@@ -147,6 +147,15 @@
 	                android:inputType="text" />
 
 	        </RelativeLayout>
+
+	        <CheckBox
+	            android:id="@+id/rememberCheckbox"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/openingButtons"
+	            android:layout_centerHorizontal="true"
+	            android:text="@string/remember_me" />
+
 	    </RelativeLayout>
 
 	</RelativeLayout>

@@ -1,6 +1,10 @@
 package heiderse.msu.edu.project1;
 
+import java.io.IOException;
 import java.io.InputStream;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -9,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +26,11 @@ public class MainActivity extends Activity {
 
 	public final static String PLAYER_1 = "player1";
 	public final static String PLAYER_2 = "player2";
+	
+	public final static String USERNAME = "Player.username";
+	public final static String PASSWORD = "Player.password";
+	public final static String GAMEID = "Game.id";
+	
 	
 	public static Typeface broken;
 	
@@ -93,8 +103,12 @@ public class MainActivity extends Activity {
 		finish();
 	}
 	
-	public void onNext(View view)
+	public void onNext(View view, int player, String gameId)
 	{
+		if (player==0)
+			return;
+		
+		
 		CheckBox rememberCheckbox = (CheckBox)findViewById(R.id.rememberCheckbox);
 		if(rememberCheckbox.isChecked())
 		{
@@ -105,9 +119,18 @@ public class MainActivity extends Activity {
 	        editor.putString("password", passwordEditText.getText().toString());
 	        editor.commit();
 		}
-		Intent intent = new Intent(this, StackerActivity.class);
+		Intent intent;
+		//if (player==1)
+			intent = new Intent(this, WaitingActivity.class);
+		//else
+			//intent = new Intent(this, StackerActivity.class);
+			
+		intent.putExtra(USERNAME, usernameEditText.getText().toString());
+		intent.putExtra(PASSWORD, passwordEditText.getText().toString());
+		intent.putExtra(GAMEID, gameId);
+		
 		startActivity(intent);
-		finish();
+		//finish();
 	}
 	
 	public void onLogin(View view)
@@ -137,7 +160,8 @@ public class MainActivity extends Activity {
 	        		_service = new Service();
 	        		_service.set_name(username);
 	        		_service.set_password(password);
-	        		stream = _service.getUser(0);
+	        		InputStream stream = _service.getUser();
+	        		
 	    			if(stream == null) {
 	                    /*
 	                     * If we fail to save, display a toast 
@@ -148,31 +172,59 @@ public class MainActivity extends Activity {
 
 	                        @Override
 	                        public void run() {
-	                            Toast.makeText(getApplicationContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+	                            Toast.makeText(getApplicationContext(), R.string.connect_fail, Toast.LENGTH_SHORT).show();
 	                        }
 	                    }); 
 	                }
 	    			else {
+	    				int player = 0; /* Player order: 0 - login fail, 1: 1st player, 2: 2nd player */
+	    				String gameId = "";
+	    				/**
+	    		         * Create an XML parser for the result
+	    		         */
+	    		        try {
+	    		            XmlPullParser xml = Xml.newPullParser();
+	    		            xml.setInput(stream, "UTF-8");
+	    		            
+	    		            xml.nextTag();      // Advance to first tag
+	    		            xml.require(XmlPullParser.START_TAG, null, "stacker");
+	    		            
+	    		            String status = xml.getAttributeValue(null, "status");
+	    		            if(status.equals("yes")) {
+	    		            	player = Integer.parseInt(xml.getAttributeValue(null, "player"));
+	    		            	gameId = xml.getAttributeValue(null, "gameId");
+	    		            }
+	    		            
+	    		            // We are done
+	    		        } catch(XmlPullParserException ex) {
+    		            	
+	    		        } catch(IOException ex) {
+    		            	
+	    		        } finally {
+	    		            try {
+	    		                stream.close();
+	    		            } catch(IOException ex) {
+	    		                
+	    		            }
+	    		        }
+
+	    		        final int message = (player==0)? R.string.login_fail : R.string.login_success;	    				
+	    				
 	    				//load activity blank
 	    				//Intent intent = new Intent(this, )
 	                    _view.post(new Runnable() {
 	                    	
 	                        @Override
 	                        public void run() {
-	                            Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+	                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 	                        }
 	                    });
-	                    onNext(_view);
+	                    
+	                    onNext(_view, player, gameId);
 	    				
 	    			}
 	            }
 	        }).start();
-	    
-		// TO DO:
-		// Send the username and password to the server
-		// Check if they exist
-		// If they do exist, login and load the next screen
-		// If they don't, show a Toast saying that their information was incorrect
 		}
 	}
 	

@@ -24,25 +24,30 @@
     <string name="player_red_image">Image of player red</string>
     <string name="player_green_image">Image of player green</string>
     <string name="game_over">Game Over</string>
-	<string name="winner">%1$s is the winner!</string>
-	<string name="onekg">one kg button</string>
-	<string name="twokg">two kg button</string>
-	<string name="fivekg">five kg button</string>
-	<string name="tenkg">ten kg button</string>
-	<string name="set">end the player turn</string>
-	<string name="usernameInput">Username:</string>
-	<string name="password_input">Password:</string>
-	<string name="login_button">Login</string>
-	<string name="new_user">New User</string>
-	<string name="create_user">Create User</string>
-	<string name="verify_password">Verify Password:</string>
-	<string name="title_activity_opening">StackerOpening</string>
-	<string name="title_activity_new_user">NewUser</string>
-	<string name="username_password_empty">You must fill out the Username and Password fields!</string>
-	<string name="username_password_verify_empty">You must fill out the Username, Password, and Verify Password fields!</string>
+    <string name="winner">%1$s is the winner!</string>
+    <string name="onekg">one kg button</string>
+    <string name="twokg">two kg button</string>
+    <string name="fivekg">five kg button</string>
+    <string name="tenkg">ten kg button</string>
+    <string name="set">end the player turn</string>
+    <string name="usernameInput">Username:</string>
+    <string name="password_input">Password:</string>
+    <string name="login_button">Login</string>
+    <string name="new_user">New User</string>
+    <string name="create_user">Create User</string>
+    <string name="verify_password">Verify Password:</string>
+    <string name="title_activity_opening">StackerOpening</string>
+    <string name="title_activity_new_user">NewUser</string>
+    <string name="username_password_empty">You must fill out the Username and Password fields!</string>
+    <string name="username_password_verify_empty">You must fill out the Username, Password, and Verify Password fields!</string>
     <string name="password_verify_mismatch">The Password and Verify Password fields must match!</string>
     <string name="login_fail">Your Username/Password is incorrect.</string>
     <string name="login_success">You logged in!</string>
     <string name="remember_me">Remember Me</string>
-	
+    <string name="connect_fail">Cannot connect to the server.</string>
+    <string name="title_activity_waiting">WaitingActivity</string>
+    <string name="waiting">Waiting</string>
+    <string name="join_fail">Fail to join a game!</string>
+    <string name="join_success">Another player found! Join a game!</string>
+
 </resources>

@@ -43,6 +43,10 @@
     <string name="password_verify_mismatch">The Password and Verify Password fields must match!</string>
     <string name="login_fail">Your Username/Password is incorrect.</string>
     <string name="login_success">You logged in!</string>
+<<<<<<< HEAD
     <string name="lobby">Lobby</string>
+=======
+    <string name="remember_me">Remember Me</string>
+>>>>>>> 9cc2413f8222ab070217b4c37e2d20bcc2a9d001
 	
 </resources>

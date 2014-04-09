@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +55,13 @@ public class MainActivity extends Activity {
 		((TextView)findViewById(R.id.usernameTextLogin)).setTypeface(broken);
 		((TextView)findViewById(R.id.passwordText)).setTypeface(broken);
 		
+		Log.i("fds ds", "sharedPrefs");
+		SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
+        if(shared.contains("username") && shared.contains("password")){
+        	usernameEditText.setText(shared.getString("username", ""));
+        	passwordEditText.setText(shared.getString("password", ""));
+        }
+		
 		// Assign textview's to variables
 		/*redEditText = (EditText)findViewById(R.id.player_red_name);
 		greenEditText = (EditText)findViewById(R.id.player_green_name);
@@ -85,6 +95,19 @@ public class MainActivity extends Activity {
 	
 	public void onNext(View view)
 	{
+<<<<<<< HEAD
+=======
+		CheckBox rememberCheckbox = (CheckBox)findViewById(R.id.rememberCheckbox);
+		if(rememberCheckbox.isChecked())
+		{
+			Log.i("remember", "REMEMBER");
+			SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
+	        SharedPreferences.Editor editor = shared.edit();
+	        editor.putString("username", usernameEditText.getText().toString());
+	        editor.putString("password", passwordEditText.getText().toString());
+	        editor.commit();
+		}
+>>>>>>> 9cc2413f8222ab070217b4c37e2d20bcc2a9d001
 		Intent intent = new Intent(this, StackerActivity.class);
 		startActivity(intent);
 		finish();
@@ -103,6 +126,9 @@ public class MainActivity extends Activity {
 		{
 			Toast.makeText(getApplicationContext(), R.string.username_password_empty, Toast.LENGTH_SHORT).show();
 		}
+		
+		
+		
 		else
 		{
 			final View _view = view;

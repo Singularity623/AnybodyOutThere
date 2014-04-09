@@ -106,16 +106,12 @@
     	</FrameLayout>
 
 	</RelativeLayout>
-	<FrameLayout
-	    android:id="@+id/spacertop" 
-	    android:layout_weight=".05"
-	    android:layout_height="0dp"
-	    android:layout_width="match_parent">
-	</FrameLayout>
-	<RelativeLayout 
+
+	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
-	    android:layout_weight=".1">
+	    android:layout_weight=".2" >
+
     	<FrameLayout
     	    android:id="@+id/centerpoint4"
     	    android:layout_width="0dp"
@@ -140,6 +136,14 @@
     	    android:layout_marginRight="30dp"
     	    android:onClick="onNewUser"
     	    android:text="@string/new_user" />
+
+    	<CheckBox
+    	    android:id="@+id/rememberCheckbox"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_below="@id/loginButton"
+    	    android:layout_centerHorizontal="true"
+    	    android:text="@string/remember_me" />
 
 	</RelativeLayout>
 	<FrameLayout

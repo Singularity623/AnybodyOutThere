@@ -120,10 +120,10 @@ public class MainActivity extends Activity {
 	        editor.commit();
 		}
 		Intent intent;
-		//if (player==1)
+		if (player==1)
 			intent = new Intent(this, WaitingActivity.class);
-		//else
-			//intent = new Intent(this, StackerActivity.class);
+		else
+			intent = new Intent(this, StackerActivity.class);
 			
 		intent.putExtra(USERNAME, usernameEditText.getText().toString());
 		intent.putExtra(PASSWORD, passwordEditText.getText().toString());

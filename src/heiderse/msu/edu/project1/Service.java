@@ -57,6 +57,7 @@ public class Service {
 	private static final String MAGIC = "NechAtHa6RuzeR8x";
     private static final String CREATE_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/create2.php";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/login.php";
+    private static final String GAME_READY_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/game/ready.php";
     private static final String UTF8 = "UTF-8";
 	
  
@@ -65,9 +66,13 @@ public class Service {
 		// TODO Auto-generated constructor stub
 		_name = null;
 		_password = null;
-	}	
+	}
 	
+<<<<<<< HEAD
     public String getUser(int option) {
+=======
+    public InputStream getUser() {
+>>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
         // Create a get query
 		Log.i("user",_name);
 		Log.i("password",_password);
@@ -75,16 +80,51 @@ public class Service {
 		InputStream stream = null;
 		
     	String query = "";
+<<<<<<< HEAD
     	if(_name == null && option == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
     	else if (_name != null && option == 0)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
     	else if (option == 1)
     		query = CREATE_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
+=======
+    	if(_name == null)
+    		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
+    	else
+    		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
+>>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
     	
     	Log.i("query",query);
     	
-        try {
+        stream = request(query);
+        
+        return stream;
+    }
+    
+    public boolean createUser(){
+    	String query = CREATE_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
+    	InputStream stream = null;
+        stream = request(query);
+        if (stream==null)
+        	return false;
+        
+        return handleResult(stream);
+    }
+    
+    public boolean isGameReady(String gameId){
+    	InputStream stream = null;
+    	
+    	String query = GAME_READY_URL+"?magic=" + MAGIC + "&gameId=" + gameId;
+        stream = request(query);
+        if (stream==null)
+        	return false;
+        //logStream(stream);
+        
+        return handleResult(stream);
+    }
+    
+    private InputStream request(String query){   	
+    	try {
             URL url = new URL(query);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -93,9 +133,9 @@ public class Service {
                 return null;
             }
             
-            stream = conn.getInputStream();
+            InputStream stream = conn.getInputStream();
             
-            //return stream;
+            return stream;
             
         } catch (MalformedURLException e) {
             // Should never happen
@@ -103,6 +143,7 @@ public class Service {
         } catch (IOException ex) {
             return null;
         }
+<<<<<<< HEAD
         
         /**
          * Create an XML parser for the result
@@ -110,33 +151,51 @@ public class Service {
         try {
             XmlPullParser xml = Xml.newPullParser();
             xml.setInput(stream, UTF8);
+=======
+    }
+    
+    private boolean handleResult(InputStream stream){
+    	try {
+            XmlPullParser xmlR = Xml.newPullParser();
+            xmlR.setInput(stream, UTF8);
+>>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
             
-            xml.nextTag();      // Advance to first tag
-            xml.require(XmlPullParser.START_TAG, null, "stacker");
+            xmlR.nextTag();      // Advance to first tag
+            xmlR.require(XmlPullParser.START_TAG, null, "stacker");
             
+<<<<<<< HEAD
             String status = xml.getAttributeValue(null, "status");
             String player = xml.getAttributeValue(null, "player");
+=======
+            String status = xmlR.getAttributeValue(null, "status");
+>>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
             if(status.equals("no")) {
-                return null;
-            }
-            else {
-            	Log.i("success","1");
-            	return status;
+                return false;
             }
             
             // We are done
         } catch(XmlPullParserException ex) {
-            return null;
+            return false;
         } catch(IOException ex) {
-            return null;
-        } finally {
-            try {
-                stream.close();
-            } catch(IOException ex) {
-                
-            }
+            return false;
         }
-        
+    	
+    	return true;
+    }
+    
+    public static void logStream(InputStream stream) {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(stream));
+    
+        Log.e("476", "logStream: If you leave this in, code after will not work!");
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Log.e("476", line);
+            }
+        } catch (IOException ex) {
+            return;
+        }
     }
 	
     public boolean CreateUser()

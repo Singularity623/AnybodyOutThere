@@ -78,16 +78,16 @@ public class newUserActivity extends Activity {
 	        		_service = new Service();
 	    			_service.set_name(username);
 	    			_service.set_password(password);
-	    			String val = _service.getUser(1);
+	    			boolean val = _service.createUser();
 	    			//get feedback from server
-	    			if(val!= null)
+	    			if(val)
 	    				Log.i("success", "writing to db");
 	    			else
 	    				Log.i("failure", "writing to db");
 	            }
 	        }).start();
 				
-			
+			// TODO: Put this in view.post since this is UI related!!! 
 			// Return to the opening screen
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);

@@ -3,13 +3,13 @@
     package="heiderse.msu.edu.project1"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    <uses-permission android:name="android.permission.INTERNET" /> 
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="19" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -36,7 +36,10 @@
             android:name="heiderse.msu.edu.project1.newUserActivity"
             android:label="@string/title_activity_new_user" >
         </activity>
-
+        <activity
+            android:name="heiderse.msu.edu.project1.WaitingActivity"
+            android:label="@string/title_activity_waiting" >
+        </activity>
     </application>
 
 </manifest>

@@ -93,7 +93,7 @@ public class Stack {
     	brickWidth = b.getWidth();
     	brickHeight = b.getHeight();
     	currentBrick = null;
-    	flag = false;
+    	flag = true;
 
     }
 
@@ -181,6 +181,32 @@ public class Stack {
 				Brick lastBrick = bricks.get(bricks.size() - 1);
 
 				x = lastBrick.getxPos();
+				y = lastBrick.getyPos() - scaledBrickHeight;
+			}
+
+			addBrick(imageId, x, y ,w);
+		}
+    }
+    
+    /**
+	* Add a brick into the collection
+	* @param imageId Image of the brick
+	* @param x xPos
+	* @param w Weight of the brick
+	*/
+    public void addBrick(int imageId, float x, int w){
+    	float y;
+
+		float scaledBrickHeight = (float)brickHeight*SCALE_IN_VIEW/brickWidth;
+		if (lastStableBrick == 0){
+			if (getBrickStackSize() == 0) {
+				// First brick placed at the bottom of the view
+				// & horizontal centered
+				y = 1 - scaledBrickHeight/2;
+			}
+			else {
+				// The new brick will be on top of the last brick
+				Brick lastBrick = bricks.get(bricks.size() - 1);
 				y = lastBrick.getyPos() - scaledBrickHeight;
 			}
 

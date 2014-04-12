@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 	public final static String USERNAME = "Player.username";
 	public final static String PASSWORD = "Player.password";
 	public final static String GAMEID = "Game.id";
+	public final static String USERPLAYER = "Game.userplayer";
 	
 	
 	public static Typeface broken;
@@ -67,10 +68,13 @@ public class MainActivity extends Activity {
 		
 		Log.i("fds ds", "sharedPrefs");
 		SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
-        if(shared.contains("username") && shared.contains("password")){
-        	usernameEditText.setText(shared.getString("username", ""));
-        	passwordEditText.setText(shared.getString("password", ""));
-        }
+		
+		if(shared.contains("remember") && shared.getBoolean("remember", false)){
+	        if(shared.contains("username") && shared.contains("password")){
+	        	usernameEditText.setText(shared.getString("username", ""));
+	        	passwordEditText.setText(shared.getString("password", ""));
+	        }
+	    }
 		
 		// Assign textview's to variables
 		/*redEditText = (EditText)findViewById(R.id.player_red_name);
@@ -110,20 +114,21 @@ public class MainActivity extends Activity {
 		
 		
 		CheckBox rememberCheckbox = (CheckBox)findViewById(R.id.rememberCheckbox);
-		if(rememberCheckbox.isChecked())
-		{
-			Log.i("remember", "REMEMBER");
-			SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
-	        SharedPreferences.Editor editor = shared.edit();
-	        editor.putString("username", usernameEditText.getText().toString());
-	        editor.putString("password", passwordEditText.getText().toString());
-	        editor.commit();
-		}
+		
+		SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString("username", usernameEditText.getText().toString());
+        editor.putString("password", passwordEditText.getText().toString());
+        editor.putBoolean("remember", rememberCheckbox.isChecked());
+        editor.commit();
+		
 		Intent intent;
 		if (player==1)
 			intent = new Intent(this, WaitingActivity.class);
-		else
+		else{
 			intent = new Intent(this, StackerActivity.class);
+			intent.putExtra(USERPLAYER, 1);
+		}
 			
 		intent.putExtra(USERNAME, usernameEditText.getText().toString());
 		intent.putExtra(PASSWORD, passwordEditText.getText().toString());

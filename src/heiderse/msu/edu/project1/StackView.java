@@ -78,4 +78,17 @@ public class StackView extends View {
 		stack.addBrick(imageId, weight);
 		this.invalidate();
 	}
+	
+	/**
+	 * Add brick
+	 * Call function add brick in the stack
+	 * & invalidate the view
+	 * @param imageId
+	 * @param x
+	 * @param weight
+	 */
+	public void addBrick(int imageId, float x, int weight){
+		stack.addBrick(imageId, x, weight);
+		this.invalidate();
+	}
 }

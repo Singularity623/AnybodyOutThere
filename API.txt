@@ -10,12 +10,15 @@ http://www.cse.msu.edu/~tranluan/cse476-project2/user/create.php
 Note: It is basically the same as save a hatter in step 5 & 6
 
 --GAME--
+GAME INFO
+http://www.cse.msu.edu/~tranluan/cse476-project2/game/info.php?magic=NechAtHa6RuzeR8x&gameId=g534b12a85e7f7
+
 CHECK GAME IS READY
-http://www.cse.msu.edu/~tranluan/cse476-project2/game/ready.php?magic=NechAtHa6RuzeR8x&gameId=g534331ad37d99
+http://www.cse.msu.edu/~tranluan/cse476-project2/game/ready.php?magic=NechAtHa6RuzeR8x&gameId=g534b12a85e7f7
 
 LIST BRICK
-http://www.cse.msu.edu/~tranluan/cse476-project2/game/listBrick.php?magic=NechAtHa6RuzeR8x&gameId=g5343304dc8d43&user=demo&pw=demo&round=1&turn=1
+http://www.cse.msu.edu/~tranluan/cse476-project2/game/listBrick.php?magic=NechAtHa6RuzeR8x&gameId=g534b12a85e7f7&user=demo&pw=demo&round=1&turn=1
 Note: round & turn is optional
 
 ADD BRICK
-http://www.cse.msu.edu/~tranluan/cse476-project2/game/addBrick.php?magic=NechAtHa6RuzeR8x&gameId=g5343304dc8d43&user=demo&pw=demo&round=1&x=0.5&w=5
+http://www.cse.msu.edu/~tranluan/cse476-project2/game/addBrick.php?magic=NechAtHa6RuzeR8x&gameId=g534b12a85e7f7&user=demo&pw=demo&round=1&x=0.5&w=5

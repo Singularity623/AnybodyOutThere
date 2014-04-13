@@ -103,6 +103,8 @@
     <string name="waiting">Waiting</string>
     <string name="join_fail">Fail to join a game!</string>
     <string name="join_success">Another player found! Join a game!</string>
+    <string name="you">You</string>
+    <string name="your_opponent">Opponent</string>
 
 </resources>
 >>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5

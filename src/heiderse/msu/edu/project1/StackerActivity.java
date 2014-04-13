@@ -143,9 +143,13 @@ public class StackerActivity extends FragmentActivity {
 	        userPlayer = getIntent().getIntExtra(MainActivity.USERPLAYER, 0);
 	        gameId = getIntent().getStringExtra(MainActivity.GAMEID);
 	        
+	        int player1Name=(userPlayer==0)?R.string.you:R.string.your_opponent;
+	        int player2Name=(userPlayer!=0)?R.string.you:R.string.your_opponent;
+	        
+	        
 	        //New game start new players name from intent of activity main
-			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_1), FIRST_PLAYER_COLOR));
-			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_2), SECOND_PLAYER_COLOR));
+			players.add(new Player(getString(player1Name), FIRST_PLAYER_COLOR));
+			players.add(new Player(getString(player2Name), SECOND_PLAYER_COLOR));
 			
 			//PLACEHOLDER test for score saving
 			players.get(0).setScore(0);

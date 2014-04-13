@@ -369,8 +369,6 @@ public class StackerActivity extends Activity {
                 }
                 
             }).start();
-			
-			//startTurn();
 		}
 	}
 	
@@ -441,6 +439,8 @@ public class StackerActivity extends Activity {
 	                boolean isPlayed = false;
 	                int weight=0;
             		float x=0f;
+            		
+            		String msg = "";
 	                
 	                while (!isPlayed){
 	                	// Send request every 2 seconds
@@ -460,7 +460,8 @@ public class StackerActivity extends Activity {
 	                        
 	                        String status = xml.getAttributeValue(null, "status");
 	                        if(status.equals("no")) {
-	                            //return false;
+	                        	msg = xml.getAttributeValue(null, "msg");
+	                        	break;
 	                        }
 	                        else{
 	                        	int count = Integer.parseInt(xml.getAttributeValue(null, "count"));
@@ -488,27 +489,55 @@ public class StackerActivity extends Activity {
 	                    }
 	                }
 	                
-	                final float x_final = x;
-            		final int weight_final = weight;
-            		
-            		stackView.post(new Runnable() {
-
-	                    @Override
-	                    public void run() {
-	                    	if (weight_final > 0){
-	                    		addBrick(x_final, weight_final);
-	                    		endTurn(stackView);
-	                        }
-	                    }
+	                if (isPlayed){
 	                
-	                });
-
-	             	
-	                
+		                final float x_final = x;
+	            		final int weight_final = weight;
+	            		
+	            		stackView.post(new Runnable() {
+	
+		                    @Override
+		                    public void run() {
+		                    	if (weight_final > 0){
+		                    		addBrick(x_final, weight_final);
+		                    		endTurn(stackView);
+		                        }
+		                    }
+		                
+		                });
+	                }
+	                else{
+	                	
+	                	final String msg_final = msg;
+	                	
+	                	stackView.post(new Runnable() {
+	                		
+		                    @Override
+		                    public void run() {
+		                    	ExitGameAlert(msg_final);
+		                    }
+		                
+		                });
+	                }
 	                
 	            }
 	        }).start();
 		}
+	}
+	
+	public void ExitGameAlert(String msg)	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(R.string.game_over);
+		builder.setMessage(msg + ". Exit game!");
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+					onOk();
+				}
+				});
+		
+		AlertDialog alertDialog = builder.create();
+		alertDialog.show();
 	}
 	
 	public void onOk()

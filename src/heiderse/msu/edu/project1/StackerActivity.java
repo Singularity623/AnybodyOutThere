@@ -138,7 +138,7 @@ public class StackerActivity extends Activity {
 			//remove extra from intent
 			getIntent().removeExtra(MainActivity.PLAYER_1);
 			getIntent().removeExtra(MainActivity.PLAYER_2);
-			turn = playFirst;
+			turn = 0;
 			round = 1;
 		}
 		
@@ -267,17 +267,28 @@ public class StackerActivity extends Activity {
 		if (playerTurn() % NUMBER_OF_PLAYERS != userPlayer){
 			onekg.setEnabled(false);
 			twokg.setEnabled(false);
+			fivekg.setEnabled(false);
+			tenkg.setEnabled(false);
+			set.setEnabled(false);
 			
 			onekg.setAlpha(0.5f);
 			twokg.setAlpha(0.5f);
-
+			fivekg.setAlpha(0.5f);
+			tenkg.setAlpha(0.5f);
+			set.setAlpha(0.5f);
 		}
 		else{
 			onekg.setEnabled(true);
 			twokg.setEnabled(true);
+			fivekg.setEnabled(true);
+			tenkg.setEnabled(true);
+			set.setEnabled(true);
 			
 			onekg.setAlpha(1f);
 			twokg.setAlpha(1f);
+			fivekg.setAlpha(1f);
+			tenkg.setAlpha(1f);
+			set.setAlpha(1f);
 		}
 	}
 	
@@ -407,7 +418,7 @@ public class StackerActivity extends Activity {
 		
 		checkScore();
 		
-		playFirst = ((turn+1)%NUMBER_OF_PLAYERS);
+		playFirst = ((playerTurn()+1)%NUMBER_OF_PLAYERS);
 		turn = 0;
 		round+=1;
 	}

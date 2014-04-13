@@ -1,7 +1,12 @@
 package heiderse.msu.edu.project1;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 //import android.app.Activity;
@@ -9,10 +14,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StackerActivity extends FragmentActivity {
 	
@@ -29,21 +37,28 @@ public class StackerActivity extends FragmentActivity {
 	private TextView player1;
 	private TextView player2;
 	
+	private int userPlayer; // Index of the user player
+	private String username;
+	private String password;
+	private String gameId;
+	
 	private int turn;
+	private int round;
 	
 	public final static int NUMBER_OF_PLAYERS = 2;
 	public final static int FIRST_PLAYER_COLOR = R.drawable.brick_red1;
 	public final static int SECOND_PLAYER_COLOR = R.drawable.brick_green1;
 	public final static String PLAYER_1_SCORE = "player1score";
 	public final static String PLAYER_2_SCORE = "player2score";
-	public final static String COUNT = "turncounter";
+	public final static String TURN = "turncounter";
+	public final static String ROUND = "roundcounter";
 	
 	private ImageButton onekg;
 	private ImageButton twokg;
 	private ImageButton fivekg;
 	private ImageButton tenkg;
 	private ImageButton set;
-	
+
 	
 	/**
 	 * Player who play first
@@ -54,7 +69,10 @@ public class StackerActivity extends FragmentActivity {
 	 * The name of the bundle keys to save the stack
 	 */
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
+<<<<<<< HEAD
 	//private final static String WEIGHTS = "Stack.weights";
+=======
+>>>>>>> e26691af94e51a46e1483f27dc8a3929db295f65
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -78,11 +96,21 @@ public class StackerActivity extends FragmentActivity {
 		tenkg = (ImageButton)findViewById(R.id.TenKgButton);
 		set = (ImageButton)findViewById(R.id.EndTurnButton);
 		
+		SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);		
+		if(shared.contains("username") && shared.contains("password")){
+			username = shared.getString("username", "");
+			password = shared.getString("password", "");
+		}
+		
 		if(bundle != null) {
 			// We have saved state
 			playFirst = bundle.getInt(PLAY_FIRST);
 			
 			stackView.loadInstanceState(bundle);
+			
+			userPlayer = bundle.getInt(MainActivity.USERPLAYER);
+			gameId = bundle.getString(MainActivity.GAMEID);
+			
 			
 			// Create the players from the saved bundle
 			players.add(new Player((String)bundle.get(MainActivity.PLAYER_1), FIRST_PLAYER_COLOR));
@@ -91,11 +119,9 @@ public class StackerActivity extends FragmentActivity {
 			// Set Scores of players
 			players.get(0).setScore(bundle.getInt(PLAYER_1_SCORE));
 			players.get(1).setScore(bundle.getInt(PLAYER_2_SCORE));
-			turn = bundle.getInt(COUNT);
+			turn = bundle.getInt(TURN);
+			round = bundle.getInt(ROUND);
 			checkScore();
-			//set buttons
-			switchButtonImages(turn);
-
 		}
 		else {
 			determineFirst();
@@ -114,6 +140,9 @@ public class StackerActivity extends FragmentActivity {
 	        AlertDialog alertDialog = builder.create();
 	        alertDialog.show();
 	        
+	        userPlayer = getIntent().getIntExtra(MainActivity.USERPLAYER, 0);
+	        gameId = getIntent().getStringExtra(MainActivity.GAMEID);
+	        
 	        //New game start new players name from intent of activity main
 			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_1), FIRST_PLAYER_COLOR));
 			players.add(new Player(getIntent().getStringExtra(MainActivity.PLAYER_2), SECOND_PLAYER_COLOR));
@@ -125,18 +154,28 @@ public class StackerActivity extends FragmentActivity {
 			getIntent().removeExtra(MainActivity.PLAYER_1);
 			getIntent().removeExtra(MainActivity.PLAYER_2);
 			turn = 0;
-			//set buttons
-			switchButtonImages(playFirst);
+			round = 1;
 		}
+		
+		setButtonImages();
+		switchButtonImages();
 		
 		// Set the players
 		player1 = (TextView) findViewById(R.id.RedPlayerScore);
 		setUpPlayerTextView(player1,0);
 
 		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
+<<<<<<< HEAD
 		setUpPlayerTextView(player2,1);*/
 		
+=======
+		setUpPlayerTextView(player2,1);
+		
+		startTurn();
+
+>>>>>>> e26691af94e51a46e1483f27dc8a3929db295f65
 	}
+
 	
 	@Override
 	protected void onSaveInstanceState(Bundle bundle) {
@@ -144,14 +183,18 @@ public class StackerActivity extends FragmentActivity {
 		
 		//Save the player who play first
 		bundle.putInt(PLAY_FIRST,  playFirst);
+		bundle.putInt(TURN,turn);
+		bundle.putInt(ROUND,round);
 		
 		// Save players info (name, score)
 		bundle.putString(MainActivity.PLAYER_1, players.get(0).getName());
 		bundle.putInt(PLAYER_1_SCORE, players.get(0).getScore());
 		bundle.putString(MainActivity.PLAYER_2, players.get(1).getName());
 		bundle.putInt(PLAYER_2_SCORE, players.get(1).getScore());
-		bundle.putInt(COUNT,turn);
 		
+		bundle.putInt(MainActivity.USERPLAYER, userPlayer);
+		bundle.putString(MainActivity.GAMEID, gameId);
+	
 		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);
 	}
@@ -166,13 +209,12 @@ public class StackerActivity extends FragmentActivity {
 	public void determineFirst()
 	{
 		//First player is chosen randomly
-		Random generator = new Random();
-		playFirst = generator.nextInt(1);
+		playFirst = 0;
 	}
 
 	
 	private int playerTurn() {
-		return turn%NUMBER_OF_PLAYERS;
+		return (turn-playFirst + NUMBER_OF_PLAYERS)%NUMBER_OF_PLAYERS;
 	}
 	
 	// Set a player text view with correct font and players(index) values
@@ -181,66 +223,49 @@ public class StackerActivity extends FragmentActivity {
 		tview.setText(players.get(index).getName() +": " + players.get(index).getScore());
 	}
 	
-	public void addBrick(int weight) {
-		// Add brick
-		int brickColor = players.get(turn%2).getBrickColor();
-		stackView.addBrick( brickColor, weight);
-	}
-	
 	
 	// Set the current brick's weight to 1kg
 	// Set state to placing brick
 	public void onOneKg(View view) {
 		int weight = 1;
-		
-		if(stackView.getStack().getCurrentBrick() == null)
-		{
-			addBrick(weight);
-		}
-		else
-		{
-			stackView.getStack().getCurrentBrick().setWeight(weight);
-		}
-		stackView.getStack().setFlag(false);	
+		onKg(weight);		
 	}
 	
 	// Set the current brick's weight to 2kg
 	// Set state to placing brick
 	public void onTwoKg(View view) {
 		int weight = 2;
-		
-		if(stackView.getStack().getCurrentBrick() == null)
-		{
-			addBrick(weight);
-		}
-		else
-		{
-			stackView.getStack().getCurrentBrick().setWeight(weight);
-		}
-		stackView.getStack().setFlag(false);	
+		onKg(weight);		
 	}
 	
 	// Set the current brick's weight to 5kg
 	// Set state to placing brick
 	public void onFiveKg(View view) {
-		int weight = 5;
-		
-		if(stackView.getStack().getCurrentBrick() == null)
-		{
-			addBrick(weight);
-		}
-		else
-		{
-			stackView.getStack().getCurrentBrick().setWeight(weight);
-		}
-		stackView.getStack().setFlag(false);	
+		int weight = 5;		
+		onKg(weight);		
 	}
 	
 	// Set the current brick's weight to 10kg
 	// Set state to placing brick
 	public void onTenKg(View view) {
-		int weight = 10;
-		
+		int weight = 10;		
+		onKg(weight);	
+	}
+	
+
+	public void addBrick(int weight) {
+		// Add brick
+		int brickColor = players.get(playerTurn()).getBrickColor();
+		stackView.addBrick( brickColor, weight);
+	}
+	
+	public void addBrick(float x, int weight) {
+		// Add brick
+		int brickColor = players.get(playerTurn()).getBrickColor();
+		stackView.addBrick( brickColor, x, weight);
+	}
+	
+	private void onKg(int weight){
 		if(stackView.getStack().getCurrentBrick() == null)
 		{
 			addBrick(weight);
@@ -249,16 +274,45 @@ public class StackerActivity extends FragmentActivity {
 		{
 			stackView.getStack().getCurrentBrick().setWeight(weight);
 		}
-		stackView.getStack().setFlag(false);	
+		stackView.getStack().setFlag(false);
 	}
 	
 	/**
 	 * Replace the button images with the current player turn color buttons
 	 * @param playerTurn
 	 */
-	public void switchButtonImages(int playerTurn)
-	{	
-		if (playerTurn % NUMBER_OF_PLAYERS == 0) {
+	public void switchButtonImages()
+	{
+		if (playerTurn() % NUMBER_OF_PLAYERS != userPlayer){
+			onekg.setEnabled(false);
+			twokg.setEnabled(false);
+			fivekg.setEnabled(false);
+			tenkg.setEnabled(false);
+			set.setEnabled(false);
+			
+			onekg.setAlpha(0.5f);
+			twokg.setAlpha(0.5f);
+			fivekg.setAlpha(0.5f);
+			tenkg.setAlpha(0.5f);
+			set.setAlpha(0.5f);
+		}
+		else{
+			onekg.setEnabled(true);
+			twokg.setEnabled(true);
+			fivekg.setEnabled(true);
+			tenkg.setEnabled(true);
+			set.setEnabled(true);
+			
+			onekg.setAlpha(1f);
+			twokg.setAlpha(1f);
+			fivekg.setAlpha(1f);
+			tenkg.setAlpha(1f);
+			set.setAlpha(1f);
+		}
+	}
+	
+	public void setButtonImages(){
+		if (userPlayer % NUMBER_OF_PLAYERS == 0) {
 			onekg.setImageDrawable(getResources().getDrawable(R.drawable.onekgred));
 			twokg.setImageDrawable(getResources().getDrawable(R.drawable.twokgred));
 			fivekg.setImageDrawable(getResources().getDrawable(R.drawable.fivekgred));
@@ -293,33 +347,70 @@ public class StackerActivity extends FragmentActivity {
 	// Place the brick
 	// Allow physics to affect the brick
 	// Set state to brick placed
-	public void onEndTurn(View view) {
+	public void onEndTurn(final View view) {
 		// New brick has not appeared yet (need to press weight button)
 		if(stackView.getStack().getCurrentBrick() == null)	{
 			//no brick fool
 		}
 		else {
-			turn+=1;
-			stackView.getStack().setCurrentBrick(null);
-			stackView.getStack().setFlag(true);
-			if(stackView.getStack().isStable()) {
-				switchButtonImages(turn);
-			}
-			else {
-				players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
-				endTurn();
-				stackView.invalidate();
+			final Brick currentBrick = stackView.getStack().getCurrentBrick();
+			
+			new Thread(new Runnable() {
 
-	
-				view.invalidate();
-			}
+                @Override
+                public void run() {
+                	Service service = new Service();
+	                service.set_name(username);
+	                service.set_password(password);
+	                
+	                boolean f = service.addBrick(gameId, round, currentBrick);
+	                
+	                final boolean fail = !f;
+	                
+	                view.post(new Runnable() {
+
+	                    @Override
+	                    public void run() {	                        
+	                        if(fail) {
+	                            Toast.makeText(view.getContext(), R.string.join_fail, Toast.LENGTH_SHORT).show();
+	                        } else {
+	                            // Success!
+	                        	endTurn(view);	                        	
+	                        }	                        
+	                    }
+	                
+	                });
+                    
+                }
+                
+            }).start();
+			
+			//startTurn();
 		}
+	}
+	
+	private void endTurn(View view){
+		turn+=1;
+		stackView.getStack().setCurrentBrick(null);
+		stackView.getStack().setFlag(true);
+		if(stackView.getStack().isStable()) {
+			switchButtonImages();
+		}
+		else {
+			players.get(playerTurn()).setScore(players.get(playerTurn()).getScore()+1);
+			endRound();
+			stackView.invalidate();
+
+
+			view.invalidate();
+		}
+		startTurn();
 	}
 	
 	// used for rotate view
 	public void checkScore()
 	{	
-		if(players.get(turn%2).getScore() >= 3)
+		if(players.get(playerTurn()).getScore() >= 3)
 		{
 			setupMessage(playerTurn());
 		}
@@ -341,14 +432,98 @@ public class StackerActivity extends FragmentActivity {
 		alertDialog.show();
 	}
 	
-	public void endTurn(){
+	public void endRound(){
 		setUpPlayerTextView(getWinnerTextView(playerTurn()),playerTurn());
 		
 		checkScore();
 		
-		if(turn%NUMBER_OF_PLAYERS == playFirst)
-			playFirst = ((playFirst+1)%NUMBER_OF_PLAYERS);
-		turn = playFirst;
+		playFirst = ((playerTurn()+1)%NUMBER_OF_PLAYERS);
+		turn = 0;
+		round+=1;
+	}
+	
+	public void startTurn(){
+		if (playerTurn() != userPlayer){
+			new Thread(new Runnable() {
+
+	            @Override
+	            public void run() {
+	                // Create a cloud object and get the XML
+	                Service service = new Service();
+	                service.set_name(username);
+	                service.set_password(password);
+	                
+	                boolean isPlayed = false;
+	                int weight=0;
+            		float x=0f;
+	                
+	                while (!isPlayed){
+	                	// Send request every 2 seconds
+	                	try {
+	                		Thread.sleep(2000);
+	                	}
+	                	catch (InterruptedException ex){
+	                	}
+	                	
+	                	InputStream stream = service.listBrick(gameId, round, turn);
+	                	try {
+	                        XmlPullParser xml = Xml.newPullParser();
+	                        xml.setInput(stream, Service.UTF8);
+	                        
+	                        xml.nextTag();      // Advance to first tag
+	                        xml.require(XmlPullParser.START_TAG, null, "stacker");
+	                        
+	                        String status = xml.getAttributeValue(null, "status");
+	                        if(status.equals("no")) {
+	                            //return false;
+	                        }
+	                        else{
+	                        	int count = Integer.parseInt(xml.getAttributeValue(null, "count"));
+	                        	if (count < 1){
+	                        		
+	                        	}
+	                        	else{
+	                        		isPlayed = true;
+	                        		
+	                        		while(xml.nextTag() == XmlPullParser.START_TAG) {
+	                                    if(xml.getName().equals("brick")) {
+	                                        weight = Integer.parseInt(xml.getAttributeValue(null, "weight"));
+	                                        x = Float.parseFloat(xml.getAttributeValue(null, "x"));
+	                                    }
+	                                }
+	                        	}
+	                        		
+	                        }
+	                        
+	                        // We are done
+	                    } catch(XmlPullParserException ex) {
+	                        //return false;
+	                    } catch(IOException ex) {
+	                        //return false;
+	                    }
+	                }
+	                
+	                final float x_final = x;
+            		final int weight_final = weight;
+            		
+            		stackView.post(new Runnable() {
+
+	                    @Override
+	                    public void run() {
+	                    	if (weight_final > 0){
+	                    		addBrick(x_final, weight_final);
+	                    		endTurn(stackView);
+	                        }
+	                    }
+	                
+	                });
+
+	             	
+	                
+	                
+	            }
+	        }).start();
+		}
 	}
 	
 	public void onOk()

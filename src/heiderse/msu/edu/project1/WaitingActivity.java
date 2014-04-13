@@ -40,6 +40,8 @@ public class WaitingActivity extends FragmentActivity {
 	
 	public void joinGame(){
 		Intent intent = new Intent(this, StackerActivity.class);
+		intent.putExtra(MainActivity.USERPLAYER, 0);
+		intent.putExtra(MainActivity.GAMEID, gameId);
 		// Put gameId, username, password??
 		startActivity(intent);
 		finish();

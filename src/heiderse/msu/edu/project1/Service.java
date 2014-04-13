@@ -58,7 +58,9 @@ public class Service {
     private static final String CREATE_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/create2.php";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/user/login.php";
     private static final String GAME_READY_URL = "https://www.cse.msu.edu/~tranluan/cse476-project2/game/ready.php";
-    private static final String UTF8 = "UTF-8";
+    private static final String LIST_BRICK_URL = "http://www.cse.msu.edu/~tranluan/cse476-project2/game/listBrick.php";
+    private static final String ADD_BRICK_URL = "http://www.cse.msu.edu/~tranluan/cse476-project2/game/addBrick.php";
+    public static final String UTF8 = "UTF-8";
 	
  
     
@@ -118,9 +120,27 @@ public class Service {
         stream = request(query);
         if (stream==null)
         	return false;
-        //logStream(stream);
         
         return handleResult(stream);
+    }
+    
+    public InputStream listBrick(String gameId, int round, int turn){
+    	String query = LIST_BRICK_URL+"?magic=" + MAGIC + "&gameId=" + gameId + "&user=" + _name + "&pw=" + _password + "&round="+round+"&turn="+turn;
+    	InputStream stream = request(query);
+        return stream;
+    }
+    
+    public boolean addBrick(String gameId, int round, double x, int weight){
+    	String query = ADD_BRICK_URL+"?magic=" + MAGIC + "&gameId=" + gameId + "&user=" + _name + "&pw=" + _password + "&round="+round+"&x="+Double.toString(x)+"&w="+Integer.toString(weight);
+    	InputStream stream = request(query);
+    	if (stream==null)
+        	return false;
+        
+        return handleResult(stream);
+    }
+    
+    public boolean addBrick(String gameId, int round, Brick b){
+    	return addBrick(gameId, round, b.getxPos(), b.getWeight() );
     }
     
     private InputStream request(String query){   	

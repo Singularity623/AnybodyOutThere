@@ -117,16 +117,13 @@ public class Service {
         return stream;
     }
     
-    public boolean addBrick(String gameId, int round, double x, int weight){
+    public InputStream addBrick(String gameId, int round, double x, int weight){
     	String query = ADD_BRICK_URL+"?magic=" + MAGIC + "&gameId=" + gameId + "&user=" + _name + "&pw=" + _password + "&round="+round+"&x="+Double.toString(x)+"&w="+Integer.toString(weight);
     	InputStream stream = request(query);
-    	if (stream==null)
-        	return false;
-        
-        return handleResult(stream);
+    	return stream;
     }
     
-    public boolean addBrick(String gameId, int round, Brick b){
+    public InputStream addBrick(String gameId, int round, Brick b){
     	return addBrick(gameId, round, b.getxPos(), b.getWeight() );
     }
     

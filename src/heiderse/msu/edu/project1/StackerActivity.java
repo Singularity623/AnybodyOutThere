@@ -348,16 +348,42 @@ public class StackerActivity extends Activity {
 	                service.set_name(username);
 	                service.set_password(password);
 	                
-	                boolean f = service.addBrick(gameId, round, currentBrick);
+	                boolean f = false;
+	                String msg="";
+	                InputStream stream = service.addBrick(gameId, round, currentBrick);
 	                
-	                final boolean fail = !f;
+	                try {
+                        XmlPullParser xml = Xml.newPullParser();
+                        xml.setInput(stream, Service.UTF8);
+                        
+                        xml.nextTag();      // Advance to first tag
+                        xml.require(XmlPullParser.START_TAG, null, "stacker");
+                        
+                        String status = xml.getAttributeValue(null, "status");
+                        if(status.equals("no")) {
+                        	f = true;
+                        	msg = xml.getAttributeValue(null, "msg");
+                        }
+                        
+                        // We are done
+                    } catch(XmlPullParserException ex) {
+                        //return false;
+                    } catch(IOException ex) {
+                        //return false;
+                    }
+	                
+	                final boolean fail = f;
+	                final String msg_final = msg;
 	                
 	                view.post(new Runnable() {
 
 	                    @Override
 	                    public void run() {	                        
 	                        if(fail) {
-	                            Toast.makeText(view.getContext(), R.string.join_fail, Toast.LENGTH_SHORT).show();
+	                        	if (msg_final.equalsIgnoreCase("Insert fail"))
+	                        		Toast.makeText(view.getContext(), msg_final, Toast.LENGTH_SHORT).show();
+	                        	else
+	                        		ExitGameAlert(msg_final);
 	                        } else {
 	                            // Success!
 	                        	endTurn(view);	                        	

@@ -68,9 +68,6 @@ public class StackerActivity extends Activity {
 	 * The name of the bundle keys to save the stack
 	 */
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
-	//private final static String WEIGHTS = "Stack.weights";
-	
-
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -113,10 +110,6 @@ public class StackerActivity extends Activity {
 			turn = bundle.getInt(TURN);
 			round = bundle.getInt(ROUND);
 			checkScore();
-			//set buttons
-			setButtonImages();
-			switchButtonImages();
-
 		}
 		else {
 			determineFirst();
@@ -147,9 +140,10 @@ public class StackerActivity extends Activity {
 			getIntent().removeExtra(MainActivity.PLAYER_2);
 			turn = playFirst;
 			round = 1;
-			//set buttons
-			setButtonImages();
 		}
+		
+		setButtonImages();
+		switchButtonImages();
 		
 		// Set the players
 		player1 = (TextView) findViewById(R.id.RedPlayerScore);
@@ -201,7 +195,7 @@ public class StackerActivity extends Activity {
 
 	
 	private int playerTurn() {
-		return (turn-playFirst)%NUMBER_OF_PLAYERS;
+		return (turn-playFirst + NUMBER_OF_PLAYERS)%NUMBER_OF_PLAYERS;
 	}
 	
 	// Set a player text view with correct font and players(index) values
@@ -386,7 +380,7 @@ public class StackerActivity extends Activity {
 	// used for rotate view
 	public void checkScore()
 	{	
-		if(players.get(turn%2).getScore() >= 3)
+		if(players.get(playerTurn()).getScore() >= 3)
 		{
 			setupMessage(playerTurn());
 		}

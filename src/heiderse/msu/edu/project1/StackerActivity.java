@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Xml;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -187,9 +188,21 @@ public class StackerActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.stacker, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case R.id.exit_menu:
+	        	Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+				finish();
+	            
+	        default:
+	            return super.onOptionsItemSelected(item);
+	        }
+	    }
 	
 	public void determineFirst()
 	{

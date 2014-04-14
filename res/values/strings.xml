@@ -51,5 +51,6 @@
     <string name="join_success">Another player found! Join a game!</string>
     <string name="you">You</string>
     <string name="your_opponent">Opponent</string>
+    <string name="menu_exit">Exit</string>
 
 </resources>

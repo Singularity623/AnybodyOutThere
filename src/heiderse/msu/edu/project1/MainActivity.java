@@ -15,7 +15,6 @@ import android.graphics.Typeface;
 import android.util.Log;
 import android.util.Xml;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -91,6 +90,7 @@ public class MainActivity extends Activity {
 	    	greenEditText.setText(getIntent().getStringExtra(PLAYER_2));
 	    }*/
 	}
+
 	
 	@Override
 	public void onSaveInstanceState(Bundle bundle)

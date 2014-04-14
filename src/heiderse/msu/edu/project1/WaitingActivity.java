@@ -3,8 +3,6 @@ package heiderse.msu.edu.project1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.support.v4.app.FragmentActivity;
 
 public class WaitingActivity extends FragmentActivity {
@@ -25,22 +23,9 @@ public class WaitingActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-	    return true;
+		getMenuInflater().inflate(R.menu.waiting, menu);
+		return true;
 	}
-	
-	 public boolean onOptionsItemSelected(MenuItem item) {
-	        switch (item.getItemId()) {
-	        case R.id.exit_menu:
-	        	Intent intent = new Intent(this, MainActivity.class);
-				startActivity(intent);
-				finish();
-	            
-	        default:
-	            return super.onOptionsItemSelected(item);
-	        }
-	    }
 
 
 

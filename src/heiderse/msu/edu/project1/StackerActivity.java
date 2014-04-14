@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Xml;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -160,6 +162,25 @@ public class StackerActivity extends Activity {
 		startTurn();
 
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case R.id.exit_menu:
+	        	Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+				finish();
+	            
+	        default:
+	            return super.onOptionsItemSelected(item);
+	        }
+	    }
 
 	
 	@Override
@@ -182,13 +203,6 @@ public class StackerActivity extends Activity {
 	
 		//Save the stackView instance State
 		stackView.saveInstanceState(bundle);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.stacker, menu);
-		return true;
 	}
 	
 	public void determineFirst()

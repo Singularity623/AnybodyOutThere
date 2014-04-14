@@ -53,5 +53,6 @@
     <string name="your_opponent">Opponent</string>
     <string name="created_user">Created User!</string>
     <string name="fail_create_user">Failed to Create User!</string>
+    <string name="menu_exit">Exit</string>
 
 </resources>

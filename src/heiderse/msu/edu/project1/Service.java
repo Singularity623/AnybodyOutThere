@@ -70,11 +70,7 @@ public class Service {
 		_password = null;
 	}
 	
-<<<<<<< HEAD
-    public String getUser(int option) {
-=======
     public InputStream getUser() {
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
         // Create a get query
 		Log.i("user",_name);
 		Log.i("password",_password);
@@ -82,19 +78,10 @@ public class Service {
 		InputStream stream = null;
 		
     	String query = "";
-<<<<<<< HEAD
-    	if(_name == null && option == 0)
-    		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
-    	else if (_name != null && option == 0)
-    		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
-    	else if (option == 1)
-    		query = CREATE_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
-=======
     	if(_name == null)
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + USER + "&pw=" + PASSWORD;
     	else
     		query = LOGIN_URL + "?magic=" + MAGIC + "&user=" + _name + "&pw=" + _password;
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
     	
     	Log.i("query",query);
     	
@@ -130,16 +117,13 @@ public class Service {
         return stream;
     }
     
-    public boolean addBrick(String gameId, int round, double x, int weight){
+    public InputStream addBrick(String gameId, int round, double x, int weight){
     	String query = ADD_BRICK_URL+"?magic=" + MAGIC + "&gameId=" + gameId + "&user=" + _name + "&pw=" + _password + "&round="+round+"&x="+Double.toString(x)+"&w="+Integer.toString(weight);
     	InputStream stream = request(query);
-    	if (stream==null)
-        	return false;
-        
-        return handleResult(stream);
+    	return stream;
     }
     
-    public boolean addBrick(String gameId, int round, Brick b){
+    public InputStream addBrick(String gameId, int round, Brick b){
     	return addBrick(gameId, round, b.getxPos(), b.getWeight() );
     }
     
@@ -163,32 +147,17 @@ public class Service {
         } catch (IOException ex) {
             return null;
         }
-<<<<<<< HEAD
-        
-        /**
-         * Create an XML parser for the result
-         */
-        try {
-            XmlPullParser xml = Xml.newPullParser();
-            xml.setInput(stream, UTF8);
-=======
     }
     
     private boolean handleResult(InputStream stream){
     	try {
             XmlPullParser xmlR = Xml.newPullParser();
             xmlR.setInput(stream, UTF8);
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
             
             xmlR.nextTag();      // Advance to first tag
             xmlR.require(XmlPullParser.START_TAG, null, "stacker");
             
-<<<<<<< HEAD
-            String status = xml.getAttributeValue(null, "status");
-            String player = xml.getAttributeValue(null, "player");
-=======
             String status = xmlR.getAttributeValue(null, "status");
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
             if(status.equals("no")) {
                 return false;
             }
@@ -232,7 +201,7 @@ public class Service {
         try {
             xml.setOutput(writer);
             
-            xml.startDocument(UTF8, true);
+            xml.startDocument("UTF-8", true);
             
             xml.startTag(null, "stacker");
 

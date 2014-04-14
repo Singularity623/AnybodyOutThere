@@ -1,18 +1,18 @@
 package heiderse.msu.edu.project1;
 
-import java.io.InputStream;
+
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class OpeningActivity extends Activity {
 
-	private Service _service;
+	//private Service _service;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -47,7 +47,7 @@ public class OpeningActivity extends Activity {
 		}
 		else
 		{
-			final View _view = view;
+			//final View _view = view;
 			
 	    	//new Thread(new Runnable() {
 

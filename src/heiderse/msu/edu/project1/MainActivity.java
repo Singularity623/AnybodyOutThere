@@ -8,15 +8,12 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.util.Xml;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,8 +32,6 @@ public class MainActivity extends Activity {
 	
 	public static Typeface broken;
 	
-	private EditText redEditText;
-	private EditText greenEditText;
 	
 	private EditText usernameEditText;
 	private EditText passwordEditText;
@@ -109,31 +104,11 @@ public class MainActivity extends Activity {
 	
 	public void onNext(View view, int player, String gameId)
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
 		if (player==0)
 			return;
 		
 		
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
 		CheckBox rememberCheckbox = (CheckBox)findViewById(R.id.rememberCheckbox);
-<<<<<<< HEAD
-		if(rememberCheckbox.isChecked())
-		{
-			Log.i("remember", "REMEMBER");
-			SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
-	        SharedPreferences.Editor editor = shared.edit();
-	        editor.putString("username", usernameEditText.getText().toString());
-	        editor.putString("password", passwordEditText.getText().toString());
-	        editor.commit();
-		}
-<<<<<<< HEAD
->>>>>>> 9cc2413f8222ab070217b4c37e2d20bcc2a9d001
-		Intent intent = new Intent(this, StackerActivity.class);
-=======
-=======
 		
 		SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -142,7 +117,6 @@ public class MainActivity extends Activity {
         editor.putBoolean("remember", rememberCheckbox.isChecked());
         editor.commit();
 		
->>>>>>> e26691af94e51a46e1483f27dc8a3929db295f65
 		Intent intent;
 		if (player==1)
 			intent = new Intent(this, WaitingActivity.class);
@@ -155,7 +129,6 @@ public class MainActivity extends Activity {
 		intent.putExtra(PASSWORD, passwordEditText.getText().toString());
 		intent.putExtra(GAMEID, gameId);
 		
->>>>>>> 0f337abb27f1dc392674196bfed4789381c33fc5
 		startActivity(intent);
 		//finish();
 	}
@@ -181,7 +154,7 @@ public class MainActivity extends Activity {
 			final View _view = view;
 			
 	    	new Thread(new Runnable() {
-	    		String stream;
+	    		//String stream;
 	            @Override
 	            public void run() {
 	        		_service = new Service();

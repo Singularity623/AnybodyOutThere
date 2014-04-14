@@ -3,16 +3,15 @@ package heiderse.msu.edu.project1;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
-//import android.app.Activity;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Xml;
@@ -22,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StackerActivity extends FragmentActivity {
+public class StackerActivity extends Activity {
 	
 	/**
 	 * The stack view in this activity's view
@@ -69,24 +68,13 @@ public class StackerActivity extends FragmentActivity {
 	 * The name of the bundle keys to save the stack
 	 */
 	public final static String PLAY_FIRST = "StackerActivity.playFirst";
-<<<<<<< HEAD
-	//private final static String WEIGHTS = "Stack.weights";
-=======
->>>>>>> e26691af94e51a46e1483f27dc8a3929db295f65
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
-		
-		
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_stacker);
 
-        LobbyDlg dlg = new LobbyDlg();
-        dlg.setCancelable(false);
-        dlg.show(getSupportFragmentManager(), "Lobby");
-
-		
-	/*	stackView = (StackView)this.findViewById(R.id.stackView);
+		stackView = (StackView)this.findViewById(R.id.stackView);
 		
 		players = new ArrayList<Player>();
 		
@@ -125,9 +113,6 @@ public class StackerActivity extends FragmentActivity {
 		}
 		else {
 			determineFirst();
-			
-
-			
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	        
@@ -168,16 +153,12 @@ public class StackerActivity extends FragmentActivity {
 		player1 = (TextView) findViewById(R.id.RedPlayerScore);
 		setUpPlayerTextView(player1,0);
 
-		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
-<<<<<<< HEAD
-		setUpPlayerTextView(player2,1);*/
 		
-=======
+		player2 = (TextView) findViewById(R.id.GreenPlayerScore);
 		setUpPlayerTextView(player2,1);
 		
 		startTurn();
 
->>>>>>> e26691af94e51a46e1483f27dc8a3929db295f65
 	}
 
 	
@@ -367,16 +348,42 @@ public class StackerActivity extends FragmentActivity {
 	                service.set_name(username);
 	                service.set_password(password);
 	                
-	                boolean f = service.addBrick(gameId, round, currentBrick);
+	                boolean f = false;
+	                String msg="";
+	                InputStream stream = service.addBrick(gameId, round, currentBrick);
 	                
-	                final boolean fail = !f;
+	                try {
+                        XmlPullParser xml = Xml.newPullParser();
+                        xml.setInput(stream, Service.UTF8);
+                        
+                        xml.nextTag();      // Advance to first tag
+                        xml.require(XmlPullParser.START_TAG, null, "stacker");
+                        
+                        String status = xml.getAttributeValue(null, "status");
+                        if(status.equals("no")) {
+                        	f = true;
+                        	msg = xml.getAttributeValue(null, "msg");
+                        }
+                        
+                        // We are done
+                    } catch(XmlPullParserException ex) {
+                        //return false;
+                    } catch(IOException ex) {
+                        //return false;
+                    }
+	                
+	                final boolean fail = f;
+	                final String msg_final = msg;
 	                
 	                view.post(new Runnable() {
 
 	                    @Override
 	                    public void run() {	                        
 	                        if(fail) {
-	                            Toast.makeText(view.getContext(), R.string.join_fail, Toast.LENGTH_SHORT).show();
+	                        	if (msg_final.equalsIgnoreCase("Insert fail"))
+	                        		Toast.makeText(view.getContext(), msg_final, Toast.LENGTH_SHORT).show();
+	                        	else
+	                        		ExitGameAlert(msg_final);
 	                        } else {
 	                            // Success!
 	                        	endTurn(view);	                        	
@@ -388,8 +395,6 @@ public class StackerActivity extends FragmentActivity {
                 }
                 
             }).start();
-			
-			//startTurn();
 		}
 	}
 	
@@ -460,6 +465,8 @@ public class StackerActivity extends FragmentActivity {
 	                boolean isPlayed = false;
 	                int weight=0;
             		float x=0f;
+            		
+            		String msg = "";
 	                
 	                while (!isPlayed){
 	                	// Send request every 2 seconds
@@ -479,7 +486,8 @@ public class StackerActivity extends FragmentActivity {
 	                        
 	                        String status = xml.getAttributeValue(null, "status");
 	                        if(status.equals("no")) {
-	                            //return false;
+	                        	msg = xml.getAttributeValue(null, "msg");
+	                        	break;
 	                        }
 	                        else{
 	                        	int count = Integer.parseInt(xml.getAttributeValue(null, "count"));
@@ -507,27 +515,55 @@ public class StackerActivity extends FragmentActivity {
 	                    }
 	                }
 	                
-	                final float x_final = x;
-            		final int weight_final = weight;
-            		
-            		stackView.post(new Runnable() {
-
-	                    @Override
-	                    public void run() {
-	                    	if (weight_final > 0){
-	                    		addBrick(x_final, weight_final);
-	                    		endTurn(stackView);
-	                        }
-	                    }
+	                if (isPlayed){
 	                
-	                });
-
-	             	
-	                
+		                final float x_final = x;
+	            		final int weight_final = weight;
+	            		
+	            		stackView.post(new Runnable() {
+	
+		                    @Override
+		                    public void run() {
+		                    	if (weight_final > 0){
+		                    		addBrick(x_final, weight_final);
+		                    		endTurn(stackView);
+		                        }
+		                    }
+		                
+		                });
+	                }
+	                else{
+	                	
+	                	final String msg_final = msg;
+	                	
+	                	stackView.post(new Runnable() {
+	                		
+		                    @Override
+		                    public void run() {
+		                    	ExitGameAlert(msg_final);
+		                    }
+		                
+		                });
+	                }
 	                
 	            }
 	        }).start();
 		}
+	}
+	
+	public void ExitGameAlert(String msg)	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(R.string.game_over);
+		builder.setMessage(msg + ". Exit game!");
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+					onOk();
+				}
+				});
+		
+		AlertDialog alertDialog = builder.create();
+		alertDialog.show();
 	}
 	
 	public void onOk()

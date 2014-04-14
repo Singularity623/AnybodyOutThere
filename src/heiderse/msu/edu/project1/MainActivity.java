@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.util.Xml;
-import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;

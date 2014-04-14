@@ -363,12 +363,22 @@ public class Stack {
             
         case MotionEvent.ACTION_MOVE:
          // If we are dragging, move the piece and force a redraw
-            if((currentBrick != null ))
-            {
-        		if(currentBrick.hit(relX, lastRelY - yOffset, stackSize, scaleFactor)) {
-        			currentBrick.move(relX - lastRelX);
-        			lastRelX = relX;
-        		}
+        	float relXC;
+            if((currentBrick != null )) {
+            	if(relX > 1f) {   	
+            		relXC = 1f;
+            	}
+            	else if(relX < 0f){
+            		relXC = 0f;
+            	}
+            	else {
+            		relXC = relX - lastRelX;
+            	}
+            	
+	    		if(currentBrick.hit(relX, lastRelY - yOffset, stackSize, scaleFactor)) {
+	    			currentBrick.move(relXC);
+	    			lastRelX = relX;
+	    		}
             }
             else
             {

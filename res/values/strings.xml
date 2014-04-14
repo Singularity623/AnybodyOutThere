@@ -51,5 +51,7 @@
     <string name="join_success">Another player found! Join a game!</string>
     <string name="you">You</string>
     <string name="your_opponent">Opponent</string>
+    <string name="created_user">Created User!</string>
+    <string name="fail_create_user">Failed to Create User!</string>
 
 </resources>

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -70,6 +69,7 @@ public class newUserActivity extends Activity {
 			// Make sure that username does not already exist
 			// If it does, make a toast saying that the username is taken
 			// If not, create an entry in the table with this username and password
+		    final View _view = view;
 			
 	    	new Thread(new Runnable() {
 
@@ -81,9 +81,22 @@ public class newUserActivity extends Activity {
 	    			boolean val = _service.createUser();
 	    			//get feedback from server
 	    			if(val)
-	    				Log.i("success", "writing to db");
+	    				
+	                    _view.post(new Runnable() {
+	                    	
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.created_user, Toast.LENGTH_SHORT).show();
+	                        }
+	                    });
 	    			else
-	    				Log.i("failure", "writing to db");
+	                    _view.post(new Runnable() {
+	                    	
+	                        @Override
+	                        public void run() {
+	                            Toast.makeText(getApplicationContext(), R.string.fail_create_user ,Toast.LENGTH_SHORT).show();
+	                        }
+	                    });
 	            }
 	        }).start();
 				

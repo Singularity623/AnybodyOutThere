@@ -3,7 +3,7 @@ package heiderse.msu.edu.project1;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -371,7 +371,7 @@ public class StackerActivity extends Activity {
                     } catch(IOException ex) {
                         //return false;
                     }
-	                
+
 	                final boolean fail = f;
 	                final String msg_final = msg;
 	                

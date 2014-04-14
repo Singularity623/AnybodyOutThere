@@ -351,7 +351,6 @@ public class StackerActivity extends Activity {
 	                boolean f = false;
 	                String msg="";
 	                InputStream stream = service.addBrick(gameId, round, currentBrick);
-<<<<<<< HEAD
 	                
 	                try {
                         XmlPullParser xml = Xml.newPullParser();
@@ -372,30 +371,7 @@ public class StackerActivity extends Activity {
                     } catch(IOException ex) {
                         //return false;
                     }
-	                
-=======
-	                
-	                try {
-                        XmlPullParser xml = Xml.newPullParser();
-                        xml.setInput(stream, Service.UTF8);
-                        
-                        xml.nextTag();      // Advance to first tag
-                        xml.require(XmlPullParser.START_TAG, null, "stacker");
-                        
-                        String status = xml.getAttributeValue(null, "status");
-                        if(status.equals("no")) {
-                        	f = true;
-                        	msg = xml.getAttributeValue(null, "msg");
-                        }
-                        
-                        // We are done
-                    } catch(XmlPullParserException ex) {
-                        //return false;
-                    } catch(IOException ex) {
-                        //return false;
-                    }
-	                
->>>>>>> 1a87f09c1326cf09217af6a15f5162333eeccfc7
+
 	                final boolean fail = f;
 	                final String msg_final = msg;
 	                
